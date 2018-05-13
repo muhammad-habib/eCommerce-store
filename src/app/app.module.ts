@@ -21,8 +21,10 @@ import { BreadcrumbComponent } from './theme/components/breadcrumb/breadcrumb.co
 import { AppSettings } from './app.settings';
 import { AppService } from './app.service';
 import { AppInterceptor } from './theme/utils/app-interceptor';
+import { AuthInterceptor } from './theme/utils/auth-interceptor';
 import { OptionsComponent } from './theme/components/options/options.component';
 import { FooterComponent } from './theme/components/footer/footer.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 
 @NgModule({
@@ -46,13 +48,15 @@ import { FooterComponent } from './theme/components/footer/footer.component';
     SidenavMenuComponent,
     BreadcrumbComponent,
     OptionsComponent,
-    FooterComponent    
+    FooterComponent,
+    LandingPageComponent    
   ], 
   providers: [
     AppSettings,
     AppService,   
     { provide: OverlayContainer, useClass: CustomOverlayContainer },
-    { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
