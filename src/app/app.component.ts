@@ -15,6 +15,8 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    if(! localStorage.getItem('device_id'))
+        localStorage.setItem("device_id",((navigator.platform).replace(' ','')) +'-' + Date.now() +'-'+(Math.floor(Math.random() * 1000000) + 1000000) );    
    // this.router.navigate(['']);  //redirect other pages to homepage on browser refresh    
   }
 

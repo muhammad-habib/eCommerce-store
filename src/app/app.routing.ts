@@ -3,12 +3,15 @@ import { ModuleWithProviders } from '@angular/core';
 
 import { PagesComponent } from './pages/pages.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { LandingPageComponent  } from './landing-page/landing-page.component'
 
 export const routes: Routes = [
+    {
+        path:'',component : LandingPageComponent
+    },
     { 
-        path: '', 
+        path: 'ordering', 
         component: PagesComponent, children: [
-            { path: '', loadChildren: 'app/pages/home/home.module#HomeModule' },
             { path: 'compare', loadChildren: 'app/pages/compare/compare.module#CompareModule', data: { breadcrumb: 'Compare' } },
             { path: 'wishlist', loadChildren: 'app/pages/wishlist/wishlist.module#WishlistModule', data: { breadcrumb: 'Wishlist' } },
             { path: 'cart', loadChildren: 'app/pages/cart/cart.module#CartModule', data: { breadcrumb: 'Cart' } },

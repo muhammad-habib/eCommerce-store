@@ -20,12 +20,14 @@ import { BreadcrumbComponent } from './theme/components/breadcrumb/breadcrumb.co
 
 import { AppSettings } from './app.settings';
 import { AppService } from './app.service';
-import { AppInterceptor } from './theme/utils/app-interceptor';
+
+import { AuthInterceptor } from './theme/utils/auth-interceptor';
 import { OptionsComponent } from './theme/components/options/options.component';
 import { FooterComponent } from './theme/components/footer/footer.component';
 import {SignInService} from './pages/sign-in/sign-in.service';
 import {SignInModule} from './pages/sign-in/sign-in.module';
 import {SmsDialogService} from './pages/sign-in/sms-dialog/sms-dialog.service';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 
 @NgModule({
@@ -50,15 +52,16 @@ import {SmsDialogService} from './pages/sign-in/sms-dialog/sms-dialog.service';
     SidenavMenuComponent,
     BreadcrumbComponent,
     OptionsComponent,
-    FooterComponent
-  ],
-    providers: [
+    FooterComponent,
+    LandingPageComponent,
+  ], 
+  providers: [
     AppSettings,
     AppService,   
     { provide: OverlayContainer, useClass: CustomOverlayContainer },
-    { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
     SignInService,
-    SmsDialogService
+    SmsDialogService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
