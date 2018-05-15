@@ -49,7 +49,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     BreadcrumbComponent,
     OptionsComponent,
     FooterComponent,
-    LandingPageComponent    
+    LandingPageComponent,
   ], 
   providers: [
     AppSettings,

@@ -14,7 +14,11 @@ export class AuthInterceptor implements HttpInterceptor {
         const authReq = req.clone({
           headers: new HttpHeaders({
             'Content-Type':  'application/json',
-            'Authorization': localStorage.getItem('token')?localStorage.getItem('token'):""
+            'Authorization': localStorage.getItem('token')?localStorage.getItem('token'):"",
+            'deviceid': localStorage.getItem('device_id')?localStorage.getItem('device_id'):"",
+            'accept-language': localStorage.getItem('lang')?localStorage.getItem('lang'):"",
+            'os':navigator.platform,
+            
           })
         });
               

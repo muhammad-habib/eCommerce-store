@@ -53,6 +53,9 @@ import { ProductDialogComponent } from './products-carousel/product-dialog/produ
 import { BannersComponent } from './banners/banners.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 
+import { TranslatePipe } from './translate.pipe';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -137,7 +140,8 @@ import { CategoryListComponent } from './category-list/category-list.component';
     ProductsCarouselComponent,
     ProductDialogComponent,
     BannersComponent,
-    CategoryListComponent
+    CategoryListComponent,
+    TranslatePipe
   ],
   declarations: [
     RatingComponent,
@@ -147,7 +151,8 @@ import { CategoryListComponent } from './category-list/category-list.component';
     ProductsCarouselComponent,
     ProductDialogComponent,
     BannersComponent,
-    CategoryListComponent
+    CategoryListComponent,
+    TranslatePipe
   ],
   entryComponents:[
     ProductDialogComponent

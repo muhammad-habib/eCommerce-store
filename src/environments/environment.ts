@@ -5,5 +5,7 @@
 
 export const environment = {
   production: false,
-  API_ENDPOINT:'zad.app/api/'
+  API_ENDPOINT:'http://zad.app/api/',
+  // API_ENDPOINT:'http://admin.zadfresh.com/api/',
+  //API_ENDPOINT:'http://localhost/zadfresh/',
 };

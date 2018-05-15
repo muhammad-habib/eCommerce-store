@@ -14,9 +14,8 @@ export class AddressesService {
 
   public getAddresses(): Observable<any[]>{
     return this.http.get<any[]>(this.url + 'getSavedLocations?deviceId='+localStorage.getItem('device_id'));
+  }
 
-  }
-  public lol(){
-    return 55; 
-  }
+  public getAddress(lat,long){
+    return this.http.post<any[]>(this.url + 'locationInfo',{longitude:long,latitude:lat});  }
 }
