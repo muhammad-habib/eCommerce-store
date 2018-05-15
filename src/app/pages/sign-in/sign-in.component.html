@@ -41,26 +41,21 @@
         </div>
         <div fxFlex="100" fxFlex.gt-sm="50" class="p-2" ngClass.sm="mt-2" ngClass.xs="mt-2">
             <h2 class="text-muted text-center">Don't have an account? Sign up now!</h2>
-            <form [formGroup]="registerForm" (ngSubmit)="onRegisterFormSubmit(registerForm.value)">
+            <form [formGroup]="registerForm">
                 <mat-form-field class="w-100 mt-2">
-                  <input matInput placeholder="Full Name" formControlName="name" required>
+                  <input matInput placeholder="Full Name" [(ngModel)]="user.name" formControlName="name" required>
                   <mat-error *ngIf="registerForm.controls.name.errors?.required">Full Name is required</mat-error>
                   <mat-error *ngIf="registerForm.controls.name.hasError('minlength')">Full Name isn't long enough, minimum of 3 characters</mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-100 mt-1">
-                    <input matInput placeholder="Email" formControlName="email" required>
-                    <mat-error *ngIf="registerForm.controls.email.errors?.required">Email is required</mat-error>
-                    <mat-error *ngIf="registerForm.controls.email.hasError('invalidEmail')">Invalid email address</mat-error>
+                    <input matInput placeholder="Country Key" [(ngModel)]="user.country_key" formControlName="country_key" required>
+                    <mat-error *ngIf="registerForm.controls.country_key.errors?.required">Country Key is required</mat-error>
+                    <mat-error *ngIf="registerForm.controls.country_key.hasError('minlength')">Invalid Country Key Number</mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-100 mt-1">
-                    <input matInput placeholder="Password" formControlName="password" type="password" minlength="6" required>
-                    <mat-error *ngIf="registerForm.controls.password.errors?.required">Password is required</mat-error>
-                    <mat-error *ngIf="registerForm.controls.password.hasError('minlength')">Password isn't long enough, minimum of 6 characters</mat-error>
-                </mat-form-field> 
-                <mat-form-field class="w-100 mt-1">
-                  <input matInput placeholder="Confirm Password" formControlName="confirmPassword" type="password" required>
-                  <mat-error *ngIf="registerForm.controls.confirmPassword.errors?.required">Confirm Password is required</mat-error>
-                  <mat-error *ngIf="registerForm.controls.confirmPassword.hasError('mismatchedPasswords')">Passwords do not match</mat-error>
+                    <input matInput placeholder="Mobile" [(ngModel)]="user.mobile" formControlName="mobile" required>
+                    <mat-error *ngIf="registerForm.controls.mobile.errors?.required">Mobile is required</mat-error>
+                    <mat-error *ngIf="registerForm.controls.mobile.hasError('invalidEmail')">Invalid Mobile Number</mat-error>
                 </mat-form-field>
                 <div class="text-center mt-2">
                     <button mat-fab color="primary" class="mat-elevation-z6" (click)="onRegisterFormSubmit(registerForm.value)">

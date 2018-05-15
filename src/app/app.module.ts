@@ -23,6 +23,9 @@ import { AppService } from './app.service';
 import { AppInterceptor } from './theme/utils/app-interceptor';
 import { OptionsComponent } from './theme/components/options/options.component';
 import { FooterComponent } from './theme/components/footer/footer.component';
+import {SignInService} from './pages/sign-in/sign-in.service';
+import {SignInModule} from './pages/sign-in/sign-in.module';
+import {SmsDialogService} from './pages/sign-in/sms-dialog/sms-dialog.service';
 
 
 @NgModule({
@@ -35,7 +38,8 @@ import { FooterComponent } from './theme/components/footer/footer.component';
       apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
     }),
     SharedModule,
-    routing
+    routing,
+       SignInModule
   ],
   declarations: [
     AppComponent,
@@ -46,13 +50,15 @@ import { FooterComponent } from './theme/components/footer/footer.component';
     SidenavMenuComponent,
     BreadcrumbComponent,
     OptionsComponent,
-    FooterComponent    
-  ], 
-  providers: [
+    FooterComponent
+  ],
+    providers: [
     AppSettings,
     AppService,   
     { provide: OverlayContainer, useClass: CustomOverlayContainer },
-    { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
+    SignInService,
+    SmsDialogService
   ],
   bootstrap: [AppComponent]
 })
