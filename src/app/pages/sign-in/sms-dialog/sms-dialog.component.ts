@@ -1,10 +1,11 @@
 import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
 import {AppService} from '../../../app.service';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../../models/User.model';
 import {SmsDialogService} from './sms-dialog.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sms-dialog',
@@ -22,7 +23,9 @@ export class SmsDialogComponent implements OnInit {
                 public dialogRef: MatDialogRef<SmsDialogComponent>,
                 public formBuilder: FormBuilder,
                 @Inject(MAT_DIALOG_DATA) public user: User,
-                private smsDialogService: SmsDialogService) { }
+                private smsDialogService: SmsDialogService,
+                public snackBar: MatSnackBar,
+                private router: Router) { }
 
     ngOnInit() {
         this.smsForm = this.formBuilder.group({
@@ -48,22 +51,28 @@ export class SmsDialogComponent implements OnInit {
         }
     }
 
-    public close(): void {
-        this.dialogRef.close();
-    }
-
     public onSubmitCode(user): void {
         if (this.smsForm.valid) {
             user.sms = this.code;
             this.smsDialogService.submitCode(user)
                 .subscribe(
                     data => {
-                        console.log(data);
+                        if(data['status_code'] == 200)
+                        {
+                            this.snackBar.open('verification Done', '×', { panelClass: 'success', verticalPosition: 'top', duration: 9000 });
+                            this.user._token = data['remember_token'];
+                            this.user.id = data['user_id'];
+                            localStorage.setItem('user',JSON.stringify(this.user));
+                            this.dialogRef.close();
+                            this.router.navigate(['ordering']);
+                        }
+
                     },
                     error => {
-                        console.log(error);
+                        this.snackBar.open('Error Try Agian', '×', { panelClass: 'success', verticalPosition: 'top', duration: 9000 });
                     });
         }
+
     }
 
 }

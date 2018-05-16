@@ -41,7 +41,6 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     }),
     SharedModule,
     routing,
-       SignInModule
   ],
   declarations: [
     AppComponent,
