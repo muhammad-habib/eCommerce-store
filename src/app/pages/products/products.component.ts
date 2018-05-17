@@ -4,18 +4,21 @@ import { MatDialog } from '@angular/material';
 import { ProductDialogComponent } from '../../shared/products-carousel/product-dialog/product-dialog.component';
 import { AppService } from '../../app.service';
 import { Product, Category } from "../../app.models";
+import { ProductsService} from './products.service' 
+import { ChangeEvent, VirtualScrollComponent } from 'angular2-virtual-scroll';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  styleUrls: ['./products.component.scss'],
+  providers: [ProductsService]
 })
 export class ProductsComponent implements OnInit {
   @ViewChild('sidenav') sidenav: any;
   public sidenavOpen:boolean = true;
   private sub: any;
   public viewType: string = 'grid';
-  public viewCol: number = 25;
+  public viewCol: number = 20;
   public counts = [12, 24, 36];
   public count:any;
   public sortings = ['Sort by Default', 'Best match', 'Lowest first', 'Highest first'];
@@ -28,14 +31,24 @@ export class ProductsComponent implements OnInit {
   public colors = ["#5C6BC0","#66BB6A","#EF5350","#BA68C8","#FF4081","#9575CD","#90CAF9","#B2DFDB","#DCE775","#FFD740","#00E676","#FBC02D","#FF7043","#F5F5F5","#000000"];
   public sizes = ["S","M","L","XL","2XL","32","36","38","46","52","13.3\"","15.4\"","17\"","21\"","23.4\""];
   public page:any;
+  public currency = "ريال";
+  public market_id = 1 ; 
+  public is_hyper = 1 ; 
 
-  constructor(private activatedRoute: ActivatedRoute, public appService:AppService, public dialog: MatDialog, private router: Router) { }
+  @ViewChild(VirtualScrollComponent)
+  private virtualScroll: VirtualScrollComponent;
+
+
+  constructor(private activatedRoute: ActivatedRoute, 
+               public appService:AppService, private productsService:ProductsService,
+               public dialog: MatDialog, private router: Router) { }
 
   ngOnInit() {
     this.count = this.counts[0];
     this.sort = this.sortings[0];
-    this.sub = this.activatedRoute.params.subscribe(params => {
-      //console.log(params['name']);
+    this.sub = this.activatedRoute.queryParams.subscribe(params => {
+        this.market_id = params.market;
+        this.is_hyper = params.hyper;
     });
     if(window.innerWidth < 960){
       this.sidenavOpen = false;
@@ -50,12 +63,11 @@ export class ProductsComponent implements OnInit {
   }
 
   public getAllProducts(){
-    this.appService.getProducts("featured").subscribe(data=>{
-      this.products = data; 
-      //for show more product  
-      for (var index = 0; index < 3; index++) {
-        this.products = this.products.concat(this.products);        
-      }
+    this.productsService.getProducts(this.is_hyper,this.market_id).subscribe(data=>{
+      this.products = data['data']['data']; 
+      this.virtualScroll.refresh();
+      this.virtualScroll.update.emit(this.products);
+
     });
   }
 
@@ -122,5 +134,10 @@ export class ProductsComponent implements OnInit {
       this.router.navigate(['/products', event.target.innerText.toLowerCase()]); 
     }   
   }
+
+
+
+
+  
 
 }

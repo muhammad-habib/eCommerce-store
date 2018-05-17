@@ -53,7 +53,11 @@ import { ProductDialogComponent } from './products-carousel/product-dialog/produ
 import { BannersComponent } from './banners/banners.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 
+import { VirtualScrollModule } from 'angular2-virtual-scroll';
+
+
 import { TranslatePipe } from './translate.pipe';
+import { CategoriesComponent } from './categories/categories.component';
 
 
 @NgModule({
@@ -94,7 +98,8 @@ import { TranslatePipe } from './translate.pipe';
     MatTooltipModule,
     MatStepperModule,
     PerfectScrollbarModule,
-    PipesModule
+    PipesModule,
+    VirtualScrollModule    
   ],
   exports: [
     RouterModule,
@@ -141,7 +146,9 @@ import { TranslatePipe } from './translate.pipe';
     ProductDialogComponent,
     BannersComponent,
     CategoryListComponent,
-    TranslatePipe
+    TranslatePipe,
+    CategoriesComponent,
+    VirtualScrollModule
   ],
   declarations: [
     RatingComponent,
@@ -152,7 +159,8 @@ import { TranslatePipe } from './translate.pipe';
     ProductDialogComponent,
     BannersComponent,
     CategoryListComponent,
-    TranslatePipe
+    TranslatePipe,
+    CategoriesComponent
   ],
   entryComponents:[
     ProductDialogComponent

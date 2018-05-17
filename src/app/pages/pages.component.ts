@@ -5,17 +5,19 @@ import { Settings, AppSettings } from '../app.settings';
 import { AppService } from '../app.service';
 import { Category } from '../app.models';
 import { SidenavMenuService } from '../theme/components/sidenav-menu/sidenav-menu.service';
+import { MarketTypeDataService } from '../shared/market-type-data.service'
 
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.scss'],
-  providers: [ SidenavMenuService ]
+  providers: [ SidenavMenuService , MarketTypeDataService ]
 })
 export class PagesComponent implements OnInit {
   public showBackToTop:boolean = false;
   public categories:Category[];
   public category:Category;
+  public marketTypeData;
   public sidenavMenuItems:Array<any>;
   @ViewChild('sidenav') sidenav:any;
 
@@ -23,6 +25,7 @@ export class PagesComponent implements OnInit {
   constructor(public appSettings:AppSettings, 
               public appService:AppService, 
               public sidenavMenuService:SidenavMenuService,
+              public marketTypeDataService:MarketTypeDataService,
               public router:Router) { 
     this.settings = this.appSettings.settings; 
   }
@@ -30,6 +33,7 @@ export class PagesComponent implements OnInit {
   ngOnInit() {
     this.getCategories();
     this.sidenavMenuItems = this.sidenavMenuService.getSidenavMenuItems();
+    this.marketTypeData = this.marketTypeDataService.getMarketTypeData();
   } 
 
   public getCategories(){    

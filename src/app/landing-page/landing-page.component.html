@@ -1,36 +1,134 @@
-<!-- <div fxLayout="row" fxLayoutGap="10px">
+<div fxLayout="column " >
+    
+<!-- <mat-card fxFlex  fxFlexAlign="center">
+
+    <mat-card-content>
+      <div  fxLayout="raw wrap" fxLayout.sm="column" fxFlexOffset="10%" fxLayoutGap="1%" >
+        <mat-form-field   fxFlexAlign="center"  fxFlex="45%"  >
+          <input matInput placeholder="Name">
+        </mat-form-field >
+        <mat-form-field  fxFlex="45%" fxFlex.sm="100%">
+          <input matInput placeholder="Occupation">
+        </mat-form-field >
+        <mat-form-field  fxFlex="100%">
+          <input matInput placeholder="Company">
+        </mat-form-field >
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button md-button>Anterior</button>
+      <button md-button>Proximo</button>
+    </mat-card-actions>
+</mat-card> -->
 
 
-    <div fxHide [fxHide.xs]="isVisibleOnMobile()">
-      <h1>isVisibleOnMobile </h1>
+
+
+<div fxShow="true" fxHide.xs="true">
+    <h1>nav</h1>  
+</div>
+
+<div fxLayout = "raw wrap" 
+ style="background-image: url('assets/images/background_1024.png');background-repeat: repeat-x;" >
+    <div fxFlex="100%" style="height:50px;" ></div>
+
+    <div fxFlex="100%"   fxLayoutAlign="center"  >
+        <img width="100px" height="100px" src="/assets/images/LOGO.png">  
     </div>
 
-    <div >
-        <h1>isVisibleOnMobileisVisibleOnMobileisVisibleOnMobile </h1>
-      </div>
-  
+    <div fxLayout="raw" dir="rtl"  fxFlex="100%" fxLayoutAlign="center center"  >
+        <div fxLayout="raw"  fxFlex="100%" fxLayoutAlign="center center"  >
+        <div fx fxFlex="100px"  >
+            <label>{{'delivery_place'|translate}} : </label>
+        </div>
+        <div fxFlex="100px;" fxLayoutAlign="start center">
+                <mat-form-field fxFlex="100px" >
+                        <mat-select  placeholder="" *ngIf="addresses">
+                          <mat-option   *ngFor="let address of addresses" [value]="address.id">
+                            {{ address.name }}
+                          </mat-option>
+                        </mat-select>                    
+                    
+                        <mat-select  placeholder="" *ngIf="!addresses">
+                            <mat-option    >
+                              {{ location }}
+                            </mat-option>
+                        </mat-select>
+                    
+                    </mat-form-field>
+        </div>
+        </div>
+    </div>
+    <div fxFlex="100%" fxLayoutAlign="center"  >
+            {{ this.district }}
+            {{ this.city }}
+    </div>
+
+    <div fxFlex="100%" >
+
+    </div>
+
+    <div fxFlex="100%" dir="rtl" fxLayout="column wrap" fxLayoutGap="5px"   fxLayoutAlign="center center">
+
+            <mat-card [routerLink]="['/ordering/products']" 
+                    *ngFor="let market of markets" 
+                        (click)="selectType(market);"
+                        [queryParams]="{hyper:market.is_hyper,market:market.id}"
+                        style="width: 280px;cursor: pointer;" fxLayout="row" 
+                    fxFlex="90px"  fxLayoutAlign="start center">
+
+                    <img height="90px" width="80px" src="{{market.market_icon}}" />
+                    <div class="content" >
+                        <p >
+                                <font color="{{ market.color }}">
+                                        {{market.name}}
+                                    </font>
+                        </p> 
+                        <span class="text-muted m-0">
+                            {{market.delivery_description}}
+                        </span>
+                        <br/>
+                        <span>
+                            <img height="20px" width="20px" *ngFor="let image of market.market_options_images" src="{{image}}">
+                        </span>
+                    </div>
+                </mat-card>
+
+    </div>
+
+</div>
+
+<!-- <div >
+<mat-card  fxLayout="row"  fxLayoutAlign="start center">
+    <mat-icon class="mat-icon-xlg text-muted m-0">card_giftcard</mat-icon>
+    <div class="content">
+        <p>BONUS PLUS</p> 
+        <span class="text-muted m-0">Make fun of shopping and collect bonuses</span>
+    </div> 
+</mat-card> 
+
+<mat-card  fxLayout="row"  fxLayoutAlign="start center">
+    <mat-icon class="mat-icon-xlg text-muted m-0">card_giftcard</mat-icon>
+    <div class="content">
+        <p>BONUS PLUS</p> 
+        <span class="text-muted m-0">Make fun of shopping and collect bonuses</span>
+    </div> 
+</mat-card> 
+<mat-card  fxLayout="row"  fxLayoutAlign="start center">
+    <mat-icon class="mat-icon-xlg text-muted m-0">card_giftcard</mat-icon>
+    <div class="content">
+        <p>BONUS PLUS</p> 
+        <span class="text-muted m-0">Make fun of shopping and collect bonuses</span>
+    </div> 
+</mat-card> 
 
 </div> -->
-<mat-form-field>
-  {{'delivery_place'|translate}}
-    <mat-select  placeholder="" *ngIf="addresses">
-      <mat-option   *ngFor="let address of addresses" [value]="address.id">
-        {{ address.name }}
-      </mat-option>
-    </mat-select>
 
 
-    <mat-select  placeholder="" *ngIf="!addresses">
-        <mat-option    >
-          {{ location }}
-        </mat-option>
-    </mat-select>
-
-</mat-form-field>
-<h1>
-  
-    {{ this.district }}
-    {{ this.city }}
+<div fxShow="true" fxHide.xs="true">
+    <h1>footer</h1>  
+</div>
 
 
-</h1>
+</div>
