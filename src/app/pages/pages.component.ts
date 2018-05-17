@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
-import { Router, NavigationEnd } from '@angular/router';
+import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
 import { Settings, AppSettings } from '../app.settings';
 import { AppService } from '../app.service';
 import { Category } from '../app.models';
@@ -23,6 +23,7 @@ export class PagesComponent implements OnInit {
   constructor(public appSettings:AppSettings, 
               public appService:AppService, 
               public sidenavMenuService:SidenavMenuService,
+              public  activatedRoute: ActivatedRoute,
               public router:Router) { 
     this.settings = this.appSettings.settings; 
   }
@@ -30,6 +31,13 @@ export class PagesComponent implements OnInit {
   ngOnInit() {
     this.getCategories();
     this.sidenavMenuItems = this.sidenavMenuService.getSidenavMenuItems();
+
+      this.activatedRoute.queryParams.subscribe(params => {
+        if (params.content_id)
+        {
+            this.router.navigateByUrl('ordering/products/'+params.content_id+'/product', { skipLocationChange: true });
+        }
+      });
   } 
 
   public getCategories(){    

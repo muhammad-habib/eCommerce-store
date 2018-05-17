@@ -4,9 +4,11 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { MatDialog } from '@angular/material';
 import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Data, AppService } from '../../../app.service';
-import { Product } from "../../../app.models";
+import {Product} from '../../../app.models';
 import { emailValidator } from '../../../theme/utils/app-validators';
 import { ProductZoomComponent } from './product-zoom/product-zoom.component';
+import {ProductService} from './product.service';
+import {AProduct} from '../../../models/Product.model';
 
 @Component({
   selector: 'app-product',
@@ -17,25 +19,25 @@ export class ProductComponent implements OnInit {
   @ViewChild('zoomViewer') zoomViewer;
   @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
   public config: SwiperConfigInterface={};
-  public product: Product;
+  public product: AProduct;
   public image: any;
   public zoomImage: any;
   private sub: any;
   public form: FormGroup;
   public relatedProducts: Array<Product>;
 
-  constructor(public appService:AppService, private activatedRoute: ActivatedRoute, public dialog: MatDialog, public formBuilder: FormBuilder) {  }
+  constructor(public productService:ProductService, public appService:AppService, private activatedRoute: ActivatedRoute, public dialog: MatDialog, public formBuilder: FormBuilder) {  }
 
   ngOnInit() {      
-    this.sub = this.activatedRoute.params.subscribe(params => { 
-      this.getProductById(params['id']); 
+    this.sub = this.activatedRoute.params.subscribe(params => {
+      this.getProductById(params['id']);
     }); 
     this.form = this.formBuilder.group({ 
       'review': [null, Validators.required],            
       'name': [null, Validators.compose([Validators.required, Validators.minLength(4)])],
       'email': [null, Validators.compose([Validators.required, emailValidator])]
     }); 
-    this.getRelatedProducts();    
+    this.getRelatedProducts();
   }
 
   ngAfterViewInit(){
@@ -60,22 +62,24 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  public getProductById(id){
-    this.appService.getProductById(id).subscribe(data=>{
-      this.product = data;
-      this.image = data.images[0].medium;
-      this.zoomImage = data.images[0].big;
-      setTimeout(() => { 
-        this.config.observer = true;
-       // this.directiveRef.setIndex(0);
-      });
+  public getProductById(id) {
+    this.productService.getProduct(id).subscribe(data=>
+    {
+      this.product = data.data;
+      console.log(this.product);
+      this.image = this.product.images.small;
+      this.zoomImage = this.product.images.large;
+      // setTimeout(() => {
+      //   this.config.observer = true;
+      //   this.directiveRef.setIndex(0);
+      // });
     });
   }
 
   public getRelatedProducts(){
-    this.appService.getProducts('related').subscribe(data => {
+      this.appService.getProducts('related').subscribe(data => {
       this.relatedProducts = data;
-    })
+    });
   }
 
   public selectImage(image){

@@ -28,6 +28,7 @@ import {SignInService} from './pages/sign-in/sign-in.service';
 import {SignInModule} from './pages/sign-in/sign-in.module';
 import {SmsDialogService} from './pages/sign-in/sms-dialog/sms-dialog.service';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import {ProductService} from './pages/products/product/product.service';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     { provide: OverlayContainer, useClass: CustomOverlayContainer },
     SignInService,
     SmsDialogService,
+      ProductService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
