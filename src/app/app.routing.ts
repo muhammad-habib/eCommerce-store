@@ -12,7 +12,6 @@ export const routes: Routes = [
     { 
         path: 'ordering', 
         component: PagesComponent, children: [
-            { path: '', loadChildren: 'app/pages/home/home.module#HomeModule' },
             { path: 'compare', loadChildren: 'app/pages/compare/compare.module#CompareModule', data: { breadcrumb: 'Compare' } },
             { path: 'wishlist', loadChildren: 'app/pages/wishlist/wishlist.module#WishlistModule', data: { breadcrumb: 'Wishlist' } },
             { path: 'cart', loadChildren: 'app/pages/cart/cart.module#CartModule', data: { breadcrumb: 'Cart' } },

@@ -13,9 +13,9 @@ export class AddressesService {
   constructor(public http:HttpClient, public snackBar: MatSnackBar) { }
 
   public getAddresses(): Observable<any[]>{
-    return this.http.get<any[]>(this.url + 'getSavedLocations?deviceId='+localStorage.getItem('device_id'));
+    return this.http.get<any[]>(this.url + '/getSavedLocations?deviceId='+localStorage.getItem('device_id'));
   }
 
   public getAddress(lat,long){
-    return this.http.post<any[]>(this.url + 'locationInfo',{longitude:long,latitude:lat});  }
+    return this.http.post<any[]>(this.url + '/locationInfo',{longitude:long,latitude:lat});  }
 }
