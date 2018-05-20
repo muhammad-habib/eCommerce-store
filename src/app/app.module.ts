@@ -29,7 +29,6 @@ import {SignInModule} from './pages/sign-in/sign-in.module';
 import {SmsDialogService} from './pages/sign-in/sms-dialog/sms-dialog.service';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import {ProductService} from './pages/products/product/product.service';
-import { OrdersComponent } from './pages/orders/orders.component';
 
 
 @NgModule({
