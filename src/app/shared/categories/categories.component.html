@@ -1,3 +1,12 @@
-<p *ngFor= "let category of categories">
-  {{category.name}}
-</p>
+<div class="scrollmenu">
+  <a (click)="getSubCategories(0);">{{'ALL'|translate}}</a>
+  <a *ngFor= "let category of categories" (click)="getSubCategories(category.id)">
+    {{category.name}}
+  </a>
+</div>
+
+<div class="scrollmenu">
+    <a *ngFor= "let category of subCategories">
+      {{category.name}}
+    </a>
+  </div>

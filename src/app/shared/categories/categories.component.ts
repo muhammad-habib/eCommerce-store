@@ -14,6 +14,7 @@ export class CategoriesComponent implements OnInit {
   @Output() change: EventEmitter<any> = new EventEmitter();
 
   public categories=[];
+  public subCategories=[];
   
   constructor(private categoriesService : CategoriesService) { }
 
@@ -26,9 +27,13 @@ export class CategoriesComponent implements OnInit {
       this.categories = data['data']; 
     });
   }
-  public getSubCategories(){    
-    this.categoriesService.getSubCategories(this.hyper,this.market).subscribe(data=>{
-      this.categories = data['data']; 
+  public getSubCategories(category_id){  
+    if (category_id == 0){
+      this.subCategories=[];
+      return;
+    }
+    this.categoriesService.getSubCategories(this.hyper,category_id).subscribe(data=>{
+      this.subCategories = data['data']; 
     });
   }
 

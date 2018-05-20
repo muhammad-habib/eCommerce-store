@@ -65,8 +65,8 @@ export class ProductsComponent implements OnInit {
   public getAllProducts(){
     this.productsService.getProducts(this.is_hyper,this.market_id).subscribe(data=>{
       this.products = data['data']['data']; 
-      this.virtualScroll.refresh();
-      this.virtualScroll.update.emit(this.products);
+      // this.virtualScroll.refresh();
+      // this.virtualScroll.update.emit(this.products);
 
     });
   }

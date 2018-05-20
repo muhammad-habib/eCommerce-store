@@ -1,0 +1,26 @@
+div.scrollmenu{
+    overflow: auto;
+    white-space: nowrap;
+}
+
+div.scrollmenu a {
+
+    display: inline-block;
+    color: rgb(255, 79, 9);
+    text-align: center;
+    padding: 14px;
+    margin: 5px;
+    text-decoration: none;
+    border-color: rgb(255, 79, 9);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 7px;
+    cursor: pointer;
+
+}
+
+div.scrollmenu a:hover {
+    background-color:rgb(255, 79, 9);
+    color:white;
+
+}
