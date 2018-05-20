@@ -35,6 +35,13 @@ export class ProductsComponent implements OnInit {
   public market_id = 1 ; 
   public is_hyper = 1 ; 
 
+  public current = 1;
+  public lastPage;
+  public total;
+  public loading=false;
+  public filter = {};
+
+
   @ViewChild(VirtualScrollComponent)
   private virtualScroll: VirtualScrollComponent;
 
@@ -59,12 +66,18 @@ export class ProductsComponent implements OnInit {
 
     this.getCategories();
     this.getBrands();
-    this.getAllProducts();   
+    this.getProducts();   
   }
 
-  public getAllProducts(){
-    this.productsService.getProducts(this.is_hyper,this.market_id).subscribe(data=>{
-      this.products = data['data']['data']; 
+  public getProducts(){
+    this.productsService.getProducts(this.is_hyper,this.market_id,this.filter).subscribe(res=>{
+
+      this.products = this.products.concat(res['data']['data']); 
+      this.current = res['data']['current_page'];
+      // console.log(res.shoppers.current_page)
+      this.total = res['data']['total'];
+      this.lastPage = res['data']['last_page'];
+
       // this.virtualScroll.refresh();
       // this.virtualScroll.update.emit(this.products);
 
@@ -99,7 +112,6 @@ export class ProductsComponent implements OnInit {
 
   public changeCount(count){
     this.count = count;
-    this.getAllProducts(); 
   }
 
   public changeSorting(sort){
@@ -124,9 +136,8 @@ export class ProductsComponent implements OnInit {
   }
 
   public onPageChanged(event){
-      this.page = event;
-      this.getAllProducts(); 
-      window.scrollTo(0,0); 
+      // this.page = event;
+      // window.scrollTo(0,0); 
   }
 
   public onChangeCategory(event){
@@ -136,8 +147,35 @@ export class ProductsComponent implements OnInit {
   }
 
 
+  public filterByCategory(cat){
+      this.filter['category_id'] = cat.category_id;
+      this.filter['sub_category_id'] = cat.sub_category_id;
+      this.products = [];
+      this.getProducts();
+  }
+
+  fetchMore(event: ChangeEvent) {
+
+    if (event.end !== this.products.length) return;
+
+    if (this.current >= this.lastPage) {
+      return;
+    }
+    this.filter['page']= ++this.current ;
+    this.getProducts();
+  }
 
 
-  
+    @HostListener("window:scroll", ["$event"])
+    onWindowScroll() {
+      //In chrome and some browser scroll is given to body tag
+      let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
+      let max = document.documentElement.scrollHeight;
+      // pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
+      if(pos >= max-200 )   {
+        this.filter['page']= ++this.current ;
+        this.getProducts();    
+      }
+    }
 
 }

@@ -11,7 +11,7 @@ export class CategoriesComponent implements OnInit {
   @Input() hyper  = 1 ;
   @Input() market = 1 ;
 
-  @Output() change: EventEmitter<any> = new EventEmitter();
+  @Output() changeCategory: EventEmitter<any> = new EventEmitter();
 
   public categories=[];
   public subCategories=[];
@@ -35,6 +35,11 @@ export class CategoriesComponent implements OnInit {
     this.categoriesService.getSubCategories(this.hyper,category_id).subscribe(data=>{
       this.subCategories = data['data']; 
     });
+  }
+
+  public filterBy(category_id,sub_category_id){
+
+    this.changeCategory.emit({category_id:category_id,sub_category_id:sub_category_id});
   }
 
 }

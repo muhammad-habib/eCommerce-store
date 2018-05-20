@@ -7,10 +7,10 @@ import { LandingPageComponent  } from './landing-page/landing-page.component'
 
 export const routes: Routes = [
     {
-        path:'',component : LandingPageComponent
+        path:'landing',component : LandingPageComponent
     },
     { 
-        path: 'ordering', 
+        path: '', 
         component: PagesComponent, children: [
             { path: 'compare', loadChildren: 'app/pages/compare/compare.module#CompareModule', data: { breadcrumb: 'Compare' } },
             { path: 'wishlist', loadChildren: 'app/pages/wishlist/wishlist.module#WishlistModule', data: { breadcrumb: 'Wishlist' } },

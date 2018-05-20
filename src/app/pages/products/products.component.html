@@ -3,7 +3,7 @@
         </list-item>
     </virtual-scroll> -->
 
-<app-categories [hyper]="is_hyper" [market]="market_id" ></app-categories>
+<app-categories [hyper]="is_hyper" (changeCategory)="filterByCategory($event)"  [market]="market_id" ></app-categories>
 
 <mat-sidenav-container>
     <mat-sidenav-content class="all-products" ngClass.gt-sm="p-left">
@@ -23,7 +23,7 @@
         </div>
 
         <div *ngIf="viewType == 'grid'" fxLayout="row wrap" class="products-wrapper">
-            <div *ngFor="let product of products | paginate: { itemsPerPage: count, currentPage: page }" fxFlex="100" [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="col">
+            <div *ngFor="let product of products" fxFlex="100" [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="col">
                 <mat-card class="product-item text-center">
                     <mat-chip-list *ngIf="product.discount">
                         <mat-chip color="warn" selected="true">{{product.discount}}% OFF</mat-chip>

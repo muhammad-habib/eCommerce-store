@@ -1,12 +1,17 @@
 <div class="scrollmenu">
-  <a (click)="getSubCategories(0);">{{'ALL'|translate}}</a>
-  <a *ngFor= "let category of categories" (click)="getSubCategories(category.id)">
+  <a (click)="getSubCategories(0);"
+  (click)="filterBy(' ')"
+  >{{'ALL'|translate}}</a>
+  <a *ngFor= "let category of categories" 
+      (click)="getSubCategories(category.id)"
+      (click)="filterBy(category.id,'')"
+  >
     {{category.name}}
   </a>
 </div>
 
 <div class="scrollmenu">
-    <a *ngFor= "let category of subCategories">
+    <a *ngFor= "let category of subCategories" (click)="filterBy('',category.id)" >
       {{category.name}}
     </a>
   </div>
