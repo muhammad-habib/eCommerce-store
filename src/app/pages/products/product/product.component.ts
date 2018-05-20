@@ -31,7 +31,7 @@ export class ProductComponent implements OnInit {
   ngOnInit() {      
     this.sub = this.activatedRoute.params.subscribe(params => {
       this.getProductById(params['id']);
-    }); 
+    });
     this.form = this.formBuilder.group({ 
       'review': [null, Validators.required],            
       'name': [null, Validators.compose([Validators.required, Validators.minLength(4)])],

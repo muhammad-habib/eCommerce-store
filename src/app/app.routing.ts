@@ -3,7 +3,7 @@ import { ModuleWithProviders } from '@angular/core';
 
 import { PagesComponent } from './pages/pages.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { LandingPageComponent  } from './landing-page/landing-page.component'
+import { LandingPageComponent  } from './landing-page/landing-page.component';
 
 export const routes: Routes = [
     {

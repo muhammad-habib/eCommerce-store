@@ -71,7 +71,7 @@
 
     <div fxFlex="100%" dir="rtl" fxLayout="column wrap" fxLayoutGap="5px"   fxLayoutAlign="center center">
 
-            <mat-card [routerLink]="['/ordering/products']" 
+            <mat-card [routerLink]="['/products']"
                     *ngFor="let market of markets" 
                         (click)="selectType(market);"
                         [queryParams]="{hyper:market.is_hyper,market:market.id}"
