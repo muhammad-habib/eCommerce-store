@@ -11,7 +11,7 @@ export class ProductsService {
   constructor(public http:HttpClient) { }
 
   public getProducts( hyper , market ): Observable<any[]>{
-    let link = hyper==1?"products":"mini-market/products?market_type_id="+market;  
+    let link = hyper==1?"products":"/mini-market/products?market_type_id="+market;
       return this.http.get<any[]>(this.url + link);
     // return this.http.get<any[]>('http://admin.zadfresh.com/api/products');
   }

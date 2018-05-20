@@ -26,8 +26,7 @@ export class PagesComponent implements OnInit {
               public appService:AppService, 
               public sidenavMenuService:SidenavMenuService,
               public marketTypeDataService:MarketTypeDataService,
-              public  activatedRoute: ActivatedRoute,
-              public router:Router) { 
+              public router:Router) {
     this.settings = this.appSettings.settings; 
   }
 
@@ -35,13 +34,6 @@ export class PagesComponent implements OnInit {
     this.getCategories();
     this.sidenavMenuItems = this.sidenavMenuService.getSidenavMenuItems();
     this.marketTypeData = this.marketTypeDataService.getMarketTypeData();
-
-      this.activatedRoute.queryParams.subscribe(params => {
-        if (params.content_id)
-        {
-            this.router.navigateByUrl('ordering/products/'+params.content_id+'/product', { skipLocationChange: true });
-        }
-      });
   } 
 
   public getCategories(){    

@@ -49,4 +49,5 @@ export class AProduct {
     name: string;
     description: string;
     favourite: number;
+    color:string;
 }

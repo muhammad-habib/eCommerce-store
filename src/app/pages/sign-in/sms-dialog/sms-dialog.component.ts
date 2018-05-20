@@ -64,7 +64,7 @@ export class SmsDialogComponent implements OnInit {
                             this.user.id = data['user_id'];
                             localStorage.setItem('user',JSON.stringify(this.user));
                             this.dialogRef.close();
-                            this.router.navigate(['ordering']);
+                            this.router.navigate(['']);
                         }
 
                     },

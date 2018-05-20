@@ -17,6 +17,7 @@ export class SignInComponent implements OnInit {
   loginForm: FormGroup;
   registerForm: FormGroup;
   user = new User();
+  country_key: any;
 
 
     myControl: FormControl = new FormControl();
