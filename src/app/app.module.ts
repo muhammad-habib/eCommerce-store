@@ -54,7 +54,7 @@ import {ProductService} from './pages/products/product/product.service';
     OptionsComponent,
     FooterComponent,
     LandingPageComponent,
-  ], 
+  ],
   providers: [
     AppSettings,
     AppService,   

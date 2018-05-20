@@ -19,7 +19,8 @@ export const routes: Routes = [
             { path: 'contact', loadChildren: 'app/pages/contact/contact.module#ContactModule', data: { breadcrumb: 'Contact' } },
             { path: 'sign-in', loadChildren: 'app/pages/sign-in/sign-in.module#SignInModule', data: { breadcrumb: 'Sign In ' } },
             { path: 'brands', loadChildren: 'app/pages/brands/brands.module#BrandsModule', data: { breadcrumb: 'Brands' } },
-            { path: 'products', loadChildren: 'app/pages/products/products.module#ProductsModule', data: { breadcrumb: 'All Products' } }
+            { path: 'products', loadChildren: 'app/pages/products/products.module#ProductsModule', data: { breadcrumb: 'All Products' } },
+            // { path: 'orders', loadChildren: 'app/pages/orders/orders.module#OrdersModule', data: { breadcrumb: 'All Orders' } }
         ]
     },
     { path: '**', component: NotFoundComponent }

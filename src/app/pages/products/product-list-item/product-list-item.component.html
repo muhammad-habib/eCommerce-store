@@ -1,4 +1,4 @@
-<mat-card class="product-item text-center">
+<!-- <mat-card class="product-item text-center">
     <mat-chip-list *ngIf="product.discount">
         <mat-chip color="warn" selected="true">{{product.discount}}% OFF</mat-chip>
     </mat-chip-list>
@@ -10,9 +10,6 @@
         {{product.name}}
     </a>
     <div fxLayout="row" fxLayoutAlign="space-between center" class="prices">
-            <!-- <div fxLayout="column" fxLayoutAlign="center start"> -->
-            <!-- <p class="old-price text-muted"><span *ngIf="product.offer==1">${{product.oldPrice | number : '1.2-2'}}</span></p>
-            <p class="new-price"> {{currency}} {{product.price | number : '1.2-2'}}</p> -->
         
             <div fxLayout="column" fxLayoutAlign="center start" *ngIf="product.offer==1" >    
                     <p class="old-price text-muted">
@@ -25,10 +22,9 @@
                 </div>
 
 
-        <!-- <app-rating [ratingsCount]="product.ratingsCount" [ratingsValue]="product.ratingsValue" [direction]="'column'"></app-rating> -->
     </div>                            
     <div class="divider mt-2"></div>
     <div class="icons">
         <app-controls [product]="product" (onOpenProductDialog)="openProductDialog(product)"></app-controls>
     </div>
-</mat-card>
+</mat-card> -->

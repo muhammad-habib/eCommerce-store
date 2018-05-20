@@ -1,6 +1,6 @@
 <div class="scrollmenu">
   <a (click)="getSubCategories(0);"
-  (click)="filterBy(' ')"
+  (click)="filterBy('','')"
   >{{'ALL'|translate}}</a>
   <a *ngFor= "let category of categories" 
       (click)="getSubCategories(category.id)"

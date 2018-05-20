@@ -6,6 +6,7 @@ import { AppService } from '../../app.service';
 import { Product, Category } from "../../app.models";
 import { ProductsService} from './products.service' 
 import { ChangeEvent, VirtualScrollComponent } from 'angular2-virtual-scroll';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-products',
@@ -48,7 +49,8 @@ export class ProductsComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, 
                public appService:AppService, private productsService:ProductsService,
-               public dialog: MatDialog, private router: Router) { }
+               public dialog: MatDialog, private router: Router,
+               private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.count = this.counts[0];
@@ -70,17 +72,20 @@ export class ProductsComponent implements OnInit {
   }
 
   public getProducts(){
+    this.spinner.show();
     this.productsService.getProducts(this.is_hyper,this.market_id,this.filter).subscribe(res=>{
-
       this.products = this.products.concat(res['data']['data']); 
       this.current = res['data']['current_page'];
       // console.log(res.shoppers.current_page)
       this.total = res['data']['total'];
       this.lastPage = res['data']['last_page'];
+      this.spinner.hide();
 
       // this.virtualScroll.refresh();
       // this.virtualScroll.update.emit(this.products);
 
+    },err=>{
+      this.spinner.hide();      
     });
   }
 
@@ -150,21 +155,10 @@ export class ProductsComponent implements OnInit {
   public filterByCategory(cat){
       this.filter['category_id'] = cat.category_id;
       this.filter['sub_category_id'] = cat.sub_category_id;
+      this.filter['page']= 1 ;
       this.products = [];
       this.getProducts();
   }
-
-  fetchMore(event: ChangeEvent) {
-
-    if (event.end !== this.products.length) return;
-
-    if (this.current >= this.lastPage) {
-      return;
-    }
-    this.filter['page']= ++this.current ;
-    this.getProducts();
-  }
-
 
     @HostListener("window:scroll", ["$event"])
     onWindowScroll() {
@@ -172,7 +166,10 @@ export class ProductsComponent implements OnInit {
       let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
       let max = document.documentElement.scrollHeight;
       // pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
-      if(pos >= max-200 )   {
+      if (this.current >= this.lastPage) {
+        return;
+      }            
+      if(pos >= max )   {
         this.filter['page']= ++this.current ;
         this.getProducts();    
       }
