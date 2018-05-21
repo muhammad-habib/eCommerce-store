@@ -7,10 +7,10 @@ import { LandingPageComponent  } from './landing-page/landing-page.component';
 
 export const routes: Routes = [
     {
-        path:'',component : LandingPageComponent
+        path:'landing',component : LandingPageComponent
     },
-    {
-        path: '',
+    { 
+        path: '', 
         component: PagesComponent, children: [
             { path: 'compare', loadChildren: 'app/pages/compare/compare.module#CompareModule', data: { breadcrumb: 'Compare' } },
             { path: 'wishlist', loadChildren: 'app/pages/wishlist/wishlist.module#WishlistModule', data: { breadcrumb: 'Wishlist' } },
@@ -20,7 +20,7 @@ export const routes: Routes = [
             { path: 'sign-in', loadChildren: 'app/pages/sign-in/sign-in.module#SignInModule', data: { breadcrumb: 'Sign In ' } },
             { path: 'brands', loadChildren: 'app/pages/brands/brands.module#BrandsModule', data: { breadcrumb: 'Brands' } },
             { path: 'products', loadChildren: 'app/pages/products/products.module#ProductsModule', data: { breadcrumb: 'All Products' } },
-            { path: 'orders', loadChildren: 'app/pages/orders/orders.module#OrdersModule', data: { breadcrumb: 'All Orders' } }
+            // { path: 'orders', loadChildren: 'app/pages/orders/orders.module#OrdersModule', data: { breadcrumb: 'All Orders' } }
         ]
     },
     { path: '**', component: NotFoundComponent }

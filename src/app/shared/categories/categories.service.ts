@@ -18,7 +18,7 @@ export class CategoriesService {
   }
 
   public getSubCategories( hyper , category ): Observable<any[]>{
-    let link = hyper==1?"subCategories":"subCategories/categories";  
+    let link = hyper==1?"subCategories":"mini-market/subCategories";  
       return this.http.get<any[]>(this.url + link+"?category_id="+category);
     // return this.http.get<any[]>('http://admin.zadfresh.com/api/products');
   }
