@@ -10,7 +10,7 @@ export class SmsDialogService {
     private url = environment.API_ENDPOINT;
 
     submitCode(user) {
-    return this.http.post(this.url+'/submitCode' , user);
+    return this.http.post(this.url+'submitCode' , user);
   }
 
 }

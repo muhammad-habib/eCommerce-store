@@ -16,8 +16,9 @@ export class OrdersComponent implements OnInit {
         this.getAllOrders();
     }
 
-    public getAllOrders(){
-        this.ordersSerivce.getOrders().subscribe(data=> {
+    public getAllOrders() {
+        let user = JSON.parse(localStorage.getItem('user'));
+        this.ordersSerivce.getOrders(user).subscribe(data=> {
             this.orders = data['data']['data'];
             console.log(this.orders);
         });
