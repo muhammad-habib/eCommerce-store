@@ -9,14 +9,14 @@ export class SignInService {
   private url = environment.API_ENDPOINT;
 
   register(user) {
-   return this.http.post(this.url+'/register' , user);
+   return this.http.post(this.url+'register' , user);
   }
 
   signIn(user) {
-        return this.http.post(this.url+'/login' , user);
+        return this.http.post(this.url+'login' , user);
     }
 
   countriesCodes() {
-      return this.http.get(this.url+'/app-settings/country-codes' );
+      return this.http.get(this.url+'app-settings/country-codes' );
   }
 }

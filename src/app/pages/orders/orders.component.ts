@@ -1,15 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import {Component,OnInit} from '@angular/core';
+import {OrdersService} from './orders.service';
 
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss']
+  styleUrls: ['./orders.component.scss'],
+  providers: [OrdersService]
 })
 export class OrdersComponent implements OnInit {
 
-  constructor() { }
+    public orders: any;
+    constructor(private ordersSerivce:OrdersService) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this.getAllOrders();
+    }
+
+    public getAllOrders() {
+        let user = JSON.parse(localStorage.getItem('user'));
+        this.ordersSerivce.getOrders(user).subscribe(data=> {
+            this.orders = data['data']['data'];
+            console.log(this.orders);
+        });
+    }
 
 }
