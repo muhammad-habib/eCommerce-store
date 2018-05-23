@@ -1,1 +1,60 @@
-اه
+<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" class="filter-row mat-elevation-z1 text-muted">
+    <button  mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <div>
+        <button mat-icon-button (click)="changeViewType('list', 100)">
+            <mat-icon>view_list</mat-icon>
+        </button>
+        <button mat-icon-button (click)="changeViewType('grid', 33.3)">
+            <mat-icon>view_module</mat-icon>
+        </button>
+        <button mat-icon-button (click)="changeViewType('grid', 25)">
+            <mat-icon>view_comfy</mat-icon>
+        </button>
+    </div>
+</div>
+
+
+
+<div *ngIf="viewType == 'grid'" fxLayout="row wrap" class="products-wrapper">
+    <div *ngFor="let order of orders" fxFlex="100" [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="col">
+        <mat-card class="product-item text-center">
+            <mat-chip-list>
+                <mat-chip color="warn" selected="true">{{order.status.name_en}}</mat-chip>
+            </mat-chip-list>
+            <a [routerLink]="['/orders', order.id]" class="title">
+                {{order.delivery_time}}
+            </a>
+            <h4 class="category text-muted"><a [routerLink]="['/orders', order.id]" class="title">
+                {{order.created_at | date:'fullDate'}}
+            </a></h4>
+            <div class="divider mt-2"></div>
+        </mat-card>
+    </div>
+</div>
+
+
+
+<div *ngIf="viewType == 'list'" fxLayout="row wrap" class="products-wrapper">
+    <div *ngFor="let order of orders" fxFlex="100" [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="col">
+        <mat-card class="product-item">
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="80" class="p-2">
+                    <mat-chip-list class="list-view">
+                        <mat-chip color="warn" selected="true">{{order.status.name_en}}</mat-chip>
+                    </mat-chip-list>
+                    <a [routerLink]="['/orders', order.id]" class="title">
+                        {{order.delivery_time}}
+                    </a>
+                </div>
+                <div class="divider"></div>
+                <div fxFlex="100" fxFlex.gt-xs="100" class="p-2">
+                    <h4 class="category text-muted"><a [routerLink]="['/orders', order.id]" class="title">
+                        {{order.created_at | date:'fullDate'}}
+                    </a></h4>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>

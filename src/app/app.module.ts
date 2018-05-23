@@ -25,10 +25,10 @@ import { AuthInterceptor } from './theme/utils/auth-interceptor';
 import { OptionsComponent } from './theme/components/options/options.component';
 import { FooterComponent } from './theme/components/footer/footer.component';
 import {SignInService} from './pages/sign-in/sign-in.service';
-import {SignInModule} from './pages/sign-in/sign-in.module';
 import {SmsDialogService} from './pages/sign-in/sms-dialog/sms-dialog.service';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import {ProductService} from './pages/products/product/product.service';
+import {VirtualScrollModule} from 'angular2-virtual-scroll';
 
 
 @NgModule({
@@ -42,6 +42,7 @@ import {ProductService} from './pages/products/product/product.service';
     }),
     SharedModule,
     routing,
+    VirtualScrollModule
   ],
   declarations: [
     AppComponent,

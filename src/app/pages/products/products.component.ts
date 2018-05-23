@@ -76,16 +76,14 @@ export class ProductsComponent implements OnInit {
     this.productsService.getProducts(this.is_hyper,this.market_id,this.filter).subscribe(res=>{
       this.products = this.products.concat(res['data']['data']); 
       this.current = res['data']['current_page'];
-      // console.log(res.shoppers.current_page)
+      // console.log(res.shoppers.current_page);
       this.total = res['data']['total'];
       this.lastPage = res['data']['last_page'];
       this.spinner.hide();
-
       // this.virtualScroll.refresh();
       // this.virtualScroll.update.emit(this.products);
-
     },err=>{
-      this.spinner.hide();      
+      this.spinner.hide();
     });
   }
 
