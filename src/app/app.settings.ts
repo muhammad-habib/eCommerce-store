@@ -9,6 +9,6 @@ export class Settings {
 export class AppSettings {
     public settings = new Settings(
         'Zad | زاد',  // theme name
-        'green'     // green, blue, red, pink, purple, grey
+        'grey'     // green, blue, red, pink, purple, grey
     )
 }
