@@ -7,6 +7,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from '../../shared/shared.module';
 import { PipesModule } from '../../theme/pipes/pipes.module';
 import {OrdersComponent} from './orders.component';
+import { OrderItemComponent } from './order-item/order-item.component';
 
 export const routes = [
     { path: '', component: OrdersComponent, pathMatch: 'full' },
@@ -25,6 +26,7 @@ export const routes = [
     ],
     declarations: [
         OrdersComponent,
+        OrderItemComponent,
     ],
     entryComponents:[
     ]

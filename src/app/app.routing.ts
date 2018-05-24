@@ -22,6 +22,7 @@ export const routes: Routes = [
             { path: 'products', loadChildren: 'app/pages/products/products.module#ProductsModule', data: { breadcrumb: 'All Products' } },
             { path: 'category', loadChildren: 'app/pages/category/category.module#CategoryModule'},
             // { path: 'orders', loadChildren: 'app/pages/orders/orders.module#OrdersModule', data: { breadcrumb: 'All Orders' } }
+            { path: 'orders', loadChildren: 'app/pages/orders/orders.module#OrdersModule', data: { breadcrumb: 'All Orders' } }
         ]
     },
     { path: '**', component: NotFoundComponent }

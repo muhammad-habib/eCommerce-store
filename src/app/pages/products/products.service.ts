@@ -16,7 +16,7 @@ export class ProductsService {
     // return this.http.get<any[]>('http://admin.zadfresh.com/api/products');
   }
 
-  private  filterToQuery(filter):string{
+  private  filterToQuery(filter):string {
     let queryString="";
     for (let key of Object.keys(filter)){
       if(filter[key]!=-1 && filter[key]!=null){

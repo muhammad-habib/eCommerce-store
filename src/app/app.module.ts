@@ -31,6 +31,7 @@ import { SmsDialogService} from './pages/sign-in/sms-dialog/sms-dialog.service';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ProductService} from './pages/products/product/product.service';
 // import { CategoryComponent } from './pages/category/category.component';
+import { VirtualScrollModule} from 'angular2-virtual-scroll';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { ProductService} from './pages/products/product/product.service';
     }),
     SharedModule,
     routing,
+    VirtualScrollModule
   ],
   declarations: [
     AppComponent,
