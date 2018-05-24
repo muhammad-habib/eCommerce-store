@@ -59,3 +59,11 @@
         }
     }
 }
+
+.fixedHeader{
+    position: fixed;
+    top: 0px;
+    // width: inherit;
+    z-index: 2;
+    background: whitesmoke;
+  }

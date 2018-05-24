@@ -66,25 +66,45 @@ export class AppService {
             status = 'success';  
         }
         this.snackBar.open(message, '×', { panelClass: [status], verticalPosition: 'top', duration: 3000 });
-    }
-
+    }   
+        
     public addToCart(product:Product){
+        const index: number = this.Data.cartList.indexOf(product);
         let message, status;
-        if(this.Data.cartList.filter(item=>item.id == product.id)[0]){
+        if(index != -1 ){
             message = 'The product ' + product.name + ' already added to cart.'; 
-            status = 'error';     
+            status = 'success';     
+            this.Data.totalPrice += (1 * product['price']);
+            this.Data.cartList[index]['quantity']++;                        
         }
         else{
-            this.Data.totalPrice = null;
+            this.Data.totalPrice = 0;
+            product['quantity'] = 1;
             this.Data.cartList.push(product);
             this.Data.cartList.forEach(product=>{
-                this.Data.totalPrice = this.Data.totalPrice + product.newPrice;
+                this.Data.totalPrice = this.Data.totalPrice + (product['price'] * product['quantity']);
             })
             message = 'The product ' + product.name + ' has been added to cart.'; 
             status = 'success';  
         }
         this.snackBar.open(message, '×', { panelClass: [status], verticalPosition: 'top', duration: 3000 });
     }
+
+    public removeFromCart(product) {
+        const index: number = this.Data.cartList.indexOf(product);
+        if (index !== -1) {
+            if(this.Data.cartList[index]['quantity']==1) 
+                this.Data.cartList.splice(index, 1);            
+            else
+                this.Data.cartList[index]['quantity']--; 
+            console.log(this.Data.cartList[index]);       
+          this.Data.totalPrice = 0;
+          this.Data.cartList.forEach(product=>{
+                this.Data.totalPrice = this.Data.totalPrice + (product['price'] * product['quantity']);
+            })
+        }     
+      }
+     
 
     public getBrands(){
         return [  

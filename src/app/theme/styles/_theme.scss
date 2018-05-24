@@ -3,6 +3,11 @@
 
 @import 'theme-reset';
 .app{
+    &.orange{
+        @import "skins/orange";
+        @include angular-material-theme($orange-theme);
+        @include theme-reset($orange-theme);
+    }
     &.green{
         @import "skins/green";
         @include angular-material-theme($green-theme);

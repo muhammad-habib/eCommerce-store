@@ -10,16 +10,23 @@ export class CategoriesComponent implements OnInit {
 
   @Input() hyper  = 1 ;
   @Input() market = 1 ;
+  @Input() inputSelectedCat;
+
 
   @Output() changeCategory: EventEmitter<any> = new EventEmitter();
 
   public categories=[];
   public subCategories=[];
+  public selectedSubCat = 0;
+  public selectedCat = 0;
   
   constructor(private categoriesService : CategoriesService) { }
 
   ngOnInit() {
+    this.selectedCat = this.inputSelectedCat;
     this.getCategories();
+    this.getSubCategories(this.selectedCat);
+
   }
 
   public getCategories(){    
@@ -30,6 +37,7 @@ export class CategoriesComponent implements OnInit {
   public getSubCategories(category_id){  
     if (category_id == 0){
       this.subCategories=[];
+      this.selectedCat = 0;
       return;
     }
     this.categoriesService.getSubCategories(this.hyper,category_id).subscribe(data=>{
@@ -38,6 +46,10 @@ export class CategoriesComponent implements OnInit {
   }
 
   public filterBy(category_id,sub_category_id){
+
+    this.selectedCat = category_id?category_id:this.selectedCat;
+    this.selectedSubCat = sub_category_id?sub_category_id:this.selectedSubCat;
+    console.log("cat:"+category_id,"sub"+sub_category_id);
 
     this.changeCategory.emit({category_id:category_id,sub_category_id:sub_category_id});
   }

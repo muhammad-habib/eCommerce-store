@@ -1,17 +1,21 @@
-<div class="scrollmenu">
+<div>
+<div class="scrollmenu sticky"   >
   <a (click)="getSubCategories(0);"
-  (click)="filterBy('','')"
+  (click)="filterBy('','')" [ngClass]="{'selectedCat':selectedCat == 0}"
   >{{'ALL'|translate}}</a>
   <a *ngFor= "let category of categories" 
       (click)="getSubCategories(category.id)"
-      (click)="filterBy(category.id,'')"
+      (click)="filterBy(category.id,'')" [ngClass]="{'selectedCat':category.id==selectedCat}"
   >
     {{category.name}}
   </a>
 </div>
 
 <div class="scrollmenu">
-    <a *ngFor= "let category of subCategories" (click)="filterBy('',category.id)" >
+    <a *ngFor= "let category of subCategories" (click)="filterBy('',category.id)" 
+                [ngClass]="{'selectedCat':category.id==selectedSubCat}" >
       {{category.name}}
     </a>
   </div>
+
+</div>
