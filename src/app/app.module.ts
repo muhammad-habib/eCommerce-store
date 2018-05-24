@@ -68,7 +68,7 @@ import { VirtualScrollModule} from 'angular2-virtual-scroll';
     SmsDialogService,
       ProductService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    {provide: APP_BASE_HREF, useValue: '/store'}
+    {provide: APP_BASE_HREF, useValue: '/'}
   ],
   bootstrap: [AppComponent]
 })
