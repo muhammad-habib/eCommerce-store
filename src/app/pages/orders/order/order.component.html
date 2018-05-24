@@ -1,0 +1,66 @@
+<div fxLayout="row wrap">
+  <div fxFlex="100" fxFlex.gt-md="45" fxFlex.md="55" ngClass.gt-sm="px-3 m-0" ngClass.sm="mt-2" ngClass.xs="mt-2">
+    <h2>{{order?.order_price | currency:'SAR'}}</h2>
+    <div class="py-1 lh">
+      <p><span class="text-muted fw-500">{{order?.delivery_time}} {{order?.created_at | date:'fullDate'}}</span></p>
+    </div>
+    <div class="divider"></div>
+
+  </div>
+</div>
+
+<div fxLayout="row wrap" class="mt-2">
+  <div fxFlex="100" fxFlex.gt-md="78" fxFlex.md="74">
+    <mat-card>
+      <mat-tab-group [@.disabled]="true" [selectedIndex]="0">
+        <mat-tab label="Delivery Info">
+          <div class="full-desc lh">
+            <div fxLayout="row wrap" class="info-bar" ngClass.gt-md="m-10">
+              <div fxFlex="100" fxFlex.md="25" fxFlex.sm="50">
+                <mat-card class="light-block" fxLayout="row"  fxLayoutAlign="start center">
+                  <mat-icon class="mat-icon-xlg text-muted m-0">schedule</mat-icon>
+                  <div class="content">
+                    <p>Delivery Time</p>
+                    <span class="text-muted m-0">{{order?.delivery_time}} {{order?.created_at | date:'fullDate'}}</span>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+            <div fxLayout="row wrap" class="info-bar" ngClass.gt-md="m-16">
+              <div fxFlex="100" fxFlex.md="25" fxFlex.sm="50">
+                <mat-card class="light-block" fxLayout="row"  fxLayoutAlign="start center">
+                  <mat-icon class="mat-icon-xlg text-muted m-0">my_location</mat-icon>
+                  <div class="content">
+                    <p>Delivery Location</p>
+                    <span class="text-muted m-0">{{order?.address}}</span>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Products" *ngIf="order">
+          <div class="full-desc lh" *ngFor="let product of order.products">
+            <div fxLayout="row wrap" class="info-bar" ngClass.gt-md="m-10">
+              <div fxFlex="100" fxFlex.md="25" fxFlex.sm="50">
+                <mat-card class="light-block" fxLayout="row"  fxLayoutAlign="start center">
+                  <mat-icon class="mat-icon-xlg text-muted m-0"><img src="{{product?.image}}" height="48" width="48" /></mat-icon>
+                  <div class="content">
+                    <p>{{product?.name}}</p>
+                    <span class="text-muted m-0">{{product?.price | currency:'SAR'}}</span>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Payment details">
+          <div class="full-desc lh">
+
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </div>
+</div>
+

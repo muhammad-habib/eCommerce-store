@@ -8,9 +8,11 @@ import { SharedModule } from '../../shared/shared.module';
 import { PipesModule } from '../../theme/pipes/pipes.module';
 import {OrdersComponent} from './orders.component';
 import { OrderItemComponent } from './order-item/order-item.component';
+import { OrderComponent } from './order/order.component';
 
 export const routes = [
     { path: '', component: OrdersComponent, pathMatch: 'full' },
+    { path: ':id', component: OrderComponent }
 ];
 
 @NgModule({
@@ -27,6 +29,7 @@ export const routes = [
     declarations: [
         OrdersComponent,
         OrderItemComponent,
+        OrderComponent,
     ],
     entryComponents:[
     ]
