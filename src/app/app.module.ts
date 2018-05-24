@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AgmCoreModule } from '@agm/core';
-import {APP_BASE_HREF} from '@angular/common';
+import { APP_BASE_HREF} from '@angular/common';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { CustomOverlayContainer } from './theme/utils/custom-overlay-container';
@@ -25,11 +25,12 @@ import { AppService } from './app.service';
 import { AuthInterceptor } from './theme/utils/auth-interceptor';
 import { OptionsComponent } from './theme/components/options/options.component';
 import { FooterComponent } from './theme/components/footer/footer.component';
-import {SignInService} from './pages/sign-in/sign-in.service';
-import {SignInModule} from './pages/sign-in/sign-in.module';
-import {SmsDialogService} from './pages/sign-in/sms-dialog/sms-dialog.service';
+import { SignInService} from './pages/sign-in/sign-in.service';
+import { SignInModule} from './pages/sign-in/sign-in.module';
+import { SmsDialogService} from './pages/sign-in/sms-dialog/sms-dialog.service';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import {ProductService} from './pages/products/product/product.service';
+import { ProductService} from './pages/products/product/product.service';
+// import { CategoryComponent } from './pages/category/category.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import {ProductService} from './pages/products/product/product.service';
     OptionsComponent,
     FooterComponent,
     LandingPageComponent,
+    // CategoryComponent,
   ],
   providers: [
     AppSettings,

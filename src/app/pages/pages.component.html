@@ -22,20 +22,20 @@
 
 
     <mat-toolbar color="primary">
-        <mat-toolbar-row fxLayoutAlign="space-between center" class="top-toolbar theme-container">
+        <!-- <mat-toolbar-row fxLayoutAlign="space-between center" class="top-toolbar theme-container">
             <span fxHide="false" fxHide.gt-sm>
                 <button mat-button (click)="sidenav.toggle()" class="sidenav-toggle">
                     <mat-icon>menu</mat-icon>
                 </button> 
-            </span>
+            </span> -->
             <!-- <span fxShow="false" fxShow.gt-xs fxLayoutAlign="center center">
                 <mat-icon class="mat-icon-sm">call</mat-icon>  Hotline: (+100) 123 456 7890 </span> -->
             <!-- <span fxShow="false" fxShow.gt-sm>Welcome to our market!</span> -->
             <!-- <app-top-menu></app-top-menu>        -->
-        </mat-toolbar-row>
+        <!-- </mat-toolbar-row> -->
         <mat-toolbar-row fxLayoutAlign="space-between center" class="logo-toolbar theme-container">
             <a class="logo" routerLink="/products" (click)="closeSubMenus()">
-                <img width="70px" height="70px"  src="/assets/images/LOGO.png">
+                <img width="70px" height="82px"  src="/assets/images/LOGO.png">
             </a>
             <div fxFlex fxFlexOffset.gt-sm="10" fxShow="false" fxShow.gt-sm>
                 <form method="get"  class="search-form">
@@ -55,8 +55,8 @@
            
 
             <div fxFlexOffset="10" fxLayout="row" fxLayoutAlign="center center">                
-
-                <div fxLayoutAlign="center center">
+                    <span>{{appService.Data.totalPrice | number : '1.2-2'}}</span>
+                <!-- <div fxLayoutAlign="center center">
                     <button mat-button [matMenuTriggerFor]="cartMenu" #cartMenuTrigger="matMenuTrigger" class="flex-row-button">
                         <mat-icon class="mat-icon-lg">shopping_cart</mat-icon>
                         <span *ngIf="appService.Data.cartList.length > 0" class="cart-items-count">{{appService.Data.cartList.length}}</span>
@@ -106,7 +106,7 @@
                             </div>
                         </span>
                     </mat-menu>
-                </div>
+                </div> -->
 
                 <div fxLayoutAlign="center center" fxHide="false" fxHide.gt-sm> 
                     <button mat-icon-button [matMenuTriggerFor]="searchMenu" #searchMenuTrigger="matMenuTrigger" class="search-toggle-btn">
