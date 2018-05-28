@@ -13,7 +13,7 @@ export class ControlsComponent implements OnInit {
   @Input() type: string;
   @Output() onOpenProductDialog: EventEmitter<any> = new EventEmitter();
   @Output() onQuantityChange: EventEmitter<any> = new EventEmitter<any>();
-  public count:number = 1;
+  public count:number = 0;
   public align = 'center center';
   constructor(public appService:AppService, public snackBar: MatSnackBar) { }
 
@@ -38,30 +38,15 @@ export class ControlsComponent implements OnInit {
 
 
 
-  public increment(count){
-    if(this.count < this.product.availibilityCount){
-      this.count++;
-      let obj = {
-        productId: this.product.id,
-        soldQuantity: this.count,
-        total: this.count * this.product.newPrice
-      }
-      this.changeQuantity(obj);
-    }
-    else{
-      this.snackBar.open('You can not choose more items than available. In stock ' + this.count + ' items.', '×', { panelClass: 'error', verticalPosition: 'top', duration: 3000 });
-    }    
+  public increment(product){
+      this.appService.addToCart(product);
+      this.count++;      
   }
 
-  public decrement(count){
-    if(this.count > 1){
+  public decrement(product){
+    if(this.count > 0){
       this.count--;
-      let obj = {
-        productId: this.product.id,
-        soldQuantity: this.count,
-        total: this.count * this.product.newPrice
-      }
-      this.changeQuantity(obj);
+      this.appService.removeFromCart(product);
     }
   }
 

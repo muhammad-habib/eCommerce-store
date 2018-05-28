@@ -7,6 +7,7 @@ import { Product, Category } from "../../app.models";
 import { ProductsService} from './products.service' 
 import { ChangeEvent, VirtualScrollComponent } from 'angular2-virtual-scroll';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Location} from '@angular/common';
 
 @Component({
   selector: 'app-products',
@@ -41,23 +42,35 @@ export class ProductsComponent implements OnInit {
   public total;
   public loading=false;
   public filter = {};
-
+  public category_id=0;
+  public fixedHeader= false;
 
   @ViewChild(VirtualScrollComponent)
   private virtualScroll: VirtualScrollComponent;
 
 
-  constructor(private activatedRoute: ActivatedRoute, 
+  constructor(private activatedRoute: ActivatedRoute, private location:Location,
                public appService:AppService, private productsService:ProductsService,
                public dialog: MatDialog, private router: Router,
-               private spinner: NgxSpinnerService) { }
+               private spinner: NgxSpinnerService) {
+
+                console.log('constractor',this.category_id);
+
+                }
 
   ngOnInit() {
+    console.log('init',this.category_id);
+
     this.count = this.counts[0];
     this.sort = this.sortings[0];
     this.sub = this.activatedRoute.queryParams.subscribe(params => {
         this.market_id = params.market;
         this.is_hyper = params.hyper;
+        let content_type  = params.content_type;
+        if(content_type == "category"){
+          this.category_id = params.content_id;
+          this.filter['category_id'] = this.category_id;
+        }
     });
     if(window.innerWidth < 960){
       this.sidenavOpen = false;
@@ -69,6 +82,7 @@ export class ProductsComponent implements OnInit {
     this.getCategories();
     this.getBrands();
     this.getProducts();   
+    // this.location.replaceState('?category=15');
   }
 
   public getProducts(){
@@ -156,6 +170,15 @@ export class ProductsComponent implements OnInit {
       this.filter['page']= 1 ;
       this.products = [];
       this.getProducts();
+      const urlTree = this.router.createUrlTree([], {
+        queryParams: { 
+                content_type : "category",
+                content_id : cat.category_id },
+        queryParamsHandling : "merge",
+        preserveFragment: true });
+    
+      this.router.navigateByUrl(urlTree);
+  
   }
 
     @HostListener("window:scroll", ["$event"])
@@ -164,9 +187,14 @@ export class ProductsComponent implements OnInit {
       let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
       let max = document.documentElement.scrollHeight;
       // pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
-      if (this.current >= this.lastPage) {
+
+        this.fixedHeader = (pos >= 600);
+      console.log(pos);
+
+      if (this.current >= this.lastPage) 
         return;
-      }            
+    
+
       if(pos >= max )   {
         this.filter['page']= ++this.current ;
         this.getProducts();    

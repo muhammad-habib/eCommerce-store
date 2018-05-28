@@ -1,66 +1,181 @@
 <div fxLayout="row wrap">
-  <div fxFlex="100" fxFlex.gt-md="45" fxFlex.md="55" ngClass.gt-sm="px-3 m-0" ngClass.sm="mt-2" ngClass.xs="mt-2">
-    <h2>{{order?.order_price | currency:'SAR'}}</h2>
-    <div class="py-1 lh">
-      <p><span class="text-muted fw-500">{{order?.delivery_time}} {{order?.created_at | date:'fullDate'}}</span></p>
+    <div fxFlex="100" fxFlex.gt-md="45" fxFlex.md="55" ngClass.gt-sm="px-3 m-0" ngClass.sm="mt-2" ngClass.xs="mt-2">
+        <h2>{{order?.order_price | currency:'SAR'}}</h2>
+        <div class="py-1 lh">
+            <p><span class="text-muted fw-500">{{order?.delivery_time}} {{order?.created_at | date:'fullDate'}}</span>
+            </p>
+        </div>
+        <div class="divider"></div>
+
     </div>
-    <div class="divider"></div>
-
-  </div>
 </div>
-
 <div fxLayout="row wrap" class="mt-2">
-  <div fxFlex="100" fxFlex.gt-md="78" fxFlex.md="74">
-    <mat-card>
-      <mat-tab-group [@.disabled]="true" [selectedIndex]="0">
-        <mat-tab label="Delivery Info">
-          <div class="full-desc lh">
-            <div fxLayout="row wrap" class="info-bar" ngClass.gt-md="m-10">
-              <div fxFlex="100" fxFlex.md="25" fxFlex.sm="50">
-                <mat-card class="light-block" fxLayout="row"  fxLayoutAlign="start center">
-                  <mat-icon class="mat-icon-xlg text-muted m-0">schedule</mat-icon>
-                  <div class="content">
-                    <p>Delivery Time</p>
-                    <span class="text-muted m-0">{{order?.delivery_time}} {{order?.created_at | date:'fullDate'}}</span>
-                  </div>
-                </mat-card>
-              </div>
-            </div>
-            <div fxLayout="row wrap" class="info-bar" ngClass.gt-md="m-16">
-              <div fxFlex="100" fxFlex.md="25" fxFlex.sm="50">
-                <mat-card class="light-block" fxLayout="row"  fxLayoutAlign="start center">
-                  <mat-icon class="mat-icon-xlg text-muted m-0">my_location</mat-icon>
-                  <div class="content">
-                    <p>Delivery Location</p>
-                    <span class="text-muted m-0">{{order?.address}}</span>
-                  </div>
-                </mat-card>
-              </div>
-            </div>
-          </div>
-        </mat-tab>
-        <mat-tab label="Products" *ngIf="order">
-          <div class="full-desc lh" *ngFor="let product of order.products">
-            <div fxLayout="row wrap" class="info-bar" ngClass.gt-md="m-10">
-              <div fxFlex="100" fxFlex.md="25" fxFlex.sm="50">
-                <mat-card class="light-block" fxLayout="row"  fxLayoutAlign="start center">
-                  <mat-icon class="mat-icon-xlg text-muted m-0"><img src="{{product?.image}}" height="48" width="48" /></mat-icon>
-                  <div class="content">
-                    <p>{{product?.name}}</p>
-                    <span class="text-muted m-0">{{product?.price | currency:'SAR'}}</span>
-                  </div>
-                </mat-card>
-              </div>
-            </div>
-          </div>
-        </mat-tab>
-        <mat-tab label="Payment details">
-          <div class="full-desc lh">
+    <div fxFlex="100" fxFlex.gt-md="60" fxFlex.md="60">
+        <mat-card>
+            <mat-tab-group [@.disabled]="true" [selectedIndex]="0">
+                <mat-tab label="Delivery Info">
+                    <div class="full-desc lh">
+                        <div fxLayout="row wrap" class="info-bar" ngClass.gt-md="m-10">
+                            <div fxFlex="100" fxFlex.md="25" fxFlex.sm="50">
+                                <mat-card class="light-block" fxLayout="row" fxLayoutAlign="start center">
+                                    <mat-icon class="mat-icon-xlg text-muted m-0">schedule</mat-icon>
+                                    <div class="content">
+                                        <p>Delivery Time</p>
+                                        <span class="text-muted m-0">{{order?.delivery_time}} {{order?.created_at | date:'fullDate'}}</span>
+                                    </div>
+                                </mat-card>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap" class="info-bar" ngClass.gt-md="m-16">
+                            <div fxFlex="100" fxFlex.md="25" fxFlex.sm="50">
+                                <mat-card class="light-block" fxLayout="row" fxLayoutAlign="start center">
+                                    <mat-icon class="mat-icon-xlg text-muted m-0">my_location</mat-icon>
+                                    <div class="content">
+                                        <p>Delivery Location</p>
+                                        <span class="text-muted m-0">{{order?.address}}</span>
+                                    </div>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Products" *ngIf="order">
+                    <div class="full-desc lh" *ngFor="let product of order.products">
+                        <div fxLayout="row wrap" class="info-bar" ngClass.gt-md="m-10">
+                            <div fxFlex="100" fxFlex.md="25" fxFlex.sm="50">
+                                <mat-card class="light-block" fxLayout="row" fxLayoutAlign="start center">
+                                    <mat-icon class="mat-icon-xlg text-muted m-0"><img src="{{product?.image}}"
+                                                                                       height="48" width="48"/>
+                                    </mat-icon>
+                                    <div class="content">
+                                        <p>{{product?.name}}</p>
+                                        <span class="text-muted m-0">{{product?.price | currency:'SAR'}}</span>
+                                    </div>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Unavailable Products" *ngIf="order?.deleted_products.length > 0">
+                    <div class="full-desc lh" *ngFor="let product of order.deleted_products">
+                        <div fxLayout="row wrap" class="info-bar" ngClass.gt-md="m-10">
+                            <div fxFlex="100" fxFlex.md="25" fxFlex.sm="50">
+                                <mat-card class="light-block" fxLayout="row" fxLayoutAlign="start center">
+                                    <mat-icon class="mat-icon-xlg text-muted m-0"><img src="{{product?.image}}"
+                                                                                       height="48" width="48"/>
+                                    </mat-icon>
+                                    <div class="content">
+                                        <p>{{product?.name}}</p>
+                                        <span class="text-muted m-0">{{product?.price | currency:'SAR'}}</span>
+                                    </div>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Payment details">
+                    <div class="full-desc lh">
+                        <div fxLayout="row wrap" class="info-bar" ngClass.gt-md="m-10">
+                            <div fxFlex="70" fxFlex.md="25" fxFlex.sm="50">
+                                <mat-toolbar color="#cccccc">
+                                <mat-toolbar-row>
+                                    <span>Order value</span>
+                                    <span class="example-spacer"></span>
+                                    <p class="example-icon">{{order?.order_price | currency:'SAR'}}</p>
+                                </mat-toolbar-row>
+                                </mat-toolbar>
+                            </div>
+                        </div>
 
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-    </mat-card>
-  </div>
+                        <div fxLayout="row wrap" class="info-bar" ngClass.gt-md="m-10">
+                            <div fxFlex="70" fxFlex.md="25" fxFlex.sm="50">
+                                <mat-toolbar color="#cccccc">
+                                    <mat-toolbar-row>
+                                        <span>Delivery Fees</span>
+                                        <span class="example-spacer"></span>
+                                        <p class="example-icon">{{order?.delivery_fees | currency:'SAR'}}</p>
+                                    </mat-toolbar-row>
+                                </mat-toolbar>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row wrap" class="info-bar" ngClass.gt-md="m-10">
+                            <div fxFlex="70" fxFlex.md="25" fxFlex.sm="50">
+                                <mat-toolbar color="#cccccc">
+                                    <mat-toolbar-row>
+                                        <span>Vat Value</span>
+                                        <span class="example-spacer"></span>
+                                        <p class="example-icon">{{order?.vat_value | currency:'SAR'}}</p>
+                                    </mat-toolbar-row>
+                                </mat-toolbar>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row wrap" class="info-bar" ngClass.gt-md="m-10">
+                            <div fxFlex="70" fxFlex.md="25" fxFlex.sm="50">
+                                <mat-toolbar color="#cccccc">
+                                    <mat-toolbar-row>
+                                        <span>Vat Rate</span>
+                                        <span class="example-spacer"></span>
+                                        <p class="example-icon">{{order?.vat_rate}} %</p>
+                                    </mat-toolbar-row>
+                                </mat-toolbar>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row wrap" class="info-bar" ngClass.gt-md="m-10">
+                            <div fxFlex="70" fxFlex.md="25" fxFlex.sm="50">
+                                <mat-toolbar color="#cccccc">
+                                    <mat-toolbar-row>
+                                        <span>Discount Value</span>
+                                        <span class="example-spacer"></span>
+                                        <p class="example-icon">{{order?.discount}} %</p>
+                                    </mat-toolbar-row>
+                                </mat-toolbar>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row wrap" class="info-bar" ngClass.gt-md="m-10">
+                            <div fxFlex="70" fxFlex.md="25" fxFlex.sm="50">
+                                <mat-toolbar color="#E2EFDB">
+                                    <mat-toolbar-row>
+                                        <span>Total Price</span>
+                                        <span class="example-spacer"></span>
+                                        <p class="example-icon">{{order?.total_price | currency:'SAR'}}</p>
+                                    </mat-toolbar-row>
+                                </mat-toolbar>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card>
+    </div>
+    <mat-vertical-stepper #stepper [linear]="true" [selectedIndex]="1">
+        <mat-step   [editable]="false">
+            <ng-template matStepLabel>
+                <h3>Order Received</h3>
+                <p>your order has been received and will be prepared  in time</p>
+            </ng-template>
+        </mat-step>
+        <mat-step >
+            <ng-template matStepLabel>
+                <h3>Prepare Order</h3>
+                <p>your order is being prepared</p>
+            </ng-template>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>
+                <h3>Order is on the way</h3>
+                <p>your order is on the way to you right now</p>
+            </ng-template>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>
+                <h3>Order Delivered</h3>
+                <p>order delivered, enjoy your day</p>
+            </ng-template>
+        </mat-step>
+    </mat-vertical-stepper>
 </div>
 
