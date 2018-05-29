@@ -37,6 +37,8 @@ export class OrdersComponent implements OnInit {
             this.viewCol = 33.3;
         }
         this.getAllOrders();
+        this.filter['page']= ++this.current ;
+        this.getAllOrders();
     }
 
     public getAllOrders() {
