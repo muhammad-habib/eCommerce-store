@@ -18,9 +18,7 @@ export class ControlsComponent implements OnInit {
   constructor(public appService:AppService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    if(this.product){
-     // console.log(this.product);
-    }  
+    this.count = this.appService.cartMap.get(this.product.id)?this.appService.cartMap.get(this.product.id).count:0;
     this.layoutAlign(); 
   }
 

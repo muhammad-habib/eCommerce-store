@@ -21,8 +21,13 @@ export class AppService {
         [],  // cartList
         null //totalPrice
     )
+    public cartMap = new Map();
+    public cartTotalPrice = 0;
+
     public url = "assets/data/";
-    constructor(public http:HttpClient, public snackBar: MatSnackBar) { }
+    constructor(public http:HttpClient, public snackBar: MatSnackBar) { 
+        this.readCartFromLocalStorage();
+    }
     
     public getCategories(): Observable<Category[]>{
         return this.http.get<Category[]>(this.url + 'categories.json');
@@ -69,42 +74,85 @@ export class AppService {
     }   
         
     public addToCart(product:Product){
-        const index: number = this.Data.cartList.indexOf(product);
-        let message, status;
-        if(index != -1 ){
-            message = 'The product ' + product.name + ' already added to cart.'; 
-            status = 'success';     
-            this.Data.totalPrice += (1 * product['price']);
-            this.Data.cartList[index]['quantity']++;                        
-        }
-        else{
-            this.Data.totalPrice = 0;
-            product['quantity'] = 1;
-            this.Data.cartList.push(product);
-            this.Data.cartList.forEach(product=>{
-                this.Data.totalPrice = this.Data.totalPrice + (product['price'] * product['quantity']);
-            })
-            message = 'The product ' + product.name + ' has been added to cart.'; 
-            status = 'success';  
-        }
-        this.snackBar.open(message, '×', { panelClass: [status], verticalPosition: 'top', duration: 3000 });
+
+        if(this.cartMap.has(product.id))
+            {
+                this.cartMap.set(product.id , 
+                        { count:(this.cartMap.get(product.id).count)+1,product:product });
+                console.log((this.cartMap.get(product.id).count)+1)
+                }
+        else
+                this.cartMap.set(product.id , { count:1,product:product });    
+
+
+        this.cartTotalPrice=0;             
+         this.cartMap.forEach(value=>{
+            this.cartTotalPrice += (value.count * value.product.price);
+         })    
+         this.writeCartToLocalStoarge();
+            let message = 'The product ' + product.name + ' has been added to cart.'; 
+            let status = 'success';  
+            this.snackBar.open(message, '×', { panelClass: [status], verticalPosition: 'top', duration: 3000 });
     }
 
     public removeFromCart(product) {
-        const index: number = this.Data.cartList.indexOf(product);
-        if (index !== -1) {
-            if(this.Data.cartList[index]['quantity']==1) 
-                this.Data.cartList.splice(index, 1);            
+
+        if(this.cartMap.has(product.id)){
+            let tempCount = this.cartMap.get(product.id).count;
+            if(--tempCount)
+                this.cartMap.set(product.id ,{ count:tempCount,product:product });
             else
-                this.Data.cartList[index]['quantity']--; 
-            console.log(this.Data.cartList[index]);       
-          this.Data.totalPrice = 0;
-          this.Data.cartList.forEach(product=>{
-                this.Data.totalPrice = this.Data.totalPrice + (product['price'] * product['quantity']);
-            })
-        }     
+                this.cartMap.delete(product.id);
+                
+            this.cartTotalPrice=0;             
+            this.cartMap.forEach(value=>{
+                this.cartTotalPrice += (value.count * value.product.price);
+            });                
+
+            this.writeCartToLocalStoarge();
+        }
+
       }
-     
+    
+    public refreshCart(){
+        this.cartTotalPrice=0;             
+        this.cartMap.forEach(value=>{
+            this.cartTotalPrice += (value.count * value.product.price);
+        });
+        this.writeCartToLocalStoarge();                    
+    }  
+
+    private writeCartToLocalStoarge(){
+        let market = localStorage.getItem('market');
+        let tempCart = JSON.parse(localStorage.getItem('cart'));
+
+        tempCart[market] = {totalPrice:this.cartTotalPrice,map: Array.from(this.cartMap.entries())}; 
+        localStorage.setItem('cart' , JSON.stringify(tempCart)) 
+      }
+
+
+    private readCartFromLocalStorage(){
+        let market = localStorage.getItem('market');
+        let tempCart = JSON.parse(localStorage.getItem('cart'));
+        if(tempCart && tempCart[market]){
+            this.cartMap = new Map(tempCart[market].map);
+            this.cartTotalPrice = tempCart[market].totalPrice; 
+        }
+      }
+
+    // public getArrayFromMapCart(){
+    //     let products = [];
+    //     this.cartMap.forEach(entry=>{
+    //         products.push(entry);
+    //     })
+    //     return products;
+    // }  
+
+    public clearCart(){
+        this.cartMap.clear();
+        this.cartTotalPrice=0;
+        this.writeCartToLocalStoarge();
+    }   
 
     public getBrands(){
         return [  

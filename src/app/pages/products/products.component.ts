@@ -54,17 +54,16 @@ export class ProductsComponent implements OnInit {
                public dialog: MatDialog, private router: Router,
                private spinner: NgxSpinnerService) {
 
-                console.log('constractor',this.category_id);
 
                 }
 
   ngOnInit() {
-    console.log('init',this.category_id);
 
     this.count = this.counts[0];
     this.sort = this.sortings[0];
     this.sub = this.activatedRoute.queryParams.subscribe(params => {
         this.market_id = params.market;
+        localStorage.setItem('market', '' + (params.market?params.market:1));
         this.is_hyper = params.hyper;
         let content_type  = params.content_type;
         if(content_type == "category"){
@@ -189,7 +188,7 @@ export class ProductsComponent implements OnInit {
       // pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
 
         this.fixedHeader = (pos >= 600);
-      console.log(pos);
+      // console.log(pos);
 
       if (this.current >= this.lastPage) 
         return;

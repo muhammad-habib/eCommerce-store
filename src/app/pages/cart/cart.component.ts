@@ -1,48 +1,57 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { Data, AppService } from '../../app.service';
-
+import { CartServiceService } from'./cart-service.service'
+import { element } from 'protractor';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.scss']
+  styleUrls: ['./cart.component.scss'],
+  providers: [CartServiceService]
 })
 export class CartComponent implements OnInit {
   total = [];
   grandTotal = 0;
-  constructor(public appService:AppService) { }
+  poroducts=[];
+  productsIds=[];
+  constructor(public appService:AppService,public cartServiceService:CartServiceService,
+              ) {
 
+    appService.cartMap.forEach(element => {
+        this.productsIds.push(element.product.id);
+     }); 
+   }
+
+   ngAfterViewInit(){
+     
+   }
   ngOnInit() {
-    this.appService.Data.cartList.forEach(product=>{
-      this.total[product.id] = product.newPrice;
-      this.grandTotal += product.newPrice;
-    })
+    this.cartServiceService.getProducts(Array.from(this.appService.cartMap.keys()))
+    .subscribe(
+          res=>{
+            this.poroducts = res['data'];
+            this.poroducts.forEach(product=>{
+              let temp = this.appService.cartMap.get(product.id);
+              if(temp){
+                temp.product.price = product.price;
+                this.appService.cartMap.set(product.id,temp);              
+              }
+            });
+            this.appService.refreshCart();
+          },
+          err=>{      
+
+          }
+
+        );
   }
 
-  public getTotalPrice(value){
-    if(value){
-      this.total[value.productId] = value.total;
-      this.grandTotal = 0;
-      this.total.forEach(price=>{
-        this.grandTotal += price;
-      })
-    }
-  }
 
   public remove(product) {
-    const index: number = this.appService.Data.cartList.indexOf(product);
-    if (index !== -1) {
-      this.appService.Data.cartList.splice(index, 1);
-      this.grandTotal = this.grandTotal - this.total[product.id];        
-      this.total.forEach(val => {
-        if(val == this.total[product.id]){
-          this.total[product.id] = 0;
-        }
-      })        
-    }     
+    this.appService.removeFromCart(product);
   }
 
   public clear(){
-    this.appService.Data.cartList.length = 0;
+    this.appService.clearCart();
   } 
 
 }

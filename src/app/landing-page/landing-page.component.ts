@@ -22,6 +22,9 @@ export class LandingPageComponent implements OnInit {
   district = '';
   city = '';
   location={};
+  selectedAddress={};
+  markets = [];
+
   ngOnInit() {
     // navigator.geolocation.getCurrentPosition(position => {
     //   console.log(position); 
@@ -30,22 +33,36 @@ export class LandingPageComponent implements OnInit {
     //   console.log(this.location['longitude']); 
     // });
 
+    this.selectedAddress =JSON.parse(localStorage.getItem('address'));
+
+    if(this.selectedAddress){
+      this.addressesService.getAddresses().subscribe(
+        data=>{
+          this.addresses = data['data'];
+          this.addresses.forEach(obj=>{
+            if(this.selectedAddress['id']==obj['id'])
+                  this.selectedAddress = obj;
+                })
+          } );
+
+      this.marketsService.getMarkets(this.selectedAddress['longitude'],this.selectedAddress['latitude']).subscribe(data=>{
+              this.markets = data['data'];
+          });
+        return;  
+    }
+
     if(!localStorage.getItem('device_id')){
         localStorage.setItem('device_id',''+((navigator.platform).replace('','-')+Date.now()+'-'+(Math.floor(Math.random() * 99999999) + 100000000)));          
         console.log("device_id");
         this.getLocation();
-
-    
     }
     else{
       console.log("no device_id");
       this.addressesService.getAddresses().subscribe(
         data=>{
           this.addresses = data['data'];
-          console.log(this.addresses);
           if(this.addresses)  
           {
-            console.log("this.addresses");
             this.getLocation();
           }
         }
@@ -67,7 +84,7 @@ export class LandingPageComponent implements OnInit {
         console.log(this.location['longitude']); 
         localStorage.setItem('long',this.location['longitude']);
         localStorage.setItem('lat',this.location['latitude']);
-        this.marketsService.getMarkets().subscribe(data=>{
+        this.marketsService.getMarkets(this.location['longitude'],this.location['latitude']).subscribe(data=>{
 //            this.markets = data['data'];
         });
 
@@ -82,53 +99,26 @@ export class LandingPageComponent implements OnInit {
     }  
   }
 
-  selectType(data){
-      this.marketTypeDataService.setMarketTypeData(data);
+  getOpenedMarkets(){
+    
+    console.log(this.selectedAddress['longitude'],this.selectedAddress['latitude']);
+    localStorage.setItem('long',this.selectedAddress['longitude']);
+    localStorage.setItem('lat',this.selectedAddress['latitude']);
+
+    localStorage.setItem('address',JSON.stringify(this.selectedAddress));
+
+    this.marketsService.getMarkets(this.selectedAddress['longitude'],this.selectedAddress['latitude']).subscribe(data=>{
+            this.markets = data['data'];
+
+      });
+  
   }
 
-markets = 
-[
-  {
-    "id": 1,
-    "color": "#f56d13",
-    "market_options_images": [
-      "https://s3.us-east-2.amazonaws.com/zadfresh-images/uploads/markets/market-icons/services/cash.png",
-      "https://s3.us-east-2.amazonaws.com/zadfresh-images/uploads/markets/market-icons/services/empty.png",
-      "https://s3.us-east-2.amazonaws.com/zadfresh-images/uploads/markets/market-icons/services/pointSale.png"
-    ],
-    "market_icon": "https://s3.us-east-2.amazonaws.com/zadfresh-images/uploads/markets/market-icons/main/1.png",
-    "market_image": null,
-    "code": "hyper_1",
-    "priority": 1,
-    "name": "هايبر ماركت",
-    "is_hyper": 1,
-    "delivery_description": "أقرب ميعاد للتوصيل الاحد ٦ م - ٨ م",
-    "last_order": null,
-    "express_delivery": 0,
-    "express": null,
-    "vat_rate": 5
-  },
-  {
-    "id": 5,
-    "color": "blue",
-    "market_options_images": [
-      "https://s3.us-east-2.amazonaws.com/zadfresh-images/uploads/markets/market-icons/services/cash.png",
-      "https://s3.us-east-2.amazonaws.com/zadfresh-images/uploads/markets/market-icons/services/empty.png",
-      "https://s3.us-east-2.amazonaws.com/zadfresh-images/uploads/markets/market-icons/services/pointSale.png"
-    ],
-    "market_icon": "https://s3.us-east-2.amazonaws.com/zadfresh-images/uploads/markets/market-icons/main/1.png",
-    "market_image": null,
-    "code": "mini_5",
-    "priority": 2,
-    "name": "مياه تانيا",
-    "is_hyper": 0,
-    "delivery_description": "يتم التوصيل خلال 45 دقيقة",
-    "last_order": null,
-    "express_delivery": 0,
-    "express": null,
-    "vat_rate": 5
+  selectType(data){
+      this.marketTypeDataService.setMarketTypeData(data);
+      localStorage.setItem('market',data.id);
   }
-];
+
 
 
 
