@@ -6,6 +6,7 @@
             </p>
         </div>
         <div class="divider"></div>
+        <h2 *ngIf="orderStatus == orderStatuses.canceled">Order Canceled</h2>
 
     </div>
 </div>
@@ -151,26 +152,26 @@
             </mat-tab-group>
         </mat-card>
     </div>
-    <mat-vertical-stepper #stepper [linear]="true" [selectedIndex]="1">
-        <mat-step   [editable]="false">
+    <mat-vertical-stepper #stepper [linear]="true" style="pointer-events: none;" *ngIf="orderStatus != orderStatuses.canceled" [selectedIndex]="orderStatus">
+        <mat-step [editable]="false">
             <ng-template matStepLabel>
                 <h3>Order Received</h3>
                 <p>your order has been received and will be prepared  in time</p>
             </ng-template>
         </mat-step>
-        <mat-step >
+        <mat-step [editable]="false">
             <ng-template matStepLabel>
                 <h3>Prepare Order</h3>
                 <p>your order is being prepared</p>
             </ng-template>
         </mat-step>
-        <mat-step>
+        <mat-step [editable]="false">
             <ng-template matStepLabel>
                 <h3>Order is on the way</h3>
                 <p>your order is on the way to you right now</p>
             </ng-template>
         </mat-step>
-        <mat-step>
+        <mat-step [editable]="false">
             <ng-template matStepLabel>
                 <h3>Order Delivered</h3>
                 <p>order delivered, enjoy your day</p>

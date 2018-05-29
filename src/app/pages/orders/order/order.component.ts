@@ -16,15 +16,18 @@ export class OrderComponent implements OnInit {
   public order: Order;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-  orderStatus: any = {
-      'received' : 1,
-      'prepared' : 2,
-      'on_the_way' : 3,
-      'delivered' : 4
+  public orderStatus: number;
+  orderStatuses: any = {
+      'canceled' : 4,
+      'received' : 0,
+      'prepared' : 1,
+      'on_the_way' : 2,
+      'delivered' : 3
   } ;
   constructor(private _formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private orderService: OrderService) { }
 
   ngOnInit() {
+      this.orderStatus = 0;
       this.sub = this.activatedRoute.params.subscribe(params => {
           this.getOrder(params['id']);
       });
@@ -42,8 +45,41 @@ export class OrderComponent implements OnInit {
     let user = JSON.parse(localStorage.getItem('user'));
     this.orderService.getOrder(user, id).subscribe(data=> {
         this.order = data['data'];
-        console.log(this.order);
+        switch (this.order.status.id) {
+            case 1:
+               this.orderStatus =  this.orderStatuses.received;
+                break;
+            case 2:
+               this.orderStatus =  this.orderStatuses.prepared;
+                break;
+            case 9:
+               this.orderStatus =  this.orderStatuses.prepared;
+                break;
+            case 10:
+               this.orderStatus =  this.orderStatuses.prepared;
+                break;
+            case 11:
+               this.orderStatus =  this.orderStatuses.prepared;
+                break;
+            case 4:
+               this.orderStatus =  this.orderStatuses.on_the_way;
+                break;
+            case 5:
+               this.orderStatus =  this.orderStatuses.delivered;
+                break;
+            case 6:
+                this.orderStatus =  this.orderStatuses.canceled;
+                break;
+            case 7:
+                this.orderStatus =  this.orderStatuses.canceled;
+                break;
+            case 8:
+                this.orderStatus =  this.orderStatuses.canceled;
+                break;
+        }
+        console.log(this.orderStatus, this.order);
     });
   }
+
 
 }
