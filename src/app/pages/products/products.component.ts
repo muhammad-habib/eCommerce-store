@@ -46,7 +46,7 @@ export class ProductsComponent implements OnInit {
   public fixedHeader= false;
   public slides = [];
 
-  private isOffers = false;
+  public isOffers = false;
 
   @ViewChild(VirtualScrollComponent)
   private virtualScroll: VirtualScrollComponent;
