@@ -21,9 +21,12 @@ export class AppService {
         [],  // cartList
         null //totalPrice
     )
+
     public cartMap = new Map();
     public cartTotalPrice = 0;
-
+    ///temp
+        public logedIn=false;
+    
     public url = "assets/data/";
     constructor(public http:HttpClient, public snackBar: MatSnackBar) { 
         this.readCartFromLocalStorage();
