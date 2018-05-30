@@ -9,6 +9,7 @@ export const routes: Routes = [
     {
         path:'landing',component : LandingPageComponent
     },
+    {path:'',redirectTo: '/landing',pathMatch:'full'},
     { 
         path: '', 
         component: PagesComponent, children: [
