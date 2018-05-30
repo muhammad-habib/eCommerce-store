@@ -21,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
             'deviceid':  req.headers.get('device_id')?req.headers['device_id']:
                            (localStorage.getItem('device_id')?localStorage.getItem('device_id'):""),
             'accept-language': req.headers.get('lang')?req.headers['lang']:
-                                (localStorage.getItem('lang')?localStorage.getItem('lang'):""),
+                                (localStorage.getItem('lang')?localStorage.getItem('lang'):"en"),
             'latitude': req.headers.get('lat') ? req.headers.get('lat') : 
                                   (localStorage.getItem('lat')?localStorage.getItem('lat'):""),
             'longitude': req.headers.get('long') ? req.headers.get('long') : 

@@ -45,7 +45,7 @@ export class LandingPageComponent implements OnInit {
                 })
           } );
 
-      this.marketsService.getMarkets(this.selectedAddress['longitude'],this.selectedAddress['latitude']).subscribe(data=>{
+      this.marketsService.getMarkets().subscribe(data=>{
               this.markets = data['data'];
           });
         return;  
@@ -76,16 +76,14 @@ export class LandingPageComponent implements OnInit {
 
   getLocation(){
     if(navigator.geolocation){
-      console.log(navigator.geolocation?"lol 0":"lol 1")      
       navigator.geolocation.getCurrentPosition(position => {
-        console.log(position); 
         this.location = position.coords;
-        console.log(this.location); 
-        console.log(this.location['longitude']); 
+        console.log(this.location['longitude']);
+        console.log(this.location['latitude']);
         localStorage.setItem('long',this.location['longitude']);
         localStorage.setItem('lat',this.location['latitude']);
-        this.marketsService.getMarkets(this.location['longitude'],this.location['latitude']).subscribe(data=>{
-//            this.markets = data['data'];
+        this.marketsService.getMarkets().subscribe(data=>{
+            this.markets = data['data'];
         });
 
         this.addressesService.getAddress(this.location['longitude'],this.location['latitude'])
@@ -107,9 +105,8 @@ export class LandingPageComponent implements OnInit {
 
     localStorage.setItem('address',JSON.stringify(this.selectedAddress));
 
-    this.marketsService.getMarkets(this.selectedAddress['longitude'],this.selectedAddress['latitude']).subscribe(data=>{
+    this.marketsService.getMarkets().subscribe(data=>{
             this.markets = data['data'];
-
       });
   
   }

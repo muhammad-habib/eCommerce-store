@@ -10,10 +10,10 @@ export class MarketsService {
 
   constructor(public http:HttpClient) { }
 
-  public getMarkets(long,lat): Observable<any[]>{
+  public getMarkets(): Observable<any[]>{
     // console.log(long);
-    return this.http.get<any[]>(this.url + 'markets',{headers: new HttpHeaders({lat:lat,long:long})});
-//    return this.http.get<any[]>(this.url + 'markets');
+//    return this.http.get<any[]>(this.url + 'markets',{headers: new HttpHeaders({lat:lat,long:long})});
+    return this.http.get<any[]>(this.url + 'markets');
   }
 
 }

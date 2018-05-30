@@ -60,7 +60,7 @@
         </div>
         </div>
     </div>
-    <div fxFlex="100%" fxLayoutAlign="center"  >
+    <div *ngIf="!markets.length" fxFlex="100%" fxLayoutAlign="center"  >
             {{ this.district }}
             {{ this.city }}
     </div>
