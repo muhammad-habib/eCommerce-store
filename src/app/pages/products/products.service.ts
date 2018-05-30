@@ -10,8 +10,13 @@ export class ProductsService {
 
   constructor(public http:HttpClient) { }
 
-  public getProducts( hyper , market ,filter ): Observable<any[]>{
-    let link = hyper==1?"products?":"mini-market/products?market_type_id="+market+"&";  
+  public getProducts( hyper , market ,filter ,isOffers ): Observable<any[]>{
+    console.log("h:"+hyper , "m:"+market ,"f:"+filter ,"O:"+isOffers )
+    let link="";
+    if(isOffers)
+        link = hyper==1?"offers?":"mini-market/offers?market_type_id="+market+"&";  
+      else
+        link = hyper==1?"products?":"mini-market/products?market_type_id="+market+"&";  
       return this.http.get<any[]>(this.url + link + this.filterToQuery(filter));
     // return this.http.get<any[]>('http://admin.zadfresh.com/api/products');
   }
@@ -24,6 +29,11 @@ export class ProductsService {
         }
     }
     return queryString;
+  }
+
+
+  public getOffersAds(){
+    return this.http.get<any[]>(this.url + "offers-ads");
   }
 
 }
