@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AddressesService } from './addresses.service'
 import { MarketsService } from './markets.service'
 import { MarketTypeDataService } from '../shared/market-type-data.service'
+import { AppService } from '../app.service';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class LandingPageComponent implements OnInit {
 
   constructor(private addressesService : AddressesService,
               private marketsService:MarketsService,
+              private appService:AppService,
               private marketTypeDataService:MarketTypeDataService ) { 
 
     
@@ -114,6 +116,8 @@ export class LandingPageComponent implements OnInit {
   selectType(data){
       this.marketTypeDataService.setMarketTypeData(data);
       localStorage.setItem('market',data.id);
+      localStorage.setItem('color',data['color']);
+      this.appService.color = data['color'];
   }
 
 

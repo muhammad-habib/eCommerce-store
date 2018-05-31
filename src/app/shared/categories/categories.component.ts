@@ -1,5 +1,7 @@
 import { Component,Input, Output, OnInit, EventEmitter  } from '@angular/core';
 import { CategoriesService } from './categories.service'
+import { AppService } from '../../app.service';
+
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
@@ -19,8 +21,8 @@ export class CategoriesComponent implements OnInit {
   public subCategories=[];
   public selectedSubCat = 0;
   public selectedCat = 0;
-  
-  constructor(private categoriesService : CategoriesService) { }
+  public hover = false;
+  constructor(private categoriesService : CategoriesService,private appService:AppService) { }
 
   ngOnInit() {
     this.selectedCat = this.inputSelectedCat;

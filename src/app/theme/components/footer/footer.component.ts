@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from '../../../app.service';
 
 @Component({
   selector: 'app-footer',
@@ -10,9 +11,13 @@ export class FooterComponent implements OnInit {
   public lng: number = 46.6418812;
   public zoom: number = 12;
 
-  constructor() { }
+  constructor(private appService:AppService) { 
+    console.log(appService.color);
+  }
 
-  ngOnInit() { }
+  ngOnInit() { 
+
+  }
 
   subscribe(){ }
 
