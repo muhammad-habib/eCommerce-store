@@ -1,10 +1,24 @@
 <div class="fixedHeader">
 <div class="scrollmenu">
-  <a (click)="getSubCategories(0);"
+  <a (click)="getSubCategories(0);" 
+
+    (mouseover)="hover=0" (mouseleave)="hover=0"
+    [style.border-color]="appService.color"
+    [style.color]="0==hover?'#fff':appService.color"
+    [style.background-color]="0==selectedCat||0==hover?appService.color:''"
+
   (click)="filterBy('','')" [ngClass]="{'selectedCat':selectedCat == 0}"
   >{{'ALL'|translate}}</a>
   <a *ngFor= "let category of categories" 
+  
+
       (click)="getSubCategories(category.id)"
+
+      (mouseover)="hover=category.id" (mouseleave)="hover=-1"
+      [style.border-color]="appService.color"
+      [style.color]="category.id==hover?'#fff':appService.color"
+      [style.background-color]="category.id==selectedCat||category.id==hover?appService.color:''"
+
       (click)="filterBy(category.id,'')" [ngClass]="{'selectedCat':category.id==selectedCat}"
   >
     {{category.name}}
@@ -13,7 +27,14 @@
 
 <div class="scrollmenu">
     <a *ngFor= "let category of subCategories" (click)="filterBy('',category.id)" 
-                [ngClass]="{'selectedCat':category.id==selectedSubCat}" >
+
+        (mouseover)="hover=category.id" (mouseleave)="hover=-1"
+        [style.border-color]="appService.color"
+        [style.color]="category.id==hover?'#fff':appService.color"
+        [style.background-color]="category.id==selectedSubCat||category.id==hover?appService.color:''"
+
+
+        [ngClass]="{'selectedCat':category.id==selectedSubCat}" >
       {{category.name}}
     </a>
   </div>

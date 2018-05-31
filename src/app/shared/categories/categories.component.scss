@@ -16,12 +16,12 @@ div.scrollmenu{
 div.scrollmenu a {
 
     display: inline-block;
-    color: rgb(255, 79, 9);
+    // color: rgb(255, 79, 9);
     text-align: center;
     padding: 14px;
     margin: 5px;
     text-decoration: none;
-    border-color: rgb(255, 79, 9);
+    // border-color: rgb(255, 79, 9);
     border-style: solid;
     border-width: 1px;
     border-radius: 7px;
@@ -30,13 +30,13 @@ div.scrollmenu a {
 }
 
 div.scrollmenu a:hover {
-    background-color:rgb(255, 79, 9);
+//    background-color:rgb(255, 79, 9);
     color:white;
 }
 
 .selectedCat {
     color:white !important;    
-    background-color:rgb(255, 79, 9);
+//    background-color:rgb(255, 79, 9);
 }
 
 

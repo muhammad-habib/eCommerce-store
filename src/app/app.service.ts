@@ -28,8 +28,11 @@ export class AppService {
         public logedIn=false;
     
     public url = "assets/data/";
+
+    public color ='#f56d13' ;
     constructor(public http:HttpClient, public snackBar: MatSnackBar) { 
         this.readCartFromLocalStorage();
+        this.color = localStorage.getItem('color')?localStorage.getItem('color'):'#f56d13';  
     }
     
     public getCategories(): Observable<Category[]>{

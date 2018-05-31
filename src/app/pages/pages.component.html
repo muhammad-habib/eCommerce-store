@@ -21,7 +21,7 @@
     </mat-sidenav>
 
 
-    <mat-toolbar color="primary">
+    <mat-toolbar  [ngStyle]="{'background-color': appService.color}">
         <!-- <mat-toolbar-row fxLayoutAlign="space-between center" class="top-toolbar theme-container">
             <span fxHide="false" fxHide.gt-sm>
                 <button mat-button (click)="sidenav.toggle()" class="sidenav-toggle">
@@ -35,7 +35,7 @@
         <!-- </mat-toolbar-row> -->
         <mat-toolbar-row fxLayoutAlign="space-between center" class="logo-toolbar theme-container">
             <a class="logo" routerLink="/landing" (click)="closeSubMenus()">
-                <img width="70px" height="82px"  src="/assets/images/LOGO.png">
+                <img width="70px" height="82px"  src="/assets/images/logo2x.png">
             </a>
             <div fxFlex fxFlexOffset.gt-sm="10" fxShow="false" fxShow.gt-sm>
                 <form method="get"  class="search-form">
@@ -141,7 +141,7 @@
     </div>
     
 
-    <app-options></app-options>
+    <!-- <app-options></app-options> -->
 
     <app-footer></app-footer>
 
