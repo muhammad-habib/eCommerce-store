@@ -32,6 +32,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ProductService} from './pages/products/product/product.service';
 // import { CategoryComponent } from './pages/category/category.component';
 import { VirtualScrollModule} from 'angular2-virtual-scroll';
+import { MyAccountComponent } from './pages/my-account/my-account.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import { VirtualScrollModule} from 'angular2-virtual-scroll';
     }),
     SharedModule,
     routing,
-    VirtualScrollModule
+    VirtualScrollModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     AppComponent,
@@ -58,6 +62,7 @@ import { VirtualScrollModule} from 'angular2-virtual-scroll';
     OptionsComponent,
     FooterComponent,
     LandingPageComponent,
+    MyAccountComponent,
     // CategoryComponent,
   ],
   providers: [

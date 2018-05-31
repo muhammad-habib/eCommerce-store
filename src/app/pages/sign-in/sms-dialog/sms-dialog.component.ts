@@ -59,6 +59,7 @@ export class SmsDialogComponent implements OnInit {
                     data => {
                         if(data['status_code'] == 200)
                         {
+                            console.log(data);
                             this.snackBar.open('verification Done', '×', { panelClass: 'success', verticalPosition: 'top', duration: 9000 });
                             this.user._token = data['remember_token'];
                             this.user.id = data['user_id'];

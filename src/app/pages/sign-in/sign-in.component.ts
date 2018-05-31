@@ -20,13 +20,14 @@ export class SignInComponent implements OnInit {
   country_key: any;
 
 
-    myControl: FormControl = new FormControl();
-    options = [];
-    filteredOptions: Observable<string[]>;
+  myControl: FormControl = new FormControl();
+  options = [];
+  filteredOptions: Observable<string[]>;
 
-    filter(val: string): string[] {
-        return this.options.filter(option => option['code'].toLowerCase().indexOf(val.toLowerCase()) === 0 || option['name'].toLowerCase().indexOf(val.toLowerCase()) === 0);
-    }
+  filter(val: string): string[] {
+      return this.options.filter(option => option['code'].toLowerCase().indexOf(val.toLowerCase()) === 0 || option['name'].toLowerCase().indexOf(val.toLowerCase()) === 0);
+  }
+
   constructor(
       public formBuilder: FormBuilder,
       public router:Router,
