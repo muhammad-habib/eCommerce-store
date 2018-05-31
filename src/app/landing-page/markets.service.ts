@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 
@@ -11,7 +11,9 @@ export class MarketsService {
   constructor(public http:HttpClient) { }
 
   public getMarkets(): Observable<any[]>{
-    return this.http.get<any[]>(this.url + 'getMarkets?deviceId='+localStorage.getItem('device_id'));
+    // console.log(long);
+//    return this.http.get<any[]>(this.url + 'markets',{headers: new HttpHeaders({lat:lat,long:long})});
+    return this.http.get<any[]>(this.url + 'markets');
   }
 
 }

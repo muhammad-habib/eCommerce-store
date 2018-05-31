@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
-import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute} from '@angular/router';
 import { Settings, AppSettings } from '../app.settings';
 import { AppService } from '../app.service';
 import { Category } from '../app.models';
@@ -28,8 +28,9 @@ export class PagesComponent implements OnInit {
               public marketTypeDataService:MarketTypeDataService,
               public router:Router) {
     this.settings = this.appSettings.settings; 
+    this.settings.theme = Settings.colors[localStorage.getItem('market')?localStorage.getItem('market'):1]
   }
-
+  public products=[];
   ngOnInit() {
     this.getCategories();
     this.sidenavMenuItems = this.sidenavMenuService.getSidenavMenuItems();
@@ -54,15 +55,11 @@ export class PagesComponent implements OnInit {
   }
 
   public remove(product) {
-      const index: number = this.appService.Data.cartList.indexOf(product);
-      if (index !== -1) {
-          this.appService.Data.cartList.splice(index, 1);
-          this.appService.Data.totalPrice = this.appService.Data.totalPrice - product.newPrice;
-      }        
+    this.appService.removeFromCart(product);
   }
 
   public clear(){
-    this.appService.Data.cartList.length = 0;
+    this.appService.clearCart();
   }
 
 

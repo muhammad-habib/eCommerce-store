@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import {AppService} from '../../../app.service';
 
 @Component({
   selector: 'app-menu',
@@ -6,10 +7,12 @@ import { Component, OnInit} from '@angular/core';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
+  
+  constructor( public appService:AppService) { }
+  ngOnInit() { 
+     this.appService.logedIn = localStorage.getItem('user')?true:false;
 
-  constructor() { }
-
-  ngOnInit() { }
+  }
 
   openMegaMenu(){
     let pane = document.getElementsByClassName('cdk-overlay-pane');

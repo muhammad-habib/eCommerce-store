@@ -1,4 +1,4 @@
-<div fxLayout="column " >
+<div fxLayout="column " style="background-image: url('assets/images/background_1024.png');background-repeat: repeat-x;height: 800px;" >
     
 <!-- <mat-card fxFlex  fxFlexAlign="center">
 
@@ -25,12 +25,11 @@
 
 
 
-<div fxShow="true" fxHide.xs="true">
+<!-- <div fxShow="true" fxHide.xs="true">
     <h1>nav</h1>  
-</div>
+</div> -->
 
-<div fxLayout = "raw wrap" 
- style="background-image: url('assets/images/background_1024.png');background-repeat: repeat-x;" >
+<div fxLayout = "raw wrap">
     <div fxFlex="100%" style="height:50px;" ></div>
 
     <div fxFlex="100%"   fxLayoutAlign="center"  >
@@ -44,8 +43,9 @@
         </div>
         <div fxFlex="100px;" fxLayoutAlign="start center">
                 <mat-form-field fxFlex="100px" >
-                        <mat-select  placeholder="" *ngIf="addresses">
-                          <mat-option   *ngFor="let address of addresses" [value]="address.id">
+                        <mat-select  placeholder="" *ngIf="addresses"  [(value)]="selectedAddress"
+                             (change)="getOpenedMarkets()" >
+                          <mat-option selected  *ngFor="let address of addresses" [value]="address">
                             {{ address.name }}
                           </mat-option>
                         </mat-select>                    
@@ -60,7 +60,7 @@
         </div>
         </div>
     </div>
-    <div fxFlex="100%" fxLayoutAlign="center"  >
+    <div *ngIf="!markets.length" fxFlex="100%" fxLayoutAlign="center"  >
             {{ this.district }}
             {{ this.city }}
     </div>
@@ -126,9 +126,9 @@
 </div> -->
 
 
-<div fxShow="true" fxHide.xs="true">
+<!-- <div fxShow="true" fxHide.xs="true">
     <h1>footer</h1>  
-</div>
+</div> -->
 
 
 </div>

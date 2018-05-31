@@ -3,7 +3,9 @@
         </list-item>
     </virtual-scroll> -->
 <div >
-    <app-categories [hyper]="is_hyper"  [inputSelectedCat]="category_id" (changeCategory)="filterByCategory($event)"  [market]="market_id" ></app-categories>
+    <app-categories *ngIf="(!isOffers)" [hyper]="is_hyper"  [inputSelectedCat]="category_id" (changeCategory)="filterByCategory($event)"  [market]="market_id" ></app-categories>
+    <app-main-carousel *ngIf="(isOffers )"  [slides]="slides"></app-main-carousel> 
+
 </div>
 
 <mat-sidenav-container>
@@ -43,7 +45,7 @@
                         
                             <div fxLayout="column" fxLayoutAlign="center start" *ngIf="product.offer==1" >    
                                     <p class="old-price text-muted">
-                                        <span *ngIf="product.offer">{{currency}} {{product.oldPrice | number : '1.2-2'}}</span>
+                                        <span *ngIf="product.offer">{{currency}} {{product.price | number : '1.2-2'}}</span>
                                     </p>
                                     <p class="new-price">{{currency}} {{product.offer_price | number : '1.2-2'}}</p>
                                 </div>
@@ -54,10 +56,10 @@
 
                         <!-- <app-rating [ratingsCount]="product.ratingsCount" [ratingsValue]="product.ratingsValue" [direction]="'column'"></app-rating> -->
                     </div>                            
-                    <div class="divider mt-2"></div>
+                    <!-- <div class="divider mt-2"></div>
                     <div class="icons">
-                        <!-- <app-controls [product]="product" (onOpenProductDialog)="openProductDialog(product)"></app-controls> -->
-                    </div>
+                        <app-controls [product]="product" (onOpenProductDialog)="openProductDialog(product)"></app-controls>
+                    </div> -->
                 </mat-card>
             </div>
         </div>

@@ -2,7 +2,10 @@
     <div >
         <!-- <span *ngIf="type!='wish'" class="fw-500">Quantity:</span> -->
         <button mat-icon-button matTooltip="Remove" (click)="decrement(product)"><mat-icon>remove</mat-icon></button>
-        <span> {{count}} </span>
+        <span> {{
+                this.appService.cartMap.get(this.product.id)?this.appService.cartMap.get(this.product.id).count:0    
+                }} 
+        </span>
         <button mat-icon-button matTooltip="Add" (click)="increment(product)"><mat-icon>add</mat-icon></button>
     </div>
     <!-- <div *ngIf="type!='wish'">

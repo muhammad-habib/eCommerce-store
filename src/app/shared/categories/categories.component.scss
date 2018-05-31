@@ -3,6 +3,8 @@
 div.scrollmenu{
     overflow: auto;
     white-space: nowrap;
+    // overflow: scroll;
+    // -webkit-overflow-scrolling: touch;
     // position: fixed;
     // top: 0px;
     // width: inherit;
@@ -40,7 +42,7 @@ div.scrollmenu a:hover {
 
 
 .fixedHeader{
-    position: fixed;
+//    position: fixed;
     top: 0px;
     // width: inherit;
     z-index: 2;

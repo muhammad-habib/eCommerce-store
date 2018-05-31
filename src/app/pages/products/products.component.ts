@@ -44,6 +44,9 @@ export class ProductsComponent implements OnInit {
   public filter = {};
   public category_id=0;
   public fixedHeader= false;
+  public slides = [];
+
+  public isOffers = false;
 
   @ViewChild(VirtualScrollComponent)
   private virtualScroll: VirtualScrollComponent;
@@ -54,18 +57,20 @@ export class ProductsComponent implements OnInit {
                public dialog: MatDialog, private router: Router,
                private spinner: NgxSpinnerService) {
 
-                console.log('constractor',this.category_id);
 
                 }
 
   ngOnInit() {
-    console.log('init',this.category_id);
+    this.activatedRoute.data.subscribe(data=>{
+      this.isOffers = (data.offers == true)
+    });
 
     this.count = this.counts[0];
     this.sort = this.sortings[0];
     this.sub = this.activatedRoute.queryParams.subscribe(params => {
-        this.market_id = params.market;
-        this.is_hyper = params.hyper;
+        this.market_id = params.market?params.market:1;
+        localStorage.setItem('market', '' + (this.market_id));
+        this.is_hyper = params.hyper?params.hyper:1;
         let content_type  = params.content_type;
         if(content_type == "category"){
           this.category_id = params.content_id;
@@ -81,13 +86,15 @@ export class ProductsComponent implements OnInit {
 
     this.getCategories();
     this.getBrands();
-    this.getProducts();   
+    this.getProducts(); 
+    if(this.isOffers)  
+        this.getOffersAds();
     // this.location.replaceState('?category=15');
   }
 
   public getProducts(){
     this.spinner.show();
-    this.productsService.getProducts(this.is_hyper,this.market_id,this.filter).subscribe(res=>{
+    this.productsService.getProducts(this.is_hyper,this.market_id,this.filter,this.isOffers).subscribe(res=>{
       this.products = this.products.concat(res['data']['data']); 
       this.current = res['data']['current_page'];
       // console.log(res.shoppers.current_page);
@@ -189,7 +196,7 @@ export class ProductsComponent implements OnInit {
       // pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
 
         this.fixedHeader = (pos >= 600);
-      console.log(pos);
+      // console.log(pos);
 
       if (this.current >= this.lastPage) 
         return;
@@ -199,6 +206,19 @@ export class ProductsComponent implements OnInit {
         this.filter['page']= ++this.current ;
         this.getProducts();    
       }
+    }
+
+    private getOffersAds(){
+          this.productsService.getOffersAds().subscribe(res=>{
+             let tempAds = res['data'];
+             tempAds.forEach(element => {
+              this.slides.push({
+                 title: '', 
+                 subtitle: '', 
+                 image: element                  
+              });
+             });
+          })
     }
 
 }
