@@ -4,8 +4,8 @@
 
     (mouseover)="hover=0" (mouseleave)="hover=0"
     [style.border-color]="appService.color"
-    [style.color]="0==hover?'#fff':appService.color"
-    [style.background-color]="0==selectedCat||0==hover?appService.color:''"
+    [style.color]="hover==0?'#fff':appService.color"
+    [style.background-color]="selectedCat==0||hover==0?appService.color:''"
 
   (click)="filterBy('','')" [ngClass]="{'selectedCat':selectedCat == 0}"
   >{{'ALL'|translate}}</a>

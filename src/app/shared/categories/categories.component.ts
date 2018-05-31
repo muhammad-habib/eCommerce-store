@@ -21,8 +21,8 @@ export class CategoriesComponent implements OnInit {
   public subCategories=[];
   public selectedSubCat = 0;
   public selectedCat = 0;
-  public hover = false;
-  constructor(private categoriesService : CategoriesService,private appService:AppService) { }
+  public hover = -1;
+  constructor(private categoriesService : CategoriesService,public appService:AppService) { }
 
   ngOnInit() {
     this.selectedCat = this.inputSelectedCat;

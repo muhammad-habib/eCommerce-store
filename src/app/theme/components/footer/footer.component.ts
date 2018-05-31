@@ -11,8 +11,7 @@ export class FooterComponent implements OnInit {
   public lng: number = 46.6418812;
   public zoom: number = 12;
 
-  constructor(private appService:AppService) { 
-    console.log(appService.color);
+  constructor(public appService:AppService) { 
   }
 
   ngOnInit() { 
