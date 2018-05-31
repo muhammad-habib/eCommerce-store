@@ -5,6 +5,7 @@ import { PagesComponent } from './pages/pages.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { LandingPageComponent  } from './landing-page/landing-page.component';
 import {MyAccountComponent} from './pages/my-account/my-account.component';
+import {MyWalletComponent} from './pages/my-wallet/my-wallet.component';
 
 export const routes: Routes = [
     {
@@ -26,7 +27,8 @@ export const routes: Routes = [
             { path: 'category', loadChildren: 'app/pages/category/category.module#CategoryModule'},
             // { path: 'orders', loadChildren: 'app/pages/orders/orders.module#OrdersModule', data: { breadcrumb: 'All Orders' } }
             { path: 'orders', loadChildren: 'app/pages/orders/orders.module#OrdersModule', data: { breadcrumb: 'All Orders' } },
-            { path: 'my-account', component: MyAccountComponent }
+            { path: 'my-account', component: MyAccountComponent },
+            { path: 'my-wallet', component: MyWalletComponent }
         ]
     },
     { path: '**', component: NotFoundComponent }
