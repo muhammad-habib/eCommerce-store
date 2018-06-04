@@ -35,6 +35,7 @@ import { VirtualScrollModule} from 'angular2-virtual-scroll';
 import { MyAccountComponent } from './pages/my-account/my-account.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MyWalletComponent } from './pages/my-wallet/my-wallet.component';
+import {LanguagesComponent} from './theme/components/languages/languages.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { MyWalletComponent } from './pages/my-wallet/my-wallet.component';
     MyAccountComponent,
     MyWalletComponent,
     // CategoryComponent,
+    LanguagesComponent
   ],
   providers: [
     AppSettings,
