@@ -26,7 +26,7 @@ export class LandingPageComponent implements OnInit {
   location={};
   selectedAddress={};
   markets = [];
-
+  addressName;
   ngOnInit() {
     // navigator.geolocation.getCurrentPosition(position => {
     //   console.log(position); 

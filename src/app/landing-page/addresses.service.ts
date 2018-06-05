@@ -18,4 +18,21 @@ export class AddressesService {
 
   public getAddress(lat,long){
     return this.http.post<any[]>(this.url + 'locationInfo',{longitude:long,latitude:lat});  }
-}
+
+  public saveNewAddress(coords, name, desc=null) {
+      return this.http.post(this.url + "saveLocation", {
+        deviceId: localStorage.getItem("device_id"),
+        longitude: coords.lng,
+        latitude: coords.lat,
+        name: name
+      });
+    }
+
+  public deleteAddress(location_id){
+    return this.http.get(this.url + "deleteLocation?locationId="+location_id+'&deviceId='+localStorage.getItem("device_id") );
+  }  
+  
+
+
+
+  }
