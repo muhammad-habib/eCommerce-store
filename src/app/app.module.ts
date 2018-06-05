@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { AgmCoreModule } from '@agm/core';
 import { APP_BASE_HREF} from '@angular/common';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -35,6 +34,7 @@ import { VirtualScrollModule} from 'angular2-virtual-scroll';
 import { MyAccountComponent } from './pages/my-account/my-account.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MyWalletComponent } from './pages/my-wallet/my-wallet.component';
+import { AddressesComponent } from './addresses/addresses.component';
 
 
 @NgModule({
@@ -43,9 +43,6 @@ import { MyWalletComponent } from './pages/my-wallet/my-wallet.component';
     BrowserAnimationsModule,
     HttpClientModule,
     NgxSpinnerModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
-    }),
     SharedModule,
     routing,
     VirtualScrollModule,
@@ -65,6 +62,7 @@ import { MyWalletComponent } from './pages/my-wallet/my-wallet.component';
     LandingPageComponent,
     MyAccountComponent,
     MyWalletComponent,
+    AddressesComponent,
     // CategoryComponent,
   ],
   providers: [

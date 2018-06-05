@@ -1,0 +1,41 @@
+<mat-icon style="position: fixed;top: 0;cursor: pointer;z-index: 5;" routerLink="/addresses/list" class="mat-icon-xlg">arrow_back</mat-icon>
+
+<mat-toolbar [style.background-color]="'#f56d13'" style="position: fixed;top: 0;z-index: 3;" fxLayoutAlign="center center" >
+    {{'ADD_NEW_ADDRRES' | translate}}
+</mat-toolbar>
+<div class="container"
+     fxLayout 
+     fxLayoutAlign="center">
+
+  <div fxLayout="column"  fxFlex="80%" fxFlex.xs="100%" 
+        fxLayoutGap="20px" style="margin-bottom: 80px;"
+        fxLayoutGap.xs="0" >
+    
+    <div style="position: relative;height: 400px;width:100%;">
+        <app-map [centerMarker]="true" (changeCoords)="changeCoords($event)" (changeLocation)="changeLocation($event)" ></app-map>
+    </div>
+    
+    <div>
+    <form >
+        <div fxFlex="100%" fxLayout="column wrap" fxLayoutGap="10px"   fxLayoutAlign="center center">
+        <mat-form-field>
+          <input matInput name="addressName" [(ngModel)]="addressName"  placeholder="{{'ADDRES-NAME'|translate}}">
+        </mat-form-field>
+        <mat-form-field>
+            <input   name="addressDescription" matInput  placeholder="{{'ADDRES-DISCRIPTION'|translate}}">
+          </mat-form-field>
+          <div>
+              <button type="button" (click)="submitNewAddress()" mat-raised-button  color="accent">{{'SAVE'|translate}}</button>
+          </div>
+          <div style="min-height: 50px;"></div>
+        </div>
+    </form>
+    </div>
+
+
+  </div>
+</div>
+
+<mat-toolbar [style.background-color]="'#f56d13'" style="position: fixed;bottom: 0;"  fxLayoutAlign="center center" >     
+    <div style=" word-wrap: break-word;">  <p> {{formatted_address}} </p> </div>  
+</mat-toolbar>

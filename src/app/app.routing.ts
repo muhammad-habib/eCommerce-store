@@ -4,12 +4,19 @@ import { ModuleWithProviders } from '@angular/core';
 import { PagesComponent } from './pages/pages.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { LandingPageComponent  } from './landing-page/landing-page.component';
-import {MyAccountComponent} from './pages/my-account/my-account.component';
-import {MyWalletComponent} from './pages/my-wallet/my-wallet.component';
+import { MyAccountComponent} from './pages/my-account/my-account.component';
+import { MyWalletComponent} from './pages/my-wallet/my-wallet.component';
+import { AddressesComponent } from './addresses/addresses.component';
 
 export const routes: Routes = [
     {
         path:'landing',component : LandingPageComponent
+    },
+    {
+        path:'addresses',component : AddressesComponent, children: [
+            { path: 'new' , loadChildren: 'app/addresses/add-address/add-address.module#AddAddressModule'},
+            { path: 'list', loadChildren: 'app/addresses/list-addresses/list-addresses.module#ListAddressesModule'},
+        ]
     },
     {path:'',redirectTo: '/landing',pathMatch:'full'},
     { 

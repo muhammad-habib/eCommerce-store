@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AgmCoreModule } from '@agm/core';
 import { MatAutocompleteModule,
          MatButtonModule,
          MatButtonToggleModule,
@@ -52,6 +53,7 @@ import { ProductsCarouselComponent } from './products-carousel/products-carousel
 import { ProductDialogComponent } from './products-carousel/product-dialog/product-dialog.component';
 import { BannersComponent } from './banners/banners.component';
 import { CategoryListComponent } from './category-list/category-list.component';
+import { MapComponent } from './map/map.component';
 
 import { VirtualScrollModule } from 'angular2-virtual-scroll';
 
@@ -99,7 +101,10 @@ import { CategoriesComponent } from './categories/categories.component';
     MatStepperModule,
     PerfectScrollbarModule,
     PipesModule,
-    VirtualScrollModule    
+    VirtualScrollModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
+    }),        
   ],
   exports: [
     RouterModule,
@@ -148,7 +153,8 @@ import { CategoriesComponent } from './categories/categories.component';
     CategoryListComponent,
     TranslatePipe,
     CategoriesComponent,
-    VirtualScrollModule
+    VirtualScrollModule,
+    MapComponent
   ],
   declarations: [
     RatingComponent,
@@ -160,7 +166,8 @@ import { CategoriesComponent } from './categories/categories.component';
     BannersComponent,
     CategoryListComponent,
     TranslatePipe,
-    CategoriesComponent
+    CategoriesComponent,
+    MapComponent
   ],
   entryComponents:[
     ProductDialogComponent

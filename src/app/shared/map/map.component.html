@@ -1,0 +1,6 @@
+  <agm-map [latitude]="lat" class="map" (centerChange)="mapDragEnd($event)"
+    (mapClick)="selectLocation($event)" 
+  [longitude]="lng" [zoom]="zoom" [mapTypeControl]="true">
+      <!-- <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true"></agm-marker> -->
+  </agm-map>
+<div *ngIf="centerMarker" class="centerMarker"></div>

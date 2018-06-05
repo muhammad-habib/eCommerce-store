@@ -11,9 +11,11 @@ export class AuthInterceptor implements HttpInterceptor {
     intercept (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       
         // add a custom header
-        console.log(req.headers.get('lat'),req.headers.get('long'));
-        console.log(req.headers?1:2);
-        console.log(req);
+        if(req.headers.get('external_link')=='1'){
+          const authReq = req.clone({
+            headers: new HttpHeaders({})});
+          return next.handle(authReq);
+        }else{
         const authReq = req.clone({
           headers: new HttpHeaders({
             'Content-Type':  'application/json',
@@ -32,12 +34,10 @@ export class AuthInterceptor implements HttpInterceptor {
             
           })
         });
-              
-        console.log(authReq.headers.get('latitude'),authReq.headers.get('latitude'));
-        console.log('Intercepted HTTP call', authReq);
-      
+                    
         return next.handle(authReq);
-      }      
+      }    
+    }  
 
       
 }
