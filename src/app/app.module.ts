@@ -35,6 +35,7 @@ import { MyAccountComponent } from './pages/my-account/my-account.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MyWalletComponent } from './pages/my-wallet/my-wallet.component';
 import { AddressesComponent } from './addresses/addresses.component';
+import {LanguagesComponent} from './theme/components/languages/languages.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { AddressesComponent } from './addresses/addresses.component';
     MyWalletComponent,
     AddressesComponent,
     // CategoryComponent,
+    LanguagesComponent
   ],
   providers: [
     AppSettings,

@@ -61,6 +61,7 @@ export class ProductsComponent implements OnInit {
                 }
 
   ngOnInit() {
+    console.log("ffff");
     this.activatedRoute.data.subscribe(data=>{
       this.isOffers = (data.offers == true)
     });
