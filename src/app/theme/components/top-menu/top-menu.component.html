@@ -11,7 +11,7 @@
         <!--</span>-->
     <!--</mat-menu>-->
 
-    <app-languages></app-languages>
+    <!--<app-languages></app-languages>-->
 
     <!--<span fxHide="false" fxHide.gt-sm>-->
         <!--<a mat-button [matMenuTriggerFor]="moreMenu" #moreMenuTrigger="matMenuTrigger" class="mobile-menu-icon">-->
@@ -19,17 +19,30 @@
         <!--</a>-->
         <!--<mat-menu #moreMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="app-dropdown">-->
             <!--<span (mouseleave)="moreMenuTrigger.closeMenu()">-->
-                <!--<a mat-menu-item routerLink="/compare">Compare ({{appService.Data.compareList.length}})</a>-->
-                <!--<a mat-menu-item routerLink="/wishlist">Wishlist ({{appService.Data.wishList.length}})</a>-->
                 <!--<a mat-menu-item routerLink="/sign-in">Sign in</a>-->
             <!--</span>-->
         <!--</mat-menu>-->
     <!--</span>-->
+    <span *ngIf="!appService.logedIn">
+        <a mat-button routerLink="/sign-in"><mat-icon>exit_to_app</mat-icon> Sign in </a>
+    </span>
+    <span *ngIf="appService.logedIn">
+        <a mat-button [matMenuTriggerFor]="langMenu" #langMenuTrigger="matMenuTrigger">
+            <mat-icon>account_circle</mat-icon>
+        </a>
+        <mat-menu #langMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="app-dropdown">
+            <span (mouseleave)="langMenuTrigger.closeMenu()">
+                <div class="user-info" fxlayout="row" fxlayoutalign="space-around center" style="flex-direction: row;">
+                        <mat-icon>account_box</mat-icon>
+                        {{user?.name}}
+                </div>
+                <div class="divider"></div>
+                <a mat-menu-item (click)="signOut()">
+                    <mat-icon>power_settings_new</mat-icon>
+                    Sign out
+                </a>
+            </span>
+        </mat-menu>
+    </span>
 
-    <!--<span fxShow="false" fxShow.gt-sm>-->
-        <!--<a mat-button routerLink="/compare">Compare  ({{appService.Data.compareList.length}})</a>-->
-        <!--<a mat-button routerLink="/wishlist">Wishlist ({{appService.Data.wishList.length}})</a>-->
-        <!--<a mat-button routerLink="/sign-in">Sign in</a>  -->
-    <!--</span>      -->
-
-</div>  
+</div>
