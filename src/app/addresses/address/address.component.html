@@ -1,16 +1,15 @@
 <mat-card class="example-card">
   <mat-card-header>
     <mat-card-title><h3>{{address.name}}</h3>
-       {{decription}}
     </mat-card-title>
-    <!-- <mat-card-subtitle>{{decription}}</mat-card-subtitle> -->
+    <mat-card-subtitle>{{decription}}</mat-card-subtitle>
   </mat-card-header>
   <img mat-card-image 
   src="https://maps.googleapis.com/maps/api/staticmap?center={{address.latitude}},{{address.longitude}}&zoom=16&scale=1&size=400x200&maptype=roadmap&format=png&visual_refresh=true&key=AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE" 
   alt="Photo of a Shiba Inu">
   <mat-card-actions fxLayout fxLayoutAlign="center">
-    <button (click)="delete()" mat-button>{{'DELETE' | translate}}</button>
-    <button (click)="select()" mat-button>{{'SELECT-ADDRESS' | translate}}</button>
+    <button (click)="delete()" mat-raised-button style="background-color: black;color: white">{{'DELETE' | translate}}</button>
+    <button (click)="select()" mat-raised-button  style="background-color: #f56d13;color: white" >{{'SELECT-ADDRESS' | translate}}</button>
   </mat-card-actions>
 </mat-card>
 <br />

@@ -3,19 +3,20 @@ import { AddressesService } from './addresses.service'
 import { MarketsService } from './markets.service'
 import { MarketTypeDataService } from '../shared/market-type-data.service'
 import { AppService } from '../app.service';
+import {  MapService } from '../shared/map/map.service'
 
 
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.scss'],
-  providers: [AddressesService,MarketsService,MarketTypeDataService]
+  providers: [AddressesService,MarketsService,MarketTypeDataService,MapService]
 })
 export class LandingPageComponent implements OnInit {
 
   constructor(private addressesService : AddressesService,
               private marketsService:MarketsService,
-              private appService:AppService,
+              private appService:AppService, private mapService:MapService,
               private marketTypeDataService:MarketTypeDataService ) { 
 
     
@@ -27,6 +28,7 @@ export class LandingPageComponent implements OnInit {
   selectedAddress={};
   markets = [];
   addressName;
+  decription;
   ngOnInit() {
     // navigator.geolocation.getCurrentPosition(position => {
     //   console.log(position); 
@@ -80,14 +82,17 @@ export class LandingPageComponent implements OnInit {
     if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition(position => {
         this.location = position.coords;
-        console.log(this.location['longitude']);
-        console.log(this.location['latitude']);
         localStorage.setItem('long',this.location['longitude']);
         localStorage.setItem('lat',this.location['latitude']);
         this.marketsService.getMarkets().subscribe(data=>{
             this.markets = data['data'];
         });
-
+        this.mapService.getGeoCode({'lat':this.location['latitude'],'lng':this.location['longitude']}).subscribe(
+          res=>{
+              if(res['results'] && res['results'][0] && res['results'][0]['formatted_address'])
+                  this.decription = res['results'][0]['formatted_address']  
+          }
+        );        
         this.addressesService.getAddress(this.location['longitude'],this.location['latitude'])
         .subscribe(data =>{            
             this.district = data['district'];

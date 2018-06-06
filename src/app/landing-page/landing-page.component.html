@@ -53,7 +53,7 @@
                     
                         <mat-select  placeholder="" *ngIf="!addresses">
                             <mat-option    >
-                              {{ location }}
+                              {{ decription }}
                             </mat-option>
                         </mat-select>
                     
@@ -81,7 +81,7 @@
                         style="width: 280px;cursor: pointer;" fxLayout="row" 
                     fxFlex="90px"  fxLayoutAlign="start center">
 
-                    <img height="90px" width="80px" src="{{market.market_icon}}" />
+                    <img height="90px" width="80px"  src="{{market.market_icon}}" />
                     <div class="content" >
                         <p >
                                 <font color="{{ market.color }}">
