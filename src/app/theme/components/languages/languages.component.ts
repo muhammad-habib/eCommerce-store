@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {LanguagesService} from './languages.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-languages',
@@ -16,7 +16,7 @@ export class LanguagesComponent implements OnInit {
     ];
     public flag:any;
 
-    constructor(private languagesService: LanguagesService,private router: Router) { }
+    constructor(private languagesService: LanguagesService,private router: Router, private route: ActivatedRoute) { }
 
     ngOnInit() {
         let flag = this.flags.find(function(flag) {
@@ -41,12 +41,16 @@ export class LanguagesComponent implements OnInit {
                     error => {
             });
         }
-        this.redirectTo(this.router.url);
+
+        // console.log();
+        const allParams = this.route.snapshot.queryParams;
+        let url: string = this.router.url.substring(0, this.router.url.indexOf('?'));
+        this.redirectTo(url, allParams);
     }
 
-    redirectTo(uri:string) {
+    redirectTo(uri:string, params) {
         this.router.navigateByUrl('/DummyComponent', {skipLocationChange: true}).then(()=>
-            this.router.navigate([uri]));
+            this.router.navigate([uri], { queryParams: params}));
     }
 
 

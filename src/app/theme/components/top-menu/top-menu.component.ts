@@ -8,8 +8,8 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-top-menu',
   templateUrl: './top-menu.component.html',
-    styleUrls: ['./top-menu.component.scss'],
-    providers: [TopMenuService]
+  styleUrls: ['./top-menu.component.scss'],
+  providers: [TopMenuService]
 })
 export class TopMenuComponent implements OnInit {
   public flags = [
