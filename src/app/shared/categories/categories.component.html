@@ -8,7 +8,7 @@
     [style.background-color]="selectedCat==0||hover==0?appService.color:''"
 
   (click)="filterBy('','')" [ngClass]="{'selectedCat':selectedCat == 0}"
-  >{{'ALL'|translate}}</a>
+  >{{'all'|translate}}</a>
   <a *ngFor= "let category of categories" 
   
 

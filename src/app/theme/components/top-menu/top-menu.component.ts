@@ -24,9 +24,6 @@ export class TopMenuComponent implements OnInit {
 
   ngOnInit() {
     this.flag = this.flags[0];
-    let user = JSON.parse(localStorage.getItem('user'));
-    if (user)
-      this.getUser(user.id);
   }
 
   public signOut() {
@@ -35,12 +32,6 @@ export class TopMenuComponent implements OnInit {
     this.redirectTo('/products');
   }
 
-    public getUser(id) {
-        this.topMenuService.getUser(id).subscribe(data=> {
-            this.user = data['data'];
-            console.log(this.user);
-        });
-    }
 
     redirectTo(uri:string) {
         this.router.navigateByUrl('/DummyComponent', {skipLocationChange: true}).then(()=>

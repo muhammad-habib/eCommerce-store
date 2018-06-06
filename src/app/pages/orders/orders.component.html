@@ -21,7 +21,8 @@
     <div *ngFor="let order of orders" fxFlex="100" [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="col">
         <mat-card class="product-item text-center">
             <mat-chip-list>
-                <mat-chip color="warn" selected="true">{{order.status.name_en}}</mat-chip>
+                <mat-chip color="warn" selected="true" *ngIf="appService.lang === 'en'">{{order.status.name_en}}</mat-chip>
+                <mat-chip color="warn" selected="true" *ngIf="appService.lang === 'ar'">{{order.status.name}}</mat-chip>
             </mat-chip-list>
             <a [routerLink]="['/orders', order.id]" class="title">
                 {{order.delivery_time}}

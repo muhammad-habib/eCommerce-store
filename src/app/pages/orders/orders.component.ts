@@ -3,6 +3,7 @@ import {OrdersService} from './orders.service';
 import {Order} from '../../models/Order.model';
 import {VirtualScrollComponent} from 'angular2-virtual-scroll';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {AppService} from '../../app.service';
 
 @Component({
   selector: 'app-orders',
@@ -26,7 +27,7 @@ export class OrdersComponent implements OnInit {
     @ViewChild(VirtualScrollComponent)
     private virtualScroll: VirtualScrollComponent;
 
-    constructor(private ordersSerivce:OrdersService,private spinner: NgxSpinnerService) { }
+    constructor(private ordersSerivce:OrdersService,private spinner: NgxSpinnerService, public appService: AppService) { }
 
     ngOnInit() {
 

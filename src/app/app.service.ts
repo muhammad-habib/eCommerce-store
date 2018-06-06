@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from '@angular/material';
 import { Category, Product } from './app.models';
+import {User} from './models/User.model';
+import {environment} from '../environments/environment';
 
 export class Data {
     constructor(public categories: Category[],
@@ -25,7 +27,9 @@ export class AppService {
     public cartMap = new Map();
     public cartTotalPrice = 0;
     ///temp
-        public logedIn=false;
+    public logedIn=false;
+    public user: User;
+    public lang: string;
     
     public url = "assets/data/";
 
@@ -453,6 +457,12 @@ export class AppService {
             { value: 'standard', name: 'Standard Delivery', desc: '$7.99 / Delivery in 5 to 7 business Days' },
             { value: 'express', name: 'Express Delivery', desc: '$29.99 / Delivery in 1 business Days' }
         ]
+    }
+
+    getUser(id): Observable<User> {
+        let params = new HttpParams();
+        params = params.append('userId', id);
+        return this.http.get<User>(environment.API_ENDPOINT+'get-user', { params: params});
     }
 
 } 

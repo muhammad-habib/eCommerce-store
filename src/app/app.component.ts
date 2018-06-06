@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
 import { Settings, AppSettings } from './app.settings';
+import {AppService} from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +12,17 @@ export class AppComponent {
   loading: boolean = false;
   content_id: number;
   public settings: Settings;
-  constructor(public appSettings:AppSettings, public router: Router){
+  constructor(public appSettings:AppSettings, public router: Router, private appService: AppService){
     this.settings = this.appSettings.settings;
   }
 
   ngOnInit() {
     if(! localStorage.getItem('device_id'))
-        localStorage.setItem("device_id",((navigator.platform).replace(' ','')) +'-' + Date.now() +'-'+(Math.floor(Math.random() * 1000000) + 1000000) );    
+        localStorage.setItem("device_id",((navigator.platform).replace(' ','')) +'-' + Date.now() +'-'+(Math.floor(Math.random() * 1000000) + 1000000) );
    // this.router.navigate(['']);  //redirect other pages to homepage on browser refresh
+      let user = JSON.parse(localStorage.getItem('user'));
+      if (user)
+          this.getUser(user.id);
   }
 
   ngAfterViewInit(){
@@ -27,7 +31,13 @@ export class AppComponent {
           window.scrollTo(0,0);
       }
     }) ;
-
-
   }
+
+  getUser(id) {
+        this.appService.getUser(id).subscribe(data=> {
+            this.appService.user = data['data'];
+            console.log(this.appService.user);
+        });
+  }
+
 }

@@ -45,7 +45,7 @@
                             <app-category-list [categories]="categories" [categoryParentId]="0" (change)="changeCategory($event)"></app-category-list>
                         </span>
                     </mat-menu> -->
-                    <input type="text" placeholder="Type to search..." fxFlex>
+                    <input type="text" placeholder="{{'search' |translate}}" fxFlex>
                     <button mat-mini-fab (click)="search()" type="button" class="search-btn mat-elevation-z0 text-muted">
                         <mat-icon>search</mat-icon>
                     </button> 
@@ -60,7 +60,7 @@
                         <mat-icon class="mat-icon-lg">shopping_cart</mat-icon>
                         <span *ngIf="appService.cartMap.size > 0" class="cart-items-count">{{appService.cartMap.size}}</span>
                         <div fxLayout="column" fxLayoutAlign="center center" fxShow="false" fxShow.gt-xs class="top-cart">
-                            <span>Shopping Cart</span>
+                            <span>{{'shopping_cart' |translate}}</span>
                             <span *ngIf="appService.cartMap.size > 0">{{appService.cartMap.size}} item<span *ngIf="appService.Data.cartList.length > 1">s</span> -
                                 $<span>{{appService.cartTotalPrice | number : '1.2-2'}}</span>
                             </span>
@@ -70,11 +70,11 @@
                     <mat-menu #cartMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="top-menu-dropdown cart-dropdown">
                         <span (mouseleave)="cartMenuTrigger.closeMenu()" class="d-block">
                             <div fxLayout="row" fxLayoutAlign="space-between center" class="text-muted">
-                                <b><span>{{appService.cartMap.size }} ITEM<span *ngIf="appService.cartMap.size > 1">S</span></span></b>
-                                <b><a [routerLink]="['/cart']" class="text-muted">VIEW CART</a></b>
+                                <b><span>{{appService.cartMap.size }} {{'item' |translate}}<span *ngIf="appService.cartMap.size > 1">S</span></span></b>
+                                <b><a [routerLink]="['/cart']" class="text-muted">{{'view_cart' |translate}}</a></b>
                             </div>
                             <div class="divider mt-1"></div>
-                            <div *ngIf="appService.cartMap.size == 0" class="py-1 text-muted text-center">You have no items in your shopping cart.</div>
+                            <div *ngIf="appService.cartMap.size == 0" class="py-1 text-muted text-center">{{'empty_cart' |translate}}</div>
                             <mat-list>
                                 <mat-list-item *ngFor="let entry of  appService.cartMap.values()">
                                     <h3 matLine class="text-muted"> {{entry.product.name}} </h3>
@@ -119,7 +119,7 @@
                                     <app-category-list [categories]="categories" [categoryParentId]="0" (change)="changeCategory($event)"></app-category-list>
                                 </span>
                             </mat-menu>
-                            <input type="text" placeholder="Type to search..." fxFlex (click)="stopClickPropagate($event)">
+                            <input type="text" placeholder="{{'search' |translate}}" fxFlex (click)="stopClickPropagate($event)">
                             <button mat-mini-fab (click)="search()" type="button" class="search-btn mat-elevation-z0 text-muted">
                                 <mat-icon>search</mat-icon>
                             </button> 
