@@ -34,7 +34,7 @@
         </a>
         <mat-menu #langMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="app-dropdown">
             <span (mouseleave)="langMenuTrigger.closeMenu()">
-                <div class="user-info" mat-menu-item fxlayout="row" fxlayoutalign="space-around center" style="flex-direction: row;">
+                <div mat-menu-item style="pointer-events: none;">
                         <mat-icon>account_box</mat-icon>
                         {{appService?.user?.name}}
                 </div>
@@ -42,6 +42,18 @@
                 <a mat-menu-item routerLink="/my-account">
                     <mat-icon>person</mat-icon>
                     {{'profile' |translate}}
+                </a>
+                <a mat-menu-item>
+                     <mat-icon>credit_card</mat-icon>
+                     {{'free_credit' |translate}}
+                </a>
+                <a mat-menu-item>
+                     <mat-icon>card_giftcard</mat-icon>
+                     {{'my_points' |translate}}
+                </a>
+                <a mat-menu-item routerLink="/my-wallet">
+                    <mat-icon>attach_money</mat-icon>
+                    {{'my_wallet' |translate}}
                 </a>
                 <a mat-menu-item (click)="signOut()">
                     <mat-icon>power_settings_new</mat-icon>

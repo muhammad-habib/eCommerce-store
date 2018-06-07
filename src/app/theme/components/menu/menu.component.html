@@ -48,20 +48,9 @@
         </div>
            
     </mat-menu> -->
-    
     <a mat-button [routerLink]="['/products']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">{{'home' |translate}}</a>
     <a mat-button [routerLink]="['/offers']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">{{'offers' |translate}}</a>
-
     <a *ngIf="appService.logedIn" mat-button [routerLink]="['/orders']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">{{'my-orders' |translate}}</a>
-
-
-    <a mat-button [matMenuTriggerFor]="animals">{{'account' |translate}}<mat-icon class="caret">arrow_drop_down</mat-icon></a>
-    <mat-menu #animals="matMenu" [overlapTrigger]="false" class="app-dropdown"> 
-        <a mat-menu-item [routerLink]="['/products']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">{{'free_credit' |translate}}</a>
-        <a mat-menu-item routerLink="/my-wallet" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">{{'my_wallet' |translate}}</a>
-    </mat-menu>
-
     <a mat-button [routerLink]="['/products']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">{{'help' |translate}}</a>
-
 </mat-toolbar>
 

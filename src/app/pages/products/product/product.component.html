@@ -14,12 +14,12 @@
 
         <h2>{{product?.name}}</h2>
         <div class="py-1 lh">
-            <p><span class="text-muted fw-500">Category: </span><span>{{ product?.category_name }}</span></p>
+            <p><span class="text-muted fw-500">{{'category' | translate}} : </span><span>{{ product?.category_name }}</span></p>
         </div>
         <p class="py-1 text-muted lh">{{product?.description_en}}</p>
 
         <div class="divider mt-1"></div>
-        <h2 class="py-2 new-price">SR{{product?.price}}</h2>
+        <h2 class="py-2 new-price">{{'SAR' | translate}}{{product?.price}}</h2>
 
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" class="details text-muted py-1">
             <div *ngIf="product?.color" class="color">
@@ -27,7 +27,7 @@
                 <button mat-raised-button *ngFor="let color of product?.color" [style.background]="color">&nbsp;</button>
             </div>
             <div *ngIf="product?.size" class="size" ngClass.xs="mt-1">
-                <span class="text-muted fw-500">Size: </span><span class="fw-500">{{product.size}}</span>
+                <span class="text-muted fw-500">{{'size' | translate}}: </span><span class="fw-500">{{product.size}}</span>
             </div>
         </div>
     </div>

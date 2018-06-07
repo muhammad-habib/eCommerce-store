@@ -1,8 +1,8 @@
 <div fxFlex="100" fxFlex.gt-sm="100" class="p-2" ngClass.sm="mt-2" ngClass.xs="mt-2">
-    <h2 class="text-muted text-center">Confirm Phone Number <h3>Enter number you have received</h3></h2>
+    <h2 class="text-muted text-center">{{'sms_confirm' | translate}}<h3>{{'code_number' | translate}}</h3></h2>
     <form [formGroup]="smsForm">
         <mat-form-field class="w-100 mt-1">
-            <input matInput placeholder="Code"  formControlName="sms" [(ngModel)]="code" required>
+            <input matInput placeholder="{{'code' | translate}}"  formControlName="sms" [(ngModel)]="code" required>
             <mat-error *ngIf="smsForm.controls.sms.errors?.required" maxlength="5" minlength="5">Code is required</mat-error>
             <mat-error *ngIf="smsForm.controls['sms'].hasError('maxlength') || smsForm.controls['sms'].hasError('minlength')">Invalid Code Number</mat-error>
         </mat-form-field>
