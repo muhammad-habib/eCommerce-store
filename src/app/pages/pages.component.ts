@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { Router, NavigationEnd, ActivatedRoute} from '@angular/router';
 import { Settings, AppSettings } from '../app.settings';
@@ -6,6 +6,7 @@ import { AppService } from '../app.service';
 import { Category } from '../app.models';
 import { SidenavMenuService } from '../theme/components/sidenav-menu/sidenav-menu.service';
 import { MarketTypeDataService } from '../shared/market-type-data.service'
+import { CartDataService } from './cart/cart-data.service'
 
 @Component({
   selector: 'app-pages',
@@ -23,7 +24,7 @@ export class PagesComponent implements OnInit {
 
   public settings: Settings;
   constructor(public appSettings:AppSettings, 
-              public appService:AppService, 
+              public appService:AppService, private cartDataService:CartDataService, 
               public sidenavMenuService:SidenavMenuService,
               public marketTypeDataService:MarketTypeDataService,
               public router:Router) {
@@ -31,10 +32,15 @@ export class PagesComponent implements OnInit {
     this.settings.theme = Settings.colors[localStorage.getItem('market')?localStorage.getItem('market'):1]
   }
   public products=[];
+  public cart;
   ngOnInit() {
     this.getCategories();
     this.sidenavMenuItems = this.sidenavMenuService.getSidenavMenuItems();
     this.marketTypeData = this.marketTypeDataService.getMarketTypeData();
+    this.cartDataService.cart.subscribe(cart => {
+      this.cart = cart
+      console.log(cart);
+    });
   } 
 
   public getCategories(){    

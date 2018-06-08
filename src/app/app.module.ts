@@ -65,7 +65,8 @@ import {LanguagesComponent} from './theme/components/languages/languages.compone
     MyWalletComponent,
     AddressesComponent,
     // CategoryComponent,
-    LanguagesComponent
+    LanguagesComponent,
+  
   ],
   providers: [
     AppSettings,

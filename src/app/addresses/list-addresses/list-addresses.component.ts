@@ -45,7 +45,7 @@ export class ListAddressesComponent implements OnInit {
   }
 
   selectAddress(address){
-    localStorage.setItem('long',address['longitude']);
+    localStorage.setItem('lng',address['longitude']);
     localStorage.setItem('lat',address['latitude']);
     localStorage.setItem('address',JSON.stringify(address));
     this.router.navigate(['/']); 

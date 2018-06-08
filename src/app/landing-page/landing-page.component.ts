@@ -82,7 +82,7 @@ export class LandingPageComponent implements OnInit {
     if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition(position => {
         this.location = position.coords;
-        localStorage.setItem('long',this.location['longitude']);
+        localStorage.setItem('lng',this.location['longitude']);
         localStorage.setItem('lat',this.location['latitude']);
         this.marketsService.getMarkets().subscribe(data=>{
             this.markets = data['data'];
@@ -107,7 +107,7 @@ export class LandingPageComponent implements OnInit {
   getOpenedMarkets(){
     
     console.log(this.selectedAddress['longitude'],this.selectedAddress['latitude']);
-    localStorage.setItem('long',this.selectedAddress['longitude']);
+    localStorage.setItem('lng',this.selectedAddress['longitude']);
     localStorage.setItem('lat',this.selectedAddress['latitude']);
 
     localStorage.setItem('address',JSON.stringify(this.selectedAddress));

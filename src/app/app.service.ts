@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from '@angular/material';
 import { Category, Product } from './app.models';
+import { CartDataService } from './pages/cart/cart-data.service'
 
 export class Data {
     constructor(public categories: Category[],
@@ -30,7 +31,9 @@ export class AppService {
     public url = "assets/data/";
 
     public color ='#f56d13' ;
-    constructor(public http:HttpClient, public snackBar: MatSnackBar) { 
+    constructor(public http:HttpClient, public snackBar: MatSnackBar,                
+                private cartDataService:CartDataService) 
+    { 
         this.readCartFromLocalStorage();
         this.color = localStorage.getItem('color')?localStorage.getItem('color'):'#f56d13';  
     }
@@ -99,7 +102,8 @@ export class AppService {
             let message = 'The product ' + product.name + ' has been added to cart.'; 
             let status = 'success';  
             this.snackBar.open(message, '×', { panelClass: [status], verticalPosition: 'top', duration: 3000 });
-    }
+            this.cartDataService.changeCart(this.cartMap);                   
+        }
 
     public removeFromCart(product) {
 
@@ -117,6 +121,7 @@ export class AppService {
 
             this.writeCartToLocalStoarge();
         }
+        this.cartDataService.changeCart(this.cartMap);                   
 
       }
     
@@ -125,24 +130,26 @@ export class AppService {
         this.cartMap.forEach(value=>{
             this.cartTotalPrice += (value.count * value.product.price);
         });
-        this.writeCartToLocalStoarge();                    
+        this.writeCartToLocalStoarge(); 
+        this.cartDataService.changeCart(this.cartMap);                   
     }  
 
     private writeCartToLocalStoarge(){
         let market = localStorage.getItem('market');
-        let tempCart = JSON.parse(localStorage.getItem('cart'));
+        let tempCart = JSON.parse(localStorage.getItem('cart'))||[];
 
         tempCart[market] = {totalPrice:this.cartTotalPrice,map: Array.from(this.cartMap.entries())}; 
         localStorage.setItem('cart' , JSON.stringify(tempCart)) 
       }
 
 
-    private readCartFromLocalStorage(){
+    public readCartFromLocalStorage(){
         let market = localStorage.getItem('market');
         let tempCart = JSON.parse(localStorage.getItem('cart'));
         if(tempCart && tempCart[market]){
             this.cartMap = new Map(tempCart[market].map);
             this.cartTotalPrice = tempCart[market].totalPrice; 
+            this.cartDataService.changeCart(this.cartMap);                   
         }
       }
 

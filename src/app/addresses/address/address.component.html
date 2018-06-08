@@ -2,7 +2,11 @@
   <mat-card-header>
     <mat-card-title><h3>{{address.name}}</h3>
     </mat-card-title>
-    <mat-card-subtitle>{{decription}}</mat-card-subtitle>
+    <mat-card-subtitle >
+      <p class="truncate" > 
+          {{decription}}
+      </p>
+    </mat-card-subtitle>
   </mat-card-header>
   <img mat-card-image 
   src="https://maps.googleapis.com/maps/api/staticmap?center={{address.latitude}},{{address.longitude}}&zoom=16&scale=1&size=400x200&maptype=roadmap&format=png&visual_refresh=true&key=AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE" 

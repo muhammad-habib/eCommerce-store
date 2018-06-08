@@ -23,6 +23,19 @@ export class MapComponent implements OnInit {
   constructor( private mapService:MapService) { }
 
   ngOnInit() {
+    let coords={lat:this.lat,lng:this.lng};
+    this.changeCoords.emit(coords);        
+
+    this.mapService.getGeoCode(coords).subscribe(
+      res=>{
+        console.log(res['results'][0]['formatted_address']);
+        if(res['results']&&res['results'][0] && res['results'][0]['formatted_address'])
+        this.changeLocation.emit({address:res['results'][0]['formatted_address']});        
+      },
+      err=>{
+        console.log(err);
+      }
+    );
   }
 
   selectLocation(coords){
@@ -43,7 +56,7 @@ export class MapComponent implements OnInit {
       }
     );
 
-    setTimeout(()=>{  }, 3000);
+    // setTimeout(()=>{  }, 3000);
   }
 
 }

@@ -1,0 +1,13 @@
+<div *ngFor="let time of slots">
+  <h4>{{time.day}}</h4>
+  <div  fxLayout="row wrap"  fxLayoutGap="10px">
+    <div *ngFor="let slot of time.slots" >
+    <mat-card  [ngClass]="{'selected-slot':slot.id==selectedSlot,'disabled-slot':!slot.availability}" 
+     style="text-align: center;cursor: pointer;width: 85px;height: 30px;margin-bottom:10px;" (click)="selectTimeSlot(slot)" >
+        <p> {{slot.from }}  {{slot.to }}</p>
+        <p>{{slot.delivery_fees}} {{'CURRENCY_SHORTCUT' | translate}}</p>
+    </mat-card>      
+      </div>
+</div>
+
+</div>

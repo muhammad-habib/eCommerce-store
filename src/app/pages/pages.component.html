@@ -76,7 +76,7 @@
                             <div class="divider mt-1"></div>
                             <div *ngIf="appService.cartMap.size == 0" class="py-1 text-muted text-center">You have no items in your shopping cart.</div>
                             <mat-list>
-                                <mat-list-item *ngFor="let entry of  appService.cartMap.values()">
+                                <mat-list-item *ngFor="let entry of  cart.values()">
                                     <h3 matLine class="text-muted"> {{entry.product.name}} </h3>
                                     <p matLine class="text-muted">
                                         <span> {{entry.count}} x ${{entry.product.price | number : '1.2-2'}} </span>

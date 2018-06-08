@@ -4,15 +4,13 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
-export class CartServiceService {
-
+export class PaymentMethodsService {
   private url = environment.API_ENDPOINT;
 
   constructor(public http:HttpClient) { }
 
-  public getProducts(products): Observable<any[]>{
-    let link = "list-of-products";  
-    return this.http.post<any[]>(this.url + link,{products:products});
-    // return this.http.get<any[]>('http://admin.zadfresh.com/api/products');
+  public getPaymentMethods(): Observable<any[]>{
+    return this.http.get<any[]>(this.url + 'paymentTypes');
   }
+
 }

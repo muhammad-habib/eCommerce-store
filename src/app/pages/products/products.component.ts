@@ -61,7 +61,6 @@ export class ProductsComponent implements OnInit {
                 }
 
   ngOnInit() {
-    console.log("ffff");
     this.activatedRoute.data.subscribe(data=>{
       this.isOffers = (data.offers == true)
     });
@@ -84,7 +83,8 @@ export class ProductsComponent implements OnInit {
     if(window.innerWidth < 1280){
       this.viewCol = 33.3;
     };
-
+    this.appService.readCartFromLocalStorage();
+    this.appService.refreshCart()
     this.getCategories();
     this.getBrands();
     this.getProducts(); 
