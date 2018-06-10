@@ -27,7 +27,6 @@ export class ProductsComponent implements OnInit {
   public sort:any;
   public products: Array<Product> = [];
   public categories:Category[];
-  public brands = [];
   public priceFrom: number = 750;
   public priceTo: number = 1599;
   public colors = ["#5C6BC0","#66BB6A","#EF5350","#BA68C8","#FF4081","#9575CD","#90CAF9","#B2DFDB","#DCE775","#FFD740","#00E676","#FBC02D","#FF7043","#F5F5F5","#000000"];
@@ -86,7 +85,6 @@ export class ProductsComponent implements OnInit {
     this.appService.readCartFromLocalStorage();
     this.appService.refreshCart()
     this.getCategories();
-    this.getBrands();
     this.getProducts(); 
     if(this.isOffers)  
         this.getOffersAds();
@@ -121,9 +119,6 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  public getBrands(){
-    this.brands = this.appService.getBrands();
-  }
 
   ngOnDestroy() {
     this.sub.unsubscribe();

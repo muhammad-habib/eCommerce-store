@@ -1,7 +1,7 @@
 <mat-icon style="position: fixed;color: white;top: 0;cursor: pointer;z-index: 5;" routerLink="/addresses/list" class="mat-icon-xlg">arrow_back</mat-icon>
 
 <mat-toolbar [style.background-color]="'#f56d13'" style="position: fixed;top: 0;z-index: 3;color: white" fxLayoutAlign="center center" >
-    {{'ADD_NEW_ADDRRES' | translate}}
+    {{'ADD_NEW_ADDRESS' | translate}}
 </mat-toolbar>
 <div style="min-height: 65px;min-width: 100px;"></div>
 <div class="container"
@@ -20,15 +20,15 @@
     <form >
         <div fxFlex="100%" fxLayout="column wrap" fxLayoutGap="10px"   fxLayoutAlign="center center">
         <mat-form-field>
-          <input matInput name="addressName" [(ngModel)]="addressName" required  placeholder="{{'ADDRES-NAME'|translate}}">
+          <input matInput name="addressName" [(ngModel)]="addressName" required  placeholder="{{'ADDRESS_NAME'|translate}}">
         </mat-form-field>
         <mat-form-field>
-            <input   name="addressDescription" matInput  placeholder="{{'ADDRES-DISCRIPTION'|translate}}">
+            <input   name="addressDescription" matInput  placeholder="{{'ADDRESS_DESCRIPTION'|translate}}">
           </mat-form-field>
           <div>
               <button type="button" [disabled]="!addressName" (click)="submitNewAddress()" mat-raised-button  color="accent">{{'SAVE'|translate}}</button>
           </div>
-          <div style="min-height: 50px;"></div>
+          <div style="min-height: 100px; width: 100px;"></div>
         </div>
     </form>
     </div>

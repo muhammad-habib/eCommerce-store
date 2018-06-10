@@ -10,10 +10,10 @@ export class CouponService {
 
   constructor(public http:HttpClient) { }
 
-  public validateCoupon(coupon): Observable<any[]>{
-    return this.http.post<any[]>(this.url + 'api/validateCoupon',{
+  public validateCoupon(coupon,order_total_price): Observable<any[]>{
+    return this.http.post<any[]>(this.url + 'validateCoupon',{
         "typeOfMarket":localStorage.getItem('market')||1,
-        "total_price":55,
+        "total_price":order_total_price,
         "coupon_name":coupon
     });
   }

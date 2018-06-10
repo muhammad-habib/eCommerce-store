@@ -8,8 +8,8 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-top-menu',
   templateUrl: './top-menu.component.html',
-    styleUrls: ['./top-menu.component.scss'],
-    providers: [TopMenuService]
+  styleUrls: ['./top-menu.component.scss'],
+  providers: [TopMenuService]
 })
 export class TopMenuComponent implements OnInit {
   public flags = [
@@ -24,9 +24,6 @@ export class TopMenuComponent implements OnInit {
 
   ngOnInit() {
     this.flag = this.flags[0];
-    let user = JSON.parse(localStorage.getItem('user'));
-    if (user)
-      this.getUser(user.id);
   }
 
   public signOut() {
@@ -35,12 +32,6 @@ export class TopMenuComponent implements OnInit {
     this.redirectTo('/products');
   }
 
-    public getUser(id) {
-        this.topMenuService.getUser(id).subscribe(data=> {
-            this.user = data['data'];
-            console.log(this.user);
-        });
-    }
 
     redirectTo(uri:string) {
         this.router.navigateByUrl('/DummyComponent', {skipLocationChange: true}).then(()=>

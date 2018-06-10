@@ -1,10 +1,10 @@
 <mat-card>
     <div fxLayout="row wrap">
         <div fxFlex="100" fxFlex.gt-sm="50" class="p-2">
-            <h2 class="text-muted text-center">Sign In</h2>
+            <h2 class="text-muted text-center">{{'sign_in' | translate}}</h2>
             <form [formGroup]="loginForm">
                 <mat-form-field class="w-100 mt-1">
-                    <input type="text" placeholder="Country Key" aria-label="Number" [(ngModel)]="country_key" matInput formControlName="country_key" [formControl]="myControl" [matAutocomplete]="auto">
+                    <input type="text" placeholder="{{'country_key' | translate}}" aria-label="Number" [(ngModel)]="country_key" matInput formControlName="country_key" [formControl]="myControl" [matAutocomplete]="auto">
                     <mat-autocomplete *ngIf="filteredOptions" autoActiveFirstOption #auto="matAutocomplete">
                         <mat-option  *ngFor="let option of filteredOptions | async" [value]="option['code']">
                             {{option['name']}}  {{ option['code'] }}
@@ -14,7 +14,7 @@
                     <mat-error *ngIf="loginForm.controls.country_key.hasError('maxLength')">Invalid Country Key Number</mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-100 mt-1">
-                    <input matInput placeholder="Mobile"   formControlName="mobile" required>
+                    <input matInput placeholder="{{'mobile' | translate}}"   formControlName="mobile" required>
                     <mat-error *ngIf="loginForm.controls.mobile.errors?.required">Mobile is required</mat-error>
                     <mat-error *ngIf="loginForm.controls.mobile.hasError('minlength')">Invalid Mobile Number</mat-error>
                 </mat-form-field>
@@ -26,7 +26,7 @@
 
                 <div fxLayout="row" fxLayoutAlign="space-between center" class="mt-2">
                     <div class="divider w-100"></div>
-                    <h3 class="text-muted auth">or Sign in with one click</h3>
+                    <h3 class="text-muted auth">{{'social_sign_in' | translate}}</h3>
                     <div class="divider w-100"></div>
                 </div>               
                 
@@ -45,15 +45,15 @@
             </form>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="50" class="p-2" ngClass.sm="mt-2" ngClass.xs="mt-2">
-            <h2 class="text-muted text-center">Don't have an account? Sign up now!</h2>
+            <h2 class="text-muted text-center">{{'no_account' | translate}}</h2>
             <form [formGroup]="registerForm">
                 <mat-form-field class="w-100 mt-2">
-                  <input matInput placeholder="Full Name" [(ngModel)]="user.name" formControlName="name" required>
+                  <input matInput placeholder="{{'full_name' | translate}}" [(ngModel)]="user.name" formControlName="name" required>
                   <mat-error *ngIf="registerForm.controls.name.errors?.required">Full Name is required</mat-error>
                   <mat-error *ngIf="registerForm.controls.name.hasError('minlength')">Full Name isn't long enough, minimum of 3 characters</mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-100 mt-1">
-                    <input type="text" placeholder="Country Key*" aria-label="Number" matInput formControlName="country_key" [(ngModel)]="user.country_key" [formControl]="myControl" [matAutocomplete]="auto">
+                    <input type="text" placeholder="{{'country_key' | translate}}" aria-label="Number" matInput formControlName="country_key" [(ngModel)]="user.country_key" [formControl]="myControl" [matAutocomplete]="auto">
                     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                         <mat-option *ngFor="let option of filteredOptions | async" [value]="option['code']">
                             {{option['name']}}  {{ option['code'] }}
@@ -63,7 +63,7 @@
                     <mat-error *ngIf="loginForm.controls.country_key.hasError('maxLength')">Invalid Country Key Number</mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-100 mt-1">
-                    <input matInput placeholder="Mobile" [(ngModel)]="user.mobile" formControlName="mobile" required>
+                    <input matInput placeholder="{{'mobile' | translate}}" [(ngModel)]="user.mobile" formControlName="mobile" required>
                     <mat-error *ngIf="registerForm.controls.mobile.errors?.required">Mobile is required</mat-error>
                     <mat-error *ngIf="registerForm.controls.mobile.hasError('invalidEmail')">Invalid Mobile Number</mat-error>
                 </mat-form-field>

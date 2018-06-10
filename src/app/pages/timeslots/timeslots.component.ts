@@ -21,7 +21,7 @@ export class TimeslotsComponent implements OnInit {
   selectTimeSlot(slot){
     if(slot.availability){
     this.selectedSlot=slot.id;
-    this.selectTime.emit(slot.id);
+    this.selectTime.emit(slot);
   }
   }
 }

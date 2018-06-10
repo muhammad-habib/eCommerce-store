@@ -9,11 +9,4 @@ export class TopMenuService {
 
     constructor(private http: HttpClient) { }
 
-    private url = environment.API_ENDPOINT;
-
-    getUser(id): Observable<User> {
-        let params = new HttpParams();
-        params = params.append('userId', id);
-        return this.http.get<User>(this.url+'get-user', { params: params});
-    }
 }

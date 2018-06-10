@@ -1,6 +1,6 @@
 <div fxLayout="row wrap">
   <div fxFlex="100" fxFlex.gt-md="45" fxFlex.md="55" ngClass.gt-sm="px-3 m-0" ngClass.sm="mt-2" ngClass.xs="mt-2">
-    <h2 class="text-muted fw-500">Wallet Balance  : {{myWallet?.wallet_money | currency:'SAR'}}</h2>
+    <h2 class="text-muted fw-500">{{'wallet_balance' | translate}} : {{myWallet?.wallet_money}} {{'SAR' | translate}}</h2>
     <div class="divider"></div>
   </div>
 </div>
@@ -28,7 +28,7 @@
   <div *ngFor="let item of myWalletItems" fxFlex="100" [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="col">
     <mat-card class="product-item text-center">
       <mat-chip-list>
-        <mat-chip color="warn" selected="true">{{item?.status}}</mat-chip>
+        <mat-chip color="warn" selected="true">{{item?.status | translate}}</mat-chip>
       </mat-chip-list>
       <h4 class="title">
         {{item?.amount}}

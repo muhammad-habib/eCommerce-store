@@ -48,22 +48,9 @@
         </div>
            
     </mat-menu> -->
-    
-    <a mat-button [routerLink]="['/products']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">Main</a>
-    <a mat-button [routerLink]="['/offers']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">Offers</a>
-
-    <a *ngIf="appService.logedIn" mat-button [routerLink]="['/orders']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">My Orders</a>
-
-
-    <a mat-button [matMenuTriggerFor]="animals">Account<mat-icon class="caret">arrow_drop_down</mat-icon></a>
-    <mat-menu #animals="matMenu" [overlapTrigger]="false" class="app-dropdown"> 
-        <a mat-menu-item routerLink="/my-account" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">Account</a>
-        <a mat-menu-item [routerLink]="['/products']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">Free credit </a> 
-        <a mat-menu-item routerLink="/my-wallet" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">Wallet</a>
-        <a mat-menu-item routerLink="/sign-in">My Points</a>       
-    </mat-menu>
-
-    <a mat-button [routerLink]="['/products']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">Help</a>
-
+    <a mat-button [routerLink]="['/products']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">{{'home' |translate}}</a>
+    <a mat-button [routerLink]="['/offers']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">{{'offers' |translate}}</a>
+    <a *ngIf="appService.logedIn" mat-button [routerLink]="['/orders']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">{{'my-orders' |translate}}</a>
+    <a mat-button [routerLink]="['/products']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">{{'help' |translate}}</a>
 </mat-toolbar>
 
