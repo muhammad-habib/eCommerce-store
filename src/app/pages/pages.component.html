@@ -21,7 +21,7 @@
     </mat-sidenav>
 
 
-    <mat-toolbar  [ngStyle]="{'background-color': appService.color}">
+    <mat-toolbar dir="ltr"  [ngStyle]="{'background-color': appService.color}">
         <mat-toolbar-row fxLayoutAlign="space-between center" class="top-toolbar theme-container">
             <!--<span fxHide="false" fxHide.gt-sm>-->
                 <!--<button mat-button (click)="sidenav.toggle()" class="sidenav-toggle">-->
@@ -76,7 +76,7 @@
                             <div class="divider mt-1"></div>
                             <div *ngIf="appService.cartMap.size == 0" class="py-1 text-muted text-center">{{'empty_cart' |translate}}</div>
                             <mat-list>
-                                <mat-list-item *ngFor="let entry of  appService.cartMap.values()">
+                                <mat-list-item *ngFor="let entry of  cart.values()">
                                     <h3 matLine class="text-muted"> {{entry.product.name}} </h3>
                                     <p matLine class="text-muted">
                                         <span> {{entry.count}} x ${{entry.product.price | number : '1.2-2'}} </span>

@@ -12,7 +12,7 @@ export class AddAddressComponent implements OnInit {
 
   public addressName="";
   public addressDescription="";
-  public coords;
+  public coords={lat:localStorage.lat||24.697928383314334,lng:localStorage.lng||46.67921519513561};
   constructor(private addressesService:AddressesService ,private router:Router) { }
   public formatted_address
   ngOnInit() {

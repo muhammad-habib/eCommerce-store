@@ -1,0 +1,16 @@
+.slot{
+    width: 100px;
+    height: 45px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid black ;
+}
+.disabled-slot{
+    background-color: gainsboro !important;
+    cursor: default    !important;
+
+}
+.selected-slot{
+    background-color: deepskyblue !important;
+    color: white !important;
+}

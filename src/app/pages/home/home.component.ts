@@ -17,8 +17,6 @@ export class HomeComponent implements OnInit {
     { title: 'The biggest sale', subtitle: 'Special for today', image: 'assets/images/carousel/banner5.jpg' }
   ];
 
-  public brands = [];
-  public banners = [];
   public featuredProducts: Array<Product>;
   public onSaleProducts: Array<Product>;
   public topRatedProducts: Array<Product>;
@@ -28,9 +26,9 @@ export class HomeComponent implements OnInit {
   constructor(public appService:AppService) { }
 
   ngOnInit() {
-    this.getBanners();
+    // this.getBanners();
     this.getProducts("featured");
-    this.getBrands();
+    // this.getBrands();
   }
 
   public onLinkClick(e){
@@ -61,14 +59,5 @@ export class HomeComponent implements OnInit {
    
   }
 
-  public getBanners(){
-    this.appService.getBanners().subscribe(data=>{
-      this.banners = data;
-    })
-  }
-
-  public getBrands(){
-    this.brands = this.appService.getBrands();
-  }
 
 }

@@ -14,6 +14,19 @@ export class AppComponent {
   public settings: Settings;
   constructor(public appSettings:AppSettings, public router: Router, private appService: AppService){
     this.settings = this.appSettings.settings;
+
+    (localStorage.getItem('lang'))?'':localStorage.setItem('lang','en');
+    let body = document.getElementsByTagName('body')[0];
+    body.dir= (localStorage.getItem('lang') == "ar")?"rtl":"ltr";   //remove the class
+    if(body.dir=="rtl"){
+      console.log(" direction is RTL");
+      body.className="right";
+    }else{
+      console.log(" direction is LTR");
+      body.className="left";
+    }
+
+
   }
 
   ngOnInit() {

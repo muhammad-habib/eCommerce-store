@@ -2,6 +2,20 @@ export const LANG_AR_NAME = 'ar';
 
 export const LANG_AR_TRANS = {
     'delivery_place':'مكان التوصيل',
+    'CURRENCY_SHORTCUT':"ر.س",
+    'FROM':'من',
+    'TO':'الى',
+    'SAVE':'حفظ',
+    'DELIVERY_ADDRESSES':'عنوان التوصيل',
+    'SELECT_ADDRESS':'اختر',
+    'DELETE':'حذف',
+    'ADD_NEW_ADDRESS':'اضافه عنوان جديد',
+    'ADDRESS_NAME':'اسم العنوان',
+    'ADDRESS_DESCRIPTION':'الوصف',
+    'NO_ADDRESSES_FOUND':'لا توجد عناوين محفوظه',
+    'CHOOSE_MARKET':'اختر المتجر',
+
+
     // main menu
     'home':'الرئيسية',
     'offers':'العروض',

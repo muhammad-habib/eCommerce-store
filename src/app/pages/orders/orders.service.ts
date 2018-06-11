@@ -15,4 +15,8 @@ export class OrdersService {
         params = params.append('user_id', user.id).append('page', filter.page);
         return this.http.get<any[]>(this.url + 'myOrders', { params: params});
     }
+
+    public requestOrder(order){
+        return this.http.post<any[]>(this.url + 'app-order-details', order);
+    }
 }

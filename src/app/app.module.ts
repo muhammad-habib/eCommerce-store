@@ -66,7 +66,8 @@ import {OnlyLoggedInUsersGuard} from './guards/only-logged-in-users.guard';
     MyWalletComponent,
     AddressesComponent,
     // CategoryComponent,
-    LanguagesComponent
+    LanguagesComponent,
+  
   ],
   providers: [
     AppSettings,

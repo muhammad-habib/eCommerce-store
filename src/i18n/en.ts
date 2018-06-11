@@ -2,6 +2,18 @@ export const LANG_EN_NAME = 'en';
 
 export const LANG_EN_TRANS = {
     'delivery_place':'Delivery Place',
+    'CURRENCY_SHORTCUT':"R.S",
+    'SAVE':'Save',
+    'FROM':'From',
+    'TO':'To',
+    'DELIVERY_ADDRESSES':'Delivery Address',
+    'SELECT_ADDRESS':'Select',
+    'DELETE':'Delete',
+    'ADD_NEW_ADDRESS':'Add New Address',
+    'ADDRESS_NAME':'Address Name',
+    'ADDRESS_DESCRIPTION':'Description',
+    'NO_ADDRESSES_FOUND':'No Addresses Found, Add new Address',
+    'CHOOSE_MARKET':'Choose Market',
     // main menu
     'home':'Home',
     'offers':'Offers',

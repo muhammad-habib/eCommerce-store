@@ -50,6 +50,18 @@ export class LanguagesComponent implements OnInit {
                     error => {
             });
         }
+        let lang= localStorage.getItem('lang')||'en';
+        let body = document.getElementsByTagName('body')[0];
+            body.dir = (lang == "ar") ? "rtl" : "ltr";   //remove the class
+            if(body.dir=="rtl"){
+            // console.log(" direction is RTL");
+            body.className="right";
+            }else{
+            // console.log(" direction is LTR");
+            body.className="left";
+            }
+            localStorage.setItem('lang', lang);
+
 
         // console.log();
         const allParams = this.route.snapshot.queryParams;

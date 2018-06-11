@@ -60,7 +60,7 @@ import { VirtualScrollModule } from 'angular2-virtual-scroll';
 
 import { TranslatePipe } from './translate.pipe';
 import { CategoriesComponent } from './categories/categories.component';
-
+import { CartDataService } from '../pages/cart/cart-data.service'
 
 @NgModule({
   imports: [
@@ -172,7 +172,7 @@ import { CategoriesComponent } from './categories/categories.component';
   entryComponents:[
     ProductDialogComponent
   ],
-  providers:[
+  providers:[CartDataService,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG }
   ]
 })

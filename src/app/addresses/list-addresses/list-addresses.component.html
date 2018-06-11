@@ -1,10 +1,10 @@
-<mat-icon style="position: fixed;top: 0;cursor: pointer;z-index: 5;" routerLink="/" class="mat-icon-xlg">arrow_back</mat-icon>
+<mat-icon style="position: fixed;top: 0;color: white;cursor: pointer;z-index: 5;" routerLink="/" class="mat-icon-xlg">arrow_back</mat-icon>
 
-<mat-toolbar [style.background-color]="'#f56d13'" style="position: fixed;top: 0;z-index: 3;" fxLayoutAlign="center center" >     
+<mat-toolbar [style.background-color]="'#f56d13'" style="position: fixed;color: white;top: 0;z-index: 3;" fxLayoutAlign="center center" >     
             {{'DELIVERY_ADDRESSES' | translate}}
 </mat-toolbar>
-<div class="container" style="margin-top: 70px;"
-     fxLayout
+<div class="container" style="margin-top: 70px;margin-bottom: 300px;"
+     fxLayout="row wrap"
      fxLayoutAlign="center">
 
   <div fxLayout="column"  fxFlex="80%" fxFlex.xs="100%" 
@@ -21,9 +21,10 @@
     </div>
 </div>
 </div>
-<div style="min-height: 150px;"></div>
 <mat-toolbar [style.background-color]="'#f56d13'" style="position: fixed;bottom: 0;" fxLayoutAlign="center center" >     
-        <button mat-button     routerLink="/addresses/new">
-            {{'ADD_NEW_ADDRRES' | translate}}
+    <button mat-button     routerLink="/addresses/new">
+            {{'ADD_NEW_ADDRESS' | translate}}
         </button>     
 </mat-toolbar>
+
+<div  style="min-height:150px;width: 100px;" ></div>            
