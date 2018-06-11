@@ -30,7 +30,6 @@ export class OrdersComponent implements OnInit {
     constructor(private ordersSerivce:OrdersService,private spinner: NgxSpinnerService, public appService: AppService) { }
 
     ngOnInit() {
-
         if(window.innerWidth < 960) {
             this.sidenavOpen = false;
         }
@@ -46,13 +45,13 @@ export class OrdersComponent implements OnInit {
         this.spinner.show();
         let user = JSON.parse(localStorage.getItem('user'));
         this.ordersSerivce.getOrders(user, this.filter).subscribe(data=> {
-            this.orders = this.orders.concat(data['data']['data']);
+                console.log(data);
+                this.orders = this.orders.concat(data['data']['data']);
             this.current = data['data']['current_page'];
             // console.log(res.shoppers.current_page);
             this.total = data['data']['total'];
             this.lastPage = data['data']['last_page'];
             this.spinner.hide();
-            console.log(data['data']);
         }
             ,err=>{
                 this.spinner.hide();
@@ -60,7 +59,7 @@ export class OrdersComponent implements OnInit {
         );
     }
 
-    public changeViewType(viewType, viewCol){
+    public changeViewType(viewType, viewCol) {
         this.viewType = viewType;
         this.viewCol = viewCol;
     }
