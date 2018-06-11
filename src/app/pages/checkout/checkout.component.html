@@ -112,8 +112,8 @@
               <div class="mat-cell"><img [src]="entry.product.images.small"></div>
               <div class="mat-cell">{{entry.product.name}}</div>
               <div class="mat-cell">${{entry.product.price | number : '1.2-2'}}</div>      
-              <div class="mat-cell text-muted"> 1 </div>
-              <div class="mat-cell">${{entry.product.price | number : '1.2-2'}}</div>
+              <div class="mat-cell text-muted"> {{entry.count}} </div>
+              <div class="mat-cell">${{ ( entry.product.price * entry.count ) | number : '1.2-2'}}</div>
             </div>
         </div>
       </div> 
