@@ -36,6 +36,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MyWalletComponent } from './pages/my-wallet/my-wallet.component';
 import { AddressesComponent } from './addresses/addresses.component';
 import {LanguagesComponent} from './theme/components/languages/languages.component';
+import {OnlyLoggedInUsersGuard} from './guards/only-logged-in-users.guard';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import {LanguagesComponent} from './theme/components/languages/languages.compone
   ],
   providers: [
     AppSettings,
-    AppService,   
+    AppService,
+    OnlyLoggedInUsersGuard,
     { provide: OverlayContainer, useClass: CustomOverlayContainer },
     SignInService,
     SmsDialogService,
