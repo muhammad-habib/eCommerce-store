@@ -11,8 +11,8 @@ export class MarketsService {
   constructor(public http:HttpClient) { }
 
   public getMarkets(): Observable<any[]>{
-    // console.log(long);
-//    return this.http.get<any[]>(this.url + 'markets',{headers: new HttpHeaders({lat:lat,long:long})});
+    // console.log(lng);
+//    return this.http.get<any[]>(this.url + 'markets',{headers: new HttpHeaders({lat:lat,lng:lng})});
     return this.http.get<any[]>(this.url + 'markets');
   }
 
