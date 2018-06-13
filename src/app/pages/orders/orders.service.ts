@@ -19,4 +19,7 @@ export class OrdersService {
     public requestOrder(order){
         return this.http.post<any[]>(this.url + 'app-order-details', order);
     }
+    public confirmOrder(order){
+        return this.http.post<any[]>(this.url + 'requestOrder', order);
+    }
 }
