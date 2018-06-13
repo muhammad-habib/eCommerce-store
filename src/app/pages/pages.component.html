@@ -75,7 +75,7 @@
                             </div>
                             <div class="divider mt-1"></div>
                             <div *ngIf="appService.cartMap.size == 0" class="py-1 text-muted text-center">{{'empty_cart' |translate}}</div>
-                            <mat-list fxFlex="70">
+                            <mat-list>
                                 <mat-list-item *ngFor="let entry of  cart.values()">
                                     <h3 matLine class="text-muted"> {{entry.product.name}} </h3>
                                     <p matLine class="text-muted">
