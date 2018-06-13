@@ -28,6 +28,7 @@ export class CartComponent implements OnInit {
     this.cartServiceService.getProducts(Array.from(this.appService.cartMap.keys()))
     .subscribe(
           res=>{
+              console.log(this.appService.cartMap.keys());
             this.poroducts = res['data'];
             this.poroducts.forEach(product=>{
               let temp = this.appService.cartMap.get(product.id);

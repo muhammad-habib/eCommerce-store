@@ -12,8 +12,16 @@ export class OrdersService {
     public getOrders(user, filter): Observable<any[]> {
         // Initialize Params Object
         let params = new HttpParams();
-        params = params.append('user_id', user.id).append('page', filter.page);
-        return this.http.get<any[]>(this.url + 'myOrders', { params: params});
+        if ( localStorage.getItem('market') == 1)
+        {
+            params = params.append('user_id', user.id).append('page', filter.page);
+            return this.http.get<any[]>(this.url + 'myOrders', { params: params});
+        } else {
+            params = params.append('user_id', user.id)
+                .append('page', filter.page)
+                .append('market_type_id', filter.market_type_id);
+            return this.http.get<any[]>(this.url + 'mini-market/myOrders', { params: params});
+        }
     }
 
     public requestOrder(order){
