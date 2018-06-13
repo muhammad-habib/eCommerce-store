@@ -46,6 +46,7 @@ export class AuthInterceptor implements HttpInterceptor {
             .do((ev: HttpEvent<any>) => {
                 if (ev instanceof HttpResponse) {
                     if (ev.body.status_code === 401) {
+                        console.log('hi');
                         this.appService.logedIn = false;
                         localStorage.removeItem('user');
                         this.router.navigateByUrl('/sign-in');
