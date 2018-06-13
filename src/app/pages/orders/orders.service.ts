@@ -12,7 +12,7 @@ export class OrdersService {
     public getOrders(user, filter): Observable<any[]> {
         // Initialize Params Object
         let params = new HttpParams();
-        if ( localStorage.getItem('market') == 1)
+        if ( localStorage.getItem('market') == '1')
         {
             params = params.append('user_id', user.id).append('page', filter.page);
             return this.http.get<any[]>(this.url + 'myOrders', { params: params});
