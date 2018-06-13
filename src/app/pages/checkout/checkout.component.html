@@ -31,7 +31,7 @@
     </form>
   </mat-step>
 
-  <mat-step [stepControl]="timeSlotsForm" label="{{'TIME_SLOTS' | translate}}">
+  <mat-step *ngIf="market_type==1" [stepControl]="timeSlotsForm" label="{{'TIME_SLOTS' | translate}}">
     <form [formGroup]="timeSlotsForm">     
       <div fxLayout="row wrap">
         <div fxFlex="100" class="px-1">
@@ -59,7 +59,7 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="productNotFoundForm" label="{{ 'PRODUCT_NOT_FOUND' | translate }}">
+  <mat-step *ngIf="market_type==1" [stepControl]="productNotFoundForm" label="{{ 'PRODUCT_NOT_FOUND' | translate }}">
     <form [formGroup]="productNotFoundForm">
         <mat-radio-group formControlName="productNotFoundFCN"  fxLayout="column" fxLayoutAlign="center" required name="methods">
             <mat-radio-button *ngFor="let option of productsUnAvailableOptions" color="primary" [value]="option" class="mt-1"><h3>{{option.title}}</h3> {{option.content}}</mat-radio-button>
@@ -117,7 +117,7 @@
         <h3 class="text-muted">{{ 'ORDER_PRICE_DETAILS'| translate }}</h3>
       </div> 
       <div fxFlex="100%"  class="p-1">
-        <div *ngFor="let entry of orderDetailsTemp">
+        <div *ngFor="let entry of orderDetails">
           <div *ngIf="entry.hidden==0" style="margin:10px;">
               <mat-card style="background: whitesmoke;">
                 <span>  {{entry['label_'+lang]}}</span><span flex="100%"></span> <span style="float: right;">  {{ entry['value']||0 }}  {{ entry['currency_'+lang] }}</span>
@@ -139,7 +139,7 @@
   </mat-step>
   <mat-step label="Confirmation">
     <div fxLayout="column" fxLayoutAlign="center center" class="p-2 text-center"> 
-      <button mat-fab color="primary"  type="button" ><mat-icon>check</mat-icon></button>
+      <button mat-fab color="primary"   type="button" ><mat-icon>check</mat-icon></button>
       <h2 class="py-2">{{confirmationMesssage}}</h2>
     </div>
     <div fxLayout="row" fxLayoutAlign="center center" class="mt-2 p-1"> 
@@ -153,7 +153,7 @@
 /////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////// -->
 
-<mat-vertical-stepper #verticalStepper linear="true" class="mat-elevation-z2" fxHide="false" fxHide.gt-sm>
+<mat-vertical-stepper #verticalStepper linear="false"  (selectionChange)="changeStep($event)" class="mat-elevation-z2" fxHide="false" fxHide.gt-sm>
   <mat-step [stepControl]="deliveryAddressForm" label="Billing address">
     <form [formGroup]="deliveryAddressForm">     
       <div fxLayout="row wrap">
@@ -162,6 +162,18 @@
               <input matInput placeholder="Address (street, apartment, suite, unit etc.)" formControlName="address" required>
               <mat-error *ngIf="deliveryAddressForm.controls.address.errors?.required">Address is required</mat-error>
           </mat-form-field> -->
+          <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-subtitle >
+                <p class="truncate" > 
+                    {{ formatted_address }}
+                </p>
+              </mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image  height="300px" width="500px"
+            src="https://maps.googleapis.com/maps/api/staticmap?center={{addressCoor.latitude}},{{addressCoor.longitude}}&lang={{lang}}&zoom=16&scale=1&size=1200x500&maptype=roadmap&format=png&visual_refresh=true&key=AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE" 
+            alt="Photo of a Shiba Inu">
+          </mat-card>
         </div>
       </div>
       <div fxLayout="row" fxLayoutAlign="center center" class="mt-2 p-1"> 
@@ -170,7 +182,7 @@
     </form>
   </mat-step>
 
-  <mat-step [stepControl]="timeSlotsForm" label="{{'TIME_SLOTS' | translate}}">
+  <mat-step *ngIf="market_type==1" [stepControl]="timeSlotsForm" label="{{'TIME_SLOTS' | translate}}">
       <form [formGroup]="timeSlotsForm">     
         <div fxLayout="row wrap">
           <div fxFlex="100" class="px-1">
@@ -188,7 +200,7 @@
     </mat-step>
   
 
-  <mat-step [stepControl]="paymentMethodForm" label="Delivery method">
+  <mat-step [stepControl]="paymentMethodForm" label="{{'PAYMENT_METHOD' | translate}}">
     <form [formGroup]="paymentMethodForm" class="p-2">
       <mat-radio-group formControlName="paymentsCtrl" fxLayout="column" fxLayoutAlign="center" [(ngModel)]="selected_method" required name="methods">
         <mat-radio-button *ngFor="let method of paymentMethods" color="primary" [value]="method" class="mt-1"><b>{{method.name}}</b> {{method.desc}}</mat-radio-button>
@@ -199,7 +211,7 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="productNotFoundForm" label="{{ 'PRODUCT_NOT_FOUND' | translate }}">
+  <mat-step *ngIf="market_type==1" [stepControl]="productNotFoundForm" label="{{ 'PRODUCT_NOT_FOUND' | translate }}">
     <form [formGroup]="productNotFoundForm">
         <mat-radio-group formControlName="productNotFoundFCN" fxLayout="column" fxLayoutAlign="center" required name="methods">
             <mat-radio-button *ngFor="let method of productsUnAvailableOptions" color="primary" [value]="method" class="mt-1"><b>{{method.title}}</b> {{method.desc}}</mat-radio-button>
@@ -211,6 +223,31 @@
       </div>
     </form>
   </mat-step>
+
+  <mat-step [stepControl]="couponForm" label="{{ 'COUPONS' | translate }}">
+    <form [formGroup]="couponForm">
+        <mat-tab-group>
+            <mat-tab label="{{ 'COUPON' | translate }}">
+              <div fxFlex="100" fxFlex.gt-sm="33.3" >
+                <mat-form-field class="w-100">
+                    <input matInput placeholder="Please enter coupon number" formControlName="couponFCN" required>
+                    <mat-error >{{coupon_message}}</mat-error>
+                </mat-form-field>
+                <button mat-raised-button type="button"  (click)="addCoupon()" color="primary"><mat-icon>check</mat-icon></button>
+              </div>        
+            </mat-tab>
+            <mat-tab label="{{ 'VOUCHER' | translate }}">
+
+            </mat-tab>
+          </mat-tab-group>
+    <div fxLayout="row" fxLayoutAlign="center center" class="mt-2 p-1"> 
+        <button mat-mini-fab matStepperPrevious color="primary" matTooltip="Back" matTooltipPosition="before" class="mr-1"><mat-icon>expand_less</mat-icon></button>
+        <button mat-mini-fab matStepperNext color="primary" matTooltip="Next" matTooltipPosition="after"><mat-icon>expand_more</mat-icon></button>       
+    </div>
+    </form>
+  </mat-step>
+
+
   <mat-step label="Review Order">    
           <div   fxLayout="row wrap" fxLayoutAlign="center">
 
@@ -231,7 +268,7 @@
               <h3 class="text-muted">{{ 'ORDER_PRICE_DETAILS'| translate }}</h3>
             </div> 
             <div fxFlex="100%"  class="p-1">
-              <div *ngFor="let entry of orderDetailsTemp">
+              <div *ngFor="let entry of orderDetails">
                 <div *ngIf="entry.hidden==0" style="background: whitesmoke;margin:10px;">
                     <mat-card>
                       <span>  {{entry['label_'+lang]}}</span><span flex="100%"></span> <span style="float: right;">  {{ entry['value']||0 }} |  {{ entry['currency_'+lang] }}</span>
@@ -244,12 +281,11 @@
   </mat-step>
   <mat-step label="Confirmation">
     <div fxLayout="column" fxLayoutAlign="center center" class="p-2 text-center"> 
-      <button mat-fab color="primary"><mat-icon>check</mat-icon></button>
-      <h2 class="py-2">Congratulation! Your order has been processed</h2>
-      <p class="text-muted lh">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus dolor ante, ut luctus mi faucibus a. Ut eu tincidunt neque. Proin porttitor id ligula id placerat. Integer nec nulla varius, dapibus libero quis, semper eros. Aliquam erat volutpat. Proin volutpat tellus vel purus interdum euismod.</p>
+      <button mat-fab color="primary"   type="button" ><mat-icon>check</mat-icon></button>
+      <h2 class="py-2">{{confirmationMesssage}}</h2>
     </div>
     <div fxLayout="row" fxLayoutAlign="center center" class="mt-2 p-1"> 
-      <a [routerLink]="['/']" mat-raised-button color="primary">Return to Shop</a>       
+      <a [routerLink]="['/orders/',orderId]" mat-raised-button color="primary">{{'SHOW_ORDER_TIMELINE'}}</a>       
     </div>     
   </mat-step>
 </mat-vertical-stepper>

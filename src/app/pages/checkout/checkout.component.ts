@@ -29,6 +29,8 @@ export class CheckoutComponent implements OnInit {
   couponForm:FormGroup;
   confirmationMesssage;
   orderId;
+  market_type = 1 ;
+
 
   countries = [];
   months = [];
@@ -56,7 +58,8 @@ export class CheckoutComponent implements OnInit {
               private mapService:MapService,private spinner: NgxSpinnerService) {
               }
 
-  ngOnInit() {    
+  ngOnInit() {  
+    this.market_type = Number(localStorage.getItem('market'))||1;  
     this.addressCoor['latitude' ] = localStorage.getItem('lat');
     this.addressCoor['longitude'] = localStorage.getItem('lng');
     this.lang = localStorage.getItem('lang');
@@ -152,7 +155,25 @@ export class CheckoutComponent implements OnInit {
   }
 
   changeStep(e){
-      if(e.selectedIndex==5){
+    // this.horizontalStepper.selectedIndex = 1;
+    // this.verticalStepper.selectedIndex = 1;
+    // this.horizontalStepper.next();
+    console.log(e);
+    if(e.selectedIndex==(this.horizontalStepper._steps.length-2)){
+
+        if(! this.timeSlot && this.market_type==1){
+          this.moveToStep('TIMESLOT_REQUIRED','error',1);
+          return ;
+        }
+        if(! this.paymentMethodForm.value.paymentsCtrl ){
+          this.moveToStep('METHOD_REQUIRED','error',this.market_type==1?2:1);
+          return ;
+        }
+        if(! this.productNotFoundForm.value.productNotFoundFCN && this.market_type==1){
+          this.moveToStep('PRODUCT_NOT_FOUND_REQUIRED','error',3);
+          return ;
+        }
+
         this.requestOrder();
       }
   }
@@ -212,5 +233,18 @@ export class CheckoutComponent implements OnInit {
     order['products'] = products;
     console.log(order);
     return order;
+  }
+
+  move(index: number) {
+    this.verticalStepper.selectedIndex = index;
+    this.horizontalStepper.selectedIndex = index;
+  }
+
+  moveToStep(message,status,index){
+    this.snackBar.open(message, '×', { panelClass: [status], verticalPosition: 'top', duration: 3000 });
+    setTimeout(() => {
+      this.move(index);
+    }, 100);
+
   }
 }
