@@ -142,6 +142,7 @@ export class LandingPageComponent implements OnInit {
       this.marketTypeDataService.setMarketTypeData(data);
       localStorage.setItem('market',data.id);
       localStorage.setItem('color',data['color']);
+      localStorage.setItem('selectedMarket',JSON.stringify(data));
       this.appService.color = data['color'];
   }
 

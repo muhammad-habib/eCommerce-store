@@ -85,5 +85,36 @@ export const LANG_EN_TRANS = {
     // sms dialog
     'sms_confirm': 'Confirm Phone Number',
     'code_number': 'Enter number you have received',
-    'code': 'Code'
+    'code': 'Code',
+
+    //check out
+    'DELIVERY_ADDRESS':'Delivery Address',
+    'TIME_SLOTS':'Delivery Time',
+    'TIME_SLOT': 'Delivery Time',
+    'PAYMENT_METHOD':'Payment Methods',
+    'PRODUCT_NOT_FOUND':'When product not found',
+    'COUPONS':'Add Coupon',
+    'REVIEW_ORDER':'Review Order',
+    'CONFIRMATION':'Confirmation',
+    'COUPON':'Add Coupon',
+    'VOUCHER':'Wallet\'s Voucher',
+    'ENTER_COUPON':'Pleas enter coupon number',
+    'SHOW_ORDER_TIMELINE':'Order Timeline',
+    'ORDER_DELIVERY_DETAILS':'Delivery Details',
+    'ORDER_PRICE_DETAILS':'Price Details',
+    'NO_ITEMS_IN_CART': 'YOU HAVE NO ITEMS IN YOUR SHOPPING CART.',
+    'PRODUCT' : 'Product',
+    'NAME' : 'Name',
+    'PRICE' : 'Price',      
+    'QUANTITY' : 'Quantity',
+    'TOTAL' :'Total',
+    'CLEAR_ALL':'Clear All',
+    'CONTINUE_SHOPPING':'Continue Shopping',
+    'PROCEED_CHECKOUT':'Procced to checkout',
+    'GRAND_TOTAL':'Grand Total',
+    'TIMESLOT_REQUIRED': 'Pleas Select Delivery Time',
+    'METHOD_REQUIRED':'Pleas Select Payment Method',
+    'PRODUCT_NOT_FOUND_REQUIRED':'Pleas Select option When product not found',
+    'PRODUCTS':'Products'
+
 };

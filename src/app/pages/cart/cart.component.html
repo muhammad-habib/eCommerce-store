@@ -1,22 +1,22 @@
 <div *ngIf="appService.cartMap.size == 0">
   <mat-chip-list>
-      <mat-chip color="warn" selected="true">YOU HAVE NO ITEMS IN YOUR SHOPPING CART.</mat-chip>
+      <mat-chip color="warn" selected="true"> {{'NO_ITEMS_IN_CART' | translate}}YOU HAVE NO ITEMS IN YOUR SHOPPING CART.</mat-chip>
   </mat-chip-list>
-  <a [routerLink]="['/']" mat-raised-button color="primary" class="mt-2">Continue shopping</a>
+  <a [routerLink]="['/']" mat-raised-button color="primary" class="mt-2">{{'CONTINUE_SHOPPING' | translate}}</a>
 </div>
 
 <mat-card *ngIf="appService.cartMap.size > 0" class="p-0">
 
   <div class="mat-table cart-table">
     <div class="mat-header-row">
-      <div class="mat-header-cell">Product</div>
-      <div class="mat-header-cell">Name</div>
-      <div class="mat-header-cell">Price</div>      
-      <div class="mat-header-cell">Quantity</div>
-      <div class="mat-header-cell">Total</div>
+      <div class="mat-header-cell">{{'PRODUCT' | translate}}</div>
+      <div class="mat-header-cell">{{'NAME' | translate}}</div>
+      <div class="mat-header-cell">{{'PRICE' | translate}}</div>      
+      <div class="mat-header-cell">{{'QUANTITY' | translate}}</div>
+      <div class="mat-header-cell">{{'TOTAL' | translate}}</div>
       <div class="mat-header-cell text-center">
         <div class="px-1">
-          <button mat-raised-button color="warn" (click)="clear()">Clear All</button>
+          <button mat-raised-button color="warn" (click)="clear()">{{'CLEAR_ALL' | translate}}</button>
         </div>
       </div>
     </div>
@@ -38,12 +38,12 @@
       
     </div>
     <div class="mat-row">
-      <div class="mat-cell"><a [routerLink]="['/products']" mat-raised-button color="primary">Continue shopping</a></div>
+      <div class="mat-cell"><a [routerLink]="['/products']" mat-raised-button color="primary">{{'CONTINUE_SHOPPING' | translate}}</a></div>
       <div class="mat-cell"></div>
       <div class="mat-cell"></div>
       <div class="mat-cell text-right">
         <div fxLayout="column" fxLayoutAlign="center end" class="grand-total px-2">
-          <span class="new-price">Grand total:</span>
+          <span class="new-price">{{'GRAND_TOTAL' | translate}}</span>
         </div>        
       </div>
       <div class="mat-cell">
@@ -51,7 +51,7 @@
           <span class="new-price">${{ appService.cartTotalPrice | number : '1.2-2'}}</span>
         </div>
       </div>
-      <div class="mat-cell text-center"><a [routerLink]="['/checkout']" mat-raised-button color="primary">Proceed To Checkout</a></div>
+      <div class="mat-cell text-center"><a [routerLink]="['/checkout']" mat-raised-button color="primary">{{'PROCEED_CHECKOUT' | translate}}</a></div>
     </div>
   </div>
 

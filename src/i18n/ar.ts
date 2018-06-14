@@ -87,6 +87,36 @@ export const LANG_AR_TRANS = {
     // sms dialog
     'sms_confirm': 'تاكيد رقم الجوال',
     'code_number': 'أدخل الرمز الذى استلمته',
-    'code': 'الرمز'
+    'code': 'الرمز',
+
+    // check out 
+    'DELIVERY_ADDRESS':'عنوان التوضيل',
+    'TIME_SLOTS':'وقت التوصيل',
+    'TIME_SLOT':'وقت التوصيل',
+    'PAYMENT_METHOD':'طرق الدفع',
+    'PRODUCT_NOT_FOUND':'فى حاله عدم توفر منتج',
+    'COUPONS':'أضافه كوبون',
+    'REVIEW_ORDER':'مراجعه الطلب',
+    'CONFIRMATION':'تاكيد الطلب',
+    'COUPON':'اضافه كوبون',
+    'VOUCHER':'قسائم المحفظه',
+    'ENTER_COUPON':'أدخل رقم الكوبون',
+    'SHOW_ORDER_TIMELINE':'متابعه الاوردر',
+    'ORDER_DELIVERY_DETAILS':'تفاصيل التوصيل',
+    'ORDER_PRICE_DETAILS':'تفاصيل السعر',
+    'NO_ITEMS_IN_CART': 'ليس لديك اى منتجات فى السله',
+    'PRODUCT' : 'منتح',
+    'PRODUCTS':'منتجات',
+    'NAME' : 'الاسم',
+    'PRICE' : 'السعر',      
+    'QUANTITY' : 'الكميه',
+    'TOTAL' :'الاجمالى',
+    'CLEAR_ALL':'تفريغ السله',
+    'CONTINUE_SHOPPING':'الاستمرار فى التسوق',
+    'PROCEED_CHECKOUT':'اتمام الطلب',
+    'GRAND_TOTAL':'المجموع الاجمالى',
+    'TIMESLOT_REQUIRED': 'من فضلك اختر ميعاد التوصيل',
+    'METHOD_REQUIRED':'من فضلك اختر طريقه الدفع',
+    'PRODUCT_NOT_FOUND_REQUIRED':'من فضلك اختر كبف نتصرف عندما لا يتوفر المنتج',
 
 };

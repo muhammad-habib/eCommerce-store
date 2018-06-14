@@ -8,15 +8,19 @@ import { ProductsUnAvailableOptionsService } from './products-un-available-optio
 import { CouponService } from './coupon.service'
 import { MatSnackBar } from '@angular/material';
 import { OrdersService } from '../orders/orders.service'
+import { WalletService } from './wallet.service'
 import { NgxSpinnerService } from 'ngx-spinner';
-import { element } from 'protractor';
+import { Location} from '@angular/common';
+import { TranslatePipe } from '../../shared/translate.pipe'
+
+// import { element } from 'protractor';
 
 
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss'],
-  providers: [MapService,PaymentMethodsService,OrdersService,
+  providers: [MapService,PaymentMethodsService,OrdersService,WalletService,TranslatePipe,
               ProductsUnAvailableOptionsService,CouponService]
 })
 export class CheckoutComponent implements OnInit {
@@ -27,6 +31,7 @@ export class CheckoutComponent implements OnInit {
   paymentMethodForm: FormGroup;
   productNotFoundForm: FormGroup;
   couponForm:FormGroup;
+  walletItemsForm:FormGroup;
   confirmationMesssage;
   orderId;
   market_type = 1 ;
@@ -51,14 +56,20 @@ export class CheckoutComponent implements OnInit {
   selectedProductsUnAvailableOptions;
   public paymentMethods=[];
   public productsUnAvailableOptions=[];
-  constructor(public appService:AppService, public snackBar: MatSnackBar,
-              public formBuilder: FormBuilder, private couponService:CouponService,
+  public walletItems = [];
+  constructor(public appService:AppService, public snackBar: MatSnackBar, public walletService:WalletService,
+              public formBuilder: FormBuilder, private couponService:CouponService,private _location: Location,
               private paymentMethodsService:PaymentMethodsService,private ordersService:OrdersService,
               private productsUnAvailableOptionsService:ProductsUnAvailableOptionsService,
-              private mapService:MapService,private spinner: NgxSpinnerService) {
+              private mapService:MapService,private spinner: NgxSpinnerService,private translatePipe:TranslatePipe) {
               }
 
-  ngOnInit() {  
+  ngOnInit() {
+    let seklectedMarket = JSON.parse(localStorage.getItem('selectedMarket'));  
+    this.minimum_order_price = seklectedMarket.minimum_order_price;
+    this.vat_rate = seklectedMarket.vat_rate;
+
+    this.checkOrderPrice();
     this.market_type = Number(localStorage.getItem('market'))||1;  
     this.addressCoor['latitude' ] = localStorage.getItem('lat');
     this.addressCoor['longitude'] = localStorage.getItem('lng');
@@ -69,6 +80,13 @@ export class CheckoutComponent implements OnInit {
               this.formatted_address = res['results'][0]['formatted_address']  
       }
     );        
+
+    this.walletService.getWalletItems().subscribe(res=>{
+      this.walletItems = res['data']['items']['data'];      
+    },
+    err=>{
+
+    })
 
     this.paymentMethodsService.getPaymentMethods().subscribe(
       res=>this.paymentMethods = res['data']
@@ -94,7 +112,9 @@ export class CheckoutComponent implements OnInit {
     this.couponForm = this.formBuilder.group({
       couponFCN: new FormControl()
     });
-  
+    this.walletItemsForm = this.formBuilder.group({
+      walletItemFCN: new FormControl()
+    })
 
   }
 
@@ -135,6 +155,9 @@ export class CheckoutComponent implements OnInit {
     order['timeSlot'] = this.timeSlot;
     order['vat_rate'] = this.vat_rate;
     order['coupon']= this.valid_coupon;
+    if(! this.valid_coupon && this.walletItemsForm.value.walletItemFCN)
+      order['wallet_item'] = this.walletItemsForm.value.walletItemFCN.id,
+  
     this.appService.cartMap.forEach(element => {
       element.product.count = element.count;
       this.products.push(element.product);
@@ -158,19 +181,18 @@ export class CheckoutComponent implements OnInit {
     // this.horizontalStepper.selectedIndex = 1;
     // this.verticalStepper.selectedIndex = 1;
     // this.horizontalStepper.next();
-    console.log(e);
     if(e.selectedIndex==(this.horizontalStepper._steps.length-2)){
 
         if(! this.timeSlot && this.market_type==1){
-          this.moveToStep('TIMESLOT_REQUIRED','error',1);
+          this.moveToStep(this.translatePipe.transform('TIMESLOT_REQUIRED'),'error',1);
           return ;
         }
         if(! this.paymentMethodForm.value.paymentsCtrl ){
-          this.moveToStep('METHOD_REQUIRED','error',this.market_type==1?2:1);
+          this.moveToStep(this.translatePipe.transform('METHOD_REQUIRED'),'error',this.market_type==1?2:1);
           return ;
         }
         if(! this.productNotFoundForm.value.productNotFoundFCN && this.market_type==1){
-          this.moveToStep('PRODUCT_NOT_FOUND_REQUIRED','error',3);
+          this.moveToStep(this.translatePipe.transform('PRODUCT_NOT_FOUND_REQUIRED'),'error',3);
           return ;
         }
 
@@ -182,7 +204,6 @@ export class CheckoutComponent implements OnInit {
     let order = this.prepareOrder();
     this.ordersService.confirmOrder(order).subscribe(
       res=>{
-        console.log(res);
         if(res['success']){
           this.appService.cartMap.clear();
           this.appService.refreshCart();
@@ -247,4 +268,13 @@ export class CheckoutComponent implements OnInit {
     }, 100);
 
   }
+
+  public minimum_order_price=0; 
+  checkOrderPrice(){
+    if(this.appService.cartTotalPrice < this.minimum_order_price){
+      this.snackBar.open('CART_MINIMUM', '×', { panelClass: ['error'], verticalPosition: 'top', duration: 3000 });
+      this._location.back();
+    }
+  }
+
 }

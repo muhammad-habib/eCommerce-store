@@ -67,7 +67,7 @@ export class ProductsComponent implements OnInit {
     this.count = this.counts[0];
     this.sort = this.sortings[0];
     this.sub = this.activatedRoute.queryParams.subscribe(params => {
-        this.market_id = params.market?params.market:1;
+        this.market_id = params.market?params.market:localStorage.getItem('market');
         localStorage.setItem('market', '' + (this.market_id));
         this.is_hyper = params.hyper?params.hyper:1;
         let content_type  = params.content_type;

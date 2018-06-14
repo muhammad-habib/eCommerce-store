@@ -25,9 +25,9 @@
 
         </div>
       </div>
-      <div fxLayout="row" fxLayoutAlign="center center" class="mt-2 p-1"> 
-        <button mat-mini-fab matStepperNext color="primary" matTooltip="Next" matTooltipPosition="after"><mat-icon>navigate_next</mat-icon></button>
-      </div>
+      <div dir="rtl" fxLayout="row" fxLayoutAlign="center center" class="mt-2 p-1"> 
+        <button dir="ltr" mat-mini-fab matStepperNext color="primary" matTooltip="Next" matTooltipPosition="after"><mat-icon *ngIf="lang=='en'" >navigate_next</mat-icon> <mat-icon *ngIf="lang=='ar'">navigate_before</mat-icon> </button>
+    </div>
     </form>
   </mat-step>
 
@@ -41,9 +41,9 @@
                   <app-timeslots (selectTime)="selectTimeSlot($event)"></app-timeslots>
         </div>
       </div>
-      <div fxLayout="row" fxLayoutAlign="center center" class="mt-2 p-1"> 
-          <button mat-mini-fab matStepperPrevious color="primary" matTooltip="Back" matTooltipPosition="before" class="mr-1"><mat-icon>navigate_before</mat-icon></button>
-          <button mat-mini-fab matStepperNext color="primary" matTooltip="Next" matTooltipPosition="after"><mat-icon>navigate_next</mat-icon></button>
+      <div  fxLayout="row" fxLayoutAlign="center center" class="mt-2 p-1"> 
+          <button dir="ltr" mat-mini-fab matStepperPrevious color="primary" matTooltip="Back" matTooltipPosition="before" class="mr-1"><mat-icon *ngIf="lang=='en'">navigate_before</mat-icon><mat-icon *ngIf="lang=='ar'" >navigate_next</mat-icon> </button>
+          <button dir="ltr" mat-mini-fab matStepperNext color="primary" matTooltip="Next" matTooltipPosition="after"><mat-icon *ngIf="lang=='en'" >navigate_next</mat-icon> <mat-icon *ngIf="lang=='ar'">navigate_before</mat-icon> </button>
         </div>
     </form>
   </mat-step>
@@ -54,9 +54,9 @@
         <mat-radio-button *ngFor="let method of paymentMethods" color="primary" [value]="method" class="mt-1"><b>{{method.name}}</b> {{method.desc}}</mat-radio-button>
       </mat-radio-group> 
       <div fxLayout="row" fxLayoutAlign="center center" class="mt-2 p-1"> 
-        <button mat-mini-fab matStepperPrevious color="primary" matTooltip="Back" matTooltipPosition="before" class="mr-1"><mat-icon>navigate_before</mat-icon></button>
-        <button mat-mini-fab matStepperNext color="primary" matTooltip="Next" matTooltipPosition="after"><mat-icon>navigate_next</mat-icon></button>
-      </div>
+        <button dir="ltr" mat-mini-fab matStepperPrevious color="primary" matTooltip="Back" matTooltipPosition="before" class="mr-1"><mat-icon *ngIf="lang=='en'">navigate_before</mat-icon><mat-icon *ngIf="lang=='ar'" >navigate_next</mat-icon> </button>
+        <button dir="ltr" mat-mini-fab matStepperNext color="primary" matTooltip="Next" matTooltipPosition="after"><mat-icon *ngIf="lang=='en'" >navigate_next</mat-icon> <mat-icon *ngIf="lang=='ar'">navigate_before</mat-icon> </button>
+    </div>
     </form>
   </mat-step>
   <mat-step *ngIf="market_type==1" [stepControl]="productNotFoundForm" label="{{ 'PRODUCT_NOT_FOUND' | translate }}">
@@ -65,37 +65,41 @@
             <mat-radio-button *ngFor="let option of productsUnAvailableOptions" color="primary" [value]="option" class="mt-1"><h3>{{option.title}}</h3> {{option.content}}</mat-radio-button>
           </mat-radio-group> 
     <div fxLayout="row" fxLayoutAlign="center center" class="mt-2 p-1"> 
-        <button mat-mini-fab matStepperPrevious color="primary" matTooltip="Back" matTooltipPosition="before" class="mr-1"><mat-icon>navigate_before</mat-icon></button>
-        <button mat-mini-fab matStepperNext color="primary" matTooltip="Next" matTooltipPosition="after"><mat-icon>navigate_next</mat-icon></button>       
-      </div>
+      <button dir="ltr" mat-mini-fab matStepperPrevious color="primary" matTooltip="Back" matTooltipPosition="before" class="mr-1"><mat-icon *ngIf="lang=='en'">navigate_before</mat-icon><mat-icon *ngIf="lang=='ar'" >navigate_next</mat-icon> </button>
+      <button dir="ltr" mat-mini-fab matStepperNext color="primary" matTooltip="Next" matTooltipPosition="after"><mat-icon *ngIf="lang=='en'" >navigate_next</mat-icon> <mat-icon *ngIf="lang=='ar'">navigate_before</mat-icon> </button>
+  </div>
     </form>
   </mat-step>
 
   <mat-step [stepControl]="couponForm" label="{{ 'COUPONS' | translate }}">
-      <form [formGroup]="couponForm">
           <mat-tab-group>
               <mat-tab label="{{ 'COUPON' | translate }}">
                 <div fxFlex="100" fxFlex.gt-sm="33.3" >
+                    <form [formGroup]="couponForm">
                   <mat-form-field class="w-100">
-                      <input matInput placeholder="Please enter coupon number" formControlName="couponFCN" required>
+                      <input matInput placeholder="{{ 'ENTER_COUPON' | translate }}" formControlName="couponFCN" required>
                       <mat-error >{{coupon_message}}</mat-error>
                   </mat-form-field>
                   <button mat-raised-button type="button"  (click)="addCoupon()" color="primary"><mat-icon>check</mat-icon></button>
-                </div>        
+                </form>
+              </div>        
               </mat-tab>
               <mat-tab label="{{ 'VOUCHER' | translate }}">
-
-              </mat-tab>
+              <form [formGroup]="walletItemsForm">
+                <mat-radio-group  formControlName="walletItemFCN"  fxLayout="column" fxLayoutAlign="center" required  name="walletItem">
+                  <mat-radio-button *ngFor="let item of walletItems" color="primary" [value]="item" class="mt-1"><h3>{{item.amount}}</h3></mat-radio-button>
+                </mat-radio-group>       
+              </form>
+            </mat-tab>
             </mat-tab-group>
       <div fxLayout="row" fxLayoutAlign="center center" class="mt-2 p-1"> 
-          <button mat-mini-fab matStepperPrevious color="primary" matTooltip="Back" matTooltipPosition="before" class="mr-1"><mat-icon>navigate_before</mat-icon></button>
-          <button mat-mini-fab matStepperNext color="primary" matTooltip="Next" matTooltipPosition="after"><mat-icon>navigate_next</mat-icon></button>       
-        </div>
-      </form>
+          <button dir="ltr" mat-mini-fab matStepperPrevious color="primary" matTooltip="Back" matTooltipPosition="before" class="mr-1"><mat-icon *ngIf="lang=='en'">navigate_before</mat-icon><mat-icon *ngIf="lang=='ar'" >navigate_next</mat-icon> </button>
+          <button dir="ltr" mat-mini-fab matStepperNext color="primary" matTooltip="Next" matTooltipPosition="after"><mat-icon *ngIf="lang=='en'" >navigate_next</mat-icon> <mat-icon *ngIf="lang=='ar'">navigate_before</mat-icon> </button>
+      </div>
     </mat-step>
   
 
-  <mat-step label="Review Order">    
+  <mat-step label="{{'REVIEW_ORDER' | translate}}">    
   <div  fxFlex="100%"  fxLayout="row wrap"  fxLayoutAlign="center">
     <div  fxFlex="40%"  fxLayout="row wrap" fxLayoutAlign="center">
         <div  fxFlex="100%"  class="p-1">
@@ -103,7 +107,7 @@
         </div> 
         <div fxFlex="100%"  class="p-1" >
             <mat-card style="background: whitesmoke;margin:10px;">
-                <span>  {{'TIME_SLOT'}}</span>  <span style="float: right;"> 
+                <span>  {{'TIME_SLOT' |translate }}</span>  <span style="float: right;"> 
                     {{timeSlot?.from }}  {{timeSlot?.to }} {{timeSlot?.delivery_fees}} {{'CURRENCY_SHORTCUT' | translate}}</span>
               </mat-card>                
               <mat-card style="background: whitesmoke;margin:10px;">
@@ -126,6 +130,8 @@
           </div>
         </div>
       </div>
+
+      
     </div>
     </div>
 
@@ -133,11 +139,11 @@
 
 
     <div fxLayout="row" fxLayoutAlign="center center" class="mt-2 p-1"> 
-      <button mat-mini-fab matStepperPrevious color="primary" matTooltip="Back" matTooltipPosition="before" class="mr-1"><mat-icon>navigate_before</mat-icon></button>
-      <button mat-raised-button matStepperNext color="primary" (click)="placeOrder()">Place order now</button>       
-    </div>     
+      <button dir="ltr" mat-mini-fab matStepperPrevious color="primary" matTooltip="Back" matTooltipPosition="before" class="mr-1"><mat-icon *ngIf="lang=='en'">navigate_before</mat-icon><mat-icon *ngIf="lang=='ar'" >navigate_next</mat-icon> </button>
+      <button dir="ltr" mat-mini-fab matStepperNext color="primary" matTooltip="Next" matTooltipPosition="after"><mat-icon *ngIf="lang=='en'" >navigate_next</mat-icon> <mat-icon *ngIf="lang=='ar'">navigate_before</mat-icon> </button>
+</div>     
   </mat-step>
-  <mat-step label="Confirmation">
+  <mat-step label="{{'CONFIRMATION' | translate}}">
     <div fxLayout="column" fxLayoutAlign="center center" class="p-2 text-center"> 
       <button mat-fab color="primary"   type="button" ><mat-icon>check</mat-icon></button>
       <h2 class="py-2">{{confirmationMesssage}}</h2>
@@ -230,7 +236,7 @@
             <mat-tab label="{{ 'COUPON' | translate }}">
               <div fxFlex="100" fxFlex.gt-sm="33.3" >
                 <mat-form-field class="w-100">
-                    <input matInput placeholder="Please enter coupon number" formControlName="couponFCN" required>
+                    <input matInput placeholder="{{ 'ENTER_COUPON' | translate }}" formControlName="couponFCN" required>
                     <mat-error >{{coupon_message}}</mat-error>
                 </mat-form-field>
                 <button mat-raised-button type="button"  (click)="addCoupon()" color="primary"><mat-icon>check</mat-icon></button>
@@ -248,7 +254,7 @@
   </mat-step>
 
 
-  <mat-step label="Review Order">    
+  <mat-step label="{{'REVIEW_ORDER' | translate}}">    
           <div   fxLayout="row wrap" fxLayoutAlign="center">
 
               <div  fxFlex="100%"  class="p-1">
@@ -279,7 +285,7 @@
           </div>
           </div>  
   </mat-step>
-  <mat-step label="Confirmation">
+  <mat-step label="{{'CONFIRMATION' | translate}}">
     <div fxLayout="column" fxLayoutAlign="center center" class="p-2 text-center"> 
       <button mat-fab color="primary"   type="button" ><mat-icon>check</mat-icon></button>
       <h2 class="py-2">{{confirmationMesssage}}</h2>
