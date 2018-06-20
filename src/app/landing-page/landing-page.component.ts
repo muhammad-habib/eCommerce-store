@@ -32,12 +32,6 @@ export class LandingPageComponent implements OnInit {
   noService = false;
   defualtAddress = 1;
   ngOnInit() {
-    // navigator.geolocation.getCurrentPosition(position => {
-    //   console.log(position); 
-    //   this.location = position.coords;
-    //   console.log(this.location); 
-    //   console.log(this.location['longitude']); 
-    // });
 
     this.selectedAddress =JSON.parse(localStorage.getItem('address'));
 

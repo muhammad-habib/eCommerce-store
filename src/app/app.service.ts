@@ -149,10 +149,16 @@ export class AppService {
 
     public readCartFromLocalStorage(){
         let market = localStorage.getItem('market');
+        console.log(market);
         let tempCart = JSON.parse(localStorage.getItem('cart'));
+        console.log(tempCart);
         if(tempCart && tempCart[market]){
             this.cartMap = new Map(tempCart[market].map);
             this.cartTotalPrice = tempCart[market].totalPrice; 
+            this.cartDataService.changeCart(this.cartMap);                   
+        }else{
+            this.cartMap = new Map();
+            this.cartTotalPrice = 0; 
             this.cartDataService.changeCart(this.cartMap);                   
         }
       }

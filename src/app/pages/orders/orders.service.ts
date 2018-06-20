@@ -12,11 +12,17 @@ export class OrdersService {
     public getOrders(user, filter): Observable<any[]> {
         // Initialize Params Object
         let params = new HttpParams();
-        params = params.append('user_id', user.id).append('page', filter.page);
+        if ( localStorage.getItem('market') !== '1')
+            this.url = this.url+'mini-market/';
         return this.http.get<any[]>(this.url + 'myOrders', { params: params});
     }
 
     public requestOrder(order){
-        return this.http.post<any[]>(this.url + 'app-order-details', order);
+        let link =(Number(localStorage.getItem('market'))==1)? 'app-order-details':'mini-market/order-details'        
+        return this.http.post<any[]>(this.url + link, order);
+    }
+    public confirmOrder(order){
+        let link =(Number(localStorage.getItem('market'))==1)? 'requestOrder':'mini-market/requestOrder'        
+        return this.http.post<any[]>(this.url + link, order);
     }
 }

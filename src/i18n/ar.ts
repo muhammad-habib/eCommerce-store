@@ -38,7 +38,7 @@ export const LANG_AR_TRANS = {
     'item': 'منتج',
     'empty_cart': 'ليس لديك اى منتجات فى عربة التسوق',
     // footer
-    'copy_rights': 'جميع حقوق النشر محفوظه لسنه 2018 ©',
+    'copy_rights': 'جميع حقوق النشر محفوظه © لسنه 2018',
     // language
     'en' : 'English',
     'ar' : 'عربى',

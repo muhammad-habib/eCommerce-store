@@ -5,8 +5,9 @@ import { Settings, AppSettings } from '../app.settings';
 import { AppService } from '../app.service';
 import { Category } from '../app.models';
 import { SidenavMenuService } from '../theme/components/sidenav-menu/sidenav-menu.service';
-import { MarketTypeDataService } from '../shared/market-type-data.service'
-import { CartDataService } from './cart/cart-data.service'
+import { MarketTypeDataService } from '../shared/market-type-data.service';
+import { CartDataService } from './cart/cart-data.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-pages',
@@ -19,6 +20,7 @@ export class PagesComponent implements OnInit {
   public categories:Category[];
   public category:Category;
   public marketTypeData;
+  public search_text;
   public sidenavMenuItems:Array<any>;
   @ViewChild('sidenav') sidenav:any;
 
@@ -27,7 +29,9 @@ export class PagesComponent implements OnInit {
               public appService:AppService, private cartDataService:CartDataService, 
               public sidenavMenuService:SidenavMenuService,
               public marketTypeDataService:MarketTypeDataService,
-              public router:Router) {
+              public router:Router,
+              private spinner: NgxSpinnerService
+  ) {
     this.settings = this.appSettings.settings; 
     this.settings.theme = Settings.colors[localStorage.getItem('market')?localStorage.getItem('market'):1]
   }
@@ -38,7 +42,7 @@ export class PagesComponent implements OnInit {
     this.sidenavMenuItems = this.sidenavMenuService.getSidenavMenuItems();
     this.marketTypeData = this.marketTypeDataService.getMarketTypeData();
     this.cartDataService.cart.subscribe(cart => {
-      this.cart = cart
+      this.cart = cart;
       console.log(cart);
     });
   } 
@@ -78,7 +82,11 @@ export class PagesComponent implements OnInit {
     event.preventDefault();
   }
 
-  public search(){}
+  public search() {
+      this.spinner.show();
+      console.log(this.searchInput);
+      // this.spinner.hide();
+  }
 
  
   public scrollToTop(){
