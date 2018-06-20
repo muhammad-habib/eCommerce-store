@@ -1,6 +1,6 @@
 <div fxLayout="row wrap">
     <div fxFlex="100" fxFlex.gt-md="35" fxFlex.md="45">
-        
+
         <mat-card class="product-image">
             <button mat-icon-button (click)="openZoomViewer()" fxHide="false" fxHide.gt-md><mat-icon>fullscreen</mat-icon></button>
             <img *ngIf="image" [src]="image" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave($event)"/>
@@ -19,6 +19,9 @@
         <p class="py-1 text-muted lh">{{product?.description_en}}</p>
 
         <div class="divider mt-1"></div>
+        <p class="old-price text-muted">
+            <span *ngIf="product.offer">{{product?.offer_price | number : '1.2-2'}}</span>
+        </p>
         <h2 class="py-2 new-price">{{'SAR' | translate}}{{product?.price}}</h2>
 
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" class="details text-muted py-1">

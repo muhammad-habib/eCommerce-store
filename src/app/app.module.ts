@@ -37,6 +37,7 @@ import { MyWalletComponent } from './pages/my-wallet/my-wallet.component';
 import { AddressesComponent } from './addresses/addresses.component';
 import {LanguagesComponent} from './theme/components/languages/languages.component';
 import {OnlyLoggedInUsersGuard} from './guards/only-logged-in-users.guard';
+import { SearchComponent } from './theme/components/search/search.component';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import {OnlyLoggedInUsersGuard} from './guards/only-logged-in-users.guard';
     AddressesComponent,
     // CategoryComponent,
     LanguagesComponent,
+    SearchComponent,
   
   ],
   providers: [
