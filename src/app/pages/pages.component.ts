@@ -20,7 +20,6 @@ export class PagesComponent implements OnInit {
   public categories:Category[];
   public category:Category;
   public marketTypeData;
-  public search_text;
   public sidenavMenuItems:Array<any>;
   @ViewChild('sidenav') sidenav:any;
 
@@ -84,7 +83,6 @@ export class PagesComponent implements OnInit {
 
   public search() {
       this.spinner.show();
-      console.log(this.searchInput);
       // this.spinner.hide();
   }
 

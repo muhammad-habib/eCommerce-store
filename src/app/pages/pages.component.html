@@ -45,11 +45,11 @@
                             <app-category-list [categories]="categories" [categoryParentId]="0" (change)="changeCategory($event)"></app-category-list>
                         </span>
                     </mat-menu> -->
-                    <input type="text" [(ngModel)]="search_text" placeholder="{{'search' |translate}}" fxFlex>
+                    <input type="text" placeholder="{{'search' |translate}}" fxFlex>
                     <button mat-mini-fab (click)="search()" type="button" class="search-btn mat-elevation-z0 text-muted">
                         <mat-icon>search</mat-icon>
                     </button>
-                    <span>{{search_text}}</span>
+                    <span></span>
                 </form>
             </div>
 
