@@ -34,8 +34,8 @@ export class ProductComponent implements OnInit {
     this.sub = this.activatedRoute.params.subscribe(params => {
       this.getProductById(params['id']);
       this.meta.addTags([
-            {name: 'al:android:url', content: 'zad://story/'+ params['id']},
-            {name: 'al:ios:url', content: 'zad://story/'+ params['id']}
+            {name: 'al:android:url', content: 'zad://product/'+ params['id']},
+            {name: 'al:ios:url', content: 'zad://product/'+ params['id']}
       ]);
     });
     this.form = this.formBuilder.group({ 
