@@ -1,4 +1,4 @@
-<div fxFlex fxFlexOffset.gt-sm="10" fxShow="false" fxShow.gt-sm>
+<div fxFlex fxFlexOffset.gt-sm="10"  fxFlex.gt-md="100" fxFlex.md="45">
   <form method="get"  class="search-form">
     <!-- <button mat-raised-button [matMenuTriggerFor]="categoriesMenu" #categoriesMenuTrigger="matMenuTrigger" type="button" class="mat-elevation-z0 categories text-truncate text-muted">{{category?.name}}<mat-icon>arrow_drop_down</mat-icon></button>
     <mat-menu #categoriesMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="categories-dropdown">
@@ -6,7 +6,7 @@
             <app-category-list [categories]="categories" [categoryParentId]="0" (change)="changeCategory($event)"></app-category-list>
         </span>
     </mat-menu> -->
-    <input type="text" [(ngModel)]="text" name="search" placeholder="{{'search' |translate}}" fxFlex>
+    <input type="text" [(ngModel)]="text" name="search" placeholder="{{'search' |translate}}" fxFlex style="width: 600px;">
     <button mat-mini-fab (click)="search()" type="button" class="search-btn mat-elevation-z0 text-muted">
       <mat-icon>search</mat-icon>
     </button>
