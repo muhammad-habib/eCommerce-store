@@ -36,4 +36,8 @@ export class ProductsService {
     return this.http.get<any[]>(this.url + "offers-ads");
   }
 
+  searchProducts(query) {
+    return this.http.get(this.url+'product-search?query='+query);
+  }
+
 }

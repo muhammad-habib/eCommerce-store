@@ -6,11 +6,9 @@
             <app-category-list [categories]="categories" [categoryParentId]="0" (change)="changeCategory($event)"></app-category-list>
         </span>
     </mat-menu> -->
-    <input type="text" [(ngModel)]="text" placeholder="{{'search' |translate}}" fxFlex>
+    <input type="text" [(ngModel)]="text" name="search" placeholder="{{'search' |translate}}" fxFlex>
     <button mat-mini-fab (click)="search()" type="button" class="search-btn mat-elevation-z0 text-muted">
       <mat-icon>search</mat-icon>
     </button>
-    <span>{{text}}</span>
   </form>
 </div>
-<span>{{text}}</span>
