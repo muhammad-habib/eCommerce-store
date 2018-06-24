@@ -13,8 +13,8 @@ import { ProductListItemComponent } from './product-list-item/product-list-item.
 
 export const routes = [
   { path: '', component: ProductsComponent, pathMatch: 'full' },
-  { path: ':id', component: ProductComponent }
-];
+  { path: ':id', component: ProductComponent },
+    { path: ':name/:id', component: ProductComponent }];
 
 @NgModule({
   imports: [

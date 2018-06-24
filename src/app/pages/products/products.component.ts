@@ -104,7 +104,6 @@ export class ProductsComponent implements OnInit {
     this.productsService.getProducts(this.is_hyper,this.market_id,this.filter,this.isOffers).subscribe(res=>{
       this.products = this.products.concat(res['data']['data']);
       this.current = res['data']['current_page'];
-      // console.log(res.shoppers.current_page);
       this.total = res['data']['total'];
       this.lastPage = res['data']['last_page'];
       this.spinner.hide();
