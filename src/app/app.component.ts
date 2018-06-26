@@ -12,7 +12,7 @@ export class AppComponent {
   loading: boolean = false;
   content_id: number;
   public settings: Settings;
-  constructor(public appSettings:AppSettings, public router: Router, private appService: AppService){
+  constructor(public appSettings:AppSettings, public router: Router, private appService: AppService) {
     this.settings = this.appSettings.settings;
 
     (localStorage.getItem('lang'))?'':localStorage.setItem('lang','en');

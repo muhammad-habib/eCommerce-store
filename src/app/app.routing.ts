@@ -8,7 +8,7 @@ import {MyAccountComponent} from './pages/my-account/my-account.component';
 import {MyWalletComponent} from './pages/my-wallet/my-wallet.component';
 import {AddressesComponent} from './addresses/addresses.component';
 import {OnlyLoggedInUsersGuard} from './guards/only-logged-in-users.guard';
-
+import {CategoriesComponent} from './shared/categories/categories.component';
 export const routes: Routes = [
     {
         path: 'landing', component: LandingPageComponent
@@ -19,7 +19,6 @@ export const routes: Routes = [
             {path: 'list', loadChildren: 'app/addresses/list-addresses/list-addresses.module#ListAddressesModule'},
         ]
     },
-    {path: '', redirectTo: '/landing', pathMatch: 'full'},
     {
         path: '',
         component: PagesComponent, children: [
@@ -29,7 +28,7 @@ export const routes: Routes = [
             {path: 'checkout', loadChildren: 'app/pages/checkout/checkout.module#CheckoutModule', data: {breadcrumb: 'Checkout'}},
             {path: 'contact', loadChildren: 'app/pages/contact/contact.module#ContactModule', data: {breadcrumb: 'Contact'}},
             {path: 'sign-in', loadChildren: 'app/pages/sign-in/sign-in.module#SignInModule', data: {breadcrumb: 'Sign In '}},
-            {path: 'products', loadChildren: 'app/pages/products/products.module#ProductsModule', data: {breadcrumb: 'All Products'}},
+            {path: '', component:CategoriesComponent, loadChildren: 'app/shared/categories/categories.module#CategoriesModule', data: {breadcrumb: 'All Categories'}},
             {path: 'offers', loadChildren: 'app/pages/products/products.module#ProductsModule', data: {offers: true}},
             {path: 'category', loadChildren: 'app/pages/category/category.module#CategoryModule'},
             // { path: 'orders', loadChildren: 'app/pages/orders/orders.module#OrdersModule', data: { breadcrumb: 'All Orders' } }

@@ -6,6 +6,7 @@ import { Category, Product } from './app.models';
 import { CartDataService } from './pages/cart/cart-data.service'
 import {User} from './models/User.model';
 import {environment} from '../environments/environment';
+import {Subject} from 'rxjs/Subject';
 
 export class Data {
     constructor(public categories: Category[],
@@ -183,5 +184,21 @@ export class AppService {
         params = params.append('userId', id);
         return this.http.get<User>(environment.API_ENDPOINT+'get-user', { params: params});
     }
+
+
+    private subject = new Subject<any>();
+
+    sendData(message: string) {
+        this.subject.next(message);
+    }
+
+    clearData() {
+        this.subject.next();
+    }
+
+    getData(): Observable<any> {
+        return this.subject.asObservable();
+    }
+
 
 } 

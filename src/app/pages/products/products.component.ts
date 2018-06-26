@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, ViewChild, HostListener, OnDestroy } from '@angular/core';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ProductDialogComponent } from '../../shared/products-carousel/product-dialog/product-dialog.component';
 import { AppService } from '../../app.service';
@@ -8,6 +8,7 @@ import { ProductsService} from './products.service'
 import { ChangeEvent, VirtualScrollComponent } from 'angular2-virtual-scroll';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Location} from '@angular/common';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-products',
@@ -51,19 +52,19 @@ export class ProductsComponent implements OnInit {
 
   @ViewChild(VirtualScrollComponent)
   private virtualScroll: VirtualScrollComponent;
-
+  dataPassed: any;
+  subscription: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute, private location:Location,
                public appService:AppService, private productsService:ProductsService,
                public dialog: MatDialog, private router: Router,
                private spinner: NgxSpinnerService) {
-
-
                 }
 
   ngOnInit() {
+      console.log('hiiiiiiiiiiiiiiiiiiiiiii');
     this.activatedRoute.data.subscribe(data=>{
-        this.isOffers = (data.offers == true)
+        this.isOffers = (data.offers == true);
     });
     this.count = this.counts[0];
     this.sort = this.sortings[0];
@@ -92,6 +93,13 @@ export class ProductsComponent implements OnInit {
       this.searchProducts();
     }
     else{
+        // subscribe to home component messages
+        this.subscription = this.appService.getData().subscribe(x => {
+            this.dataPassed = x;
+            this.filter['category_id'] = this.dataPassed;
+            this.getProducts();
+            console.log(this.dataPassed, 'fffffffffffvvvvvvvvvvvvvvvvvvvvvvvvvvvvtttttt');
+        });
         this.getProducts();
         if(this.isOffers)
             this.getOffersAds();
@@ -101,14 +109,16 @@ export class ProductsComponent implements OnInit {
 
   public getProducts() {
     this.spinner.show();
+    console.log("a7aaaaaaaaaaaaaaaaaaaaaaaaa");
     this.productsService.getProducts(this.is_hyper,this.market_id,this.filter,this.isOffers).subscribe(res=>{
-      this.products = this.products.concat(res['data']['data']);
+      this.products = this.products = res['data']['data'];
       this.current = res['data']['current_page'];
       this.total = res['data']['total'];
       this.lastPage = res['data']['last_page'];
       this.spinner.hide();
       // this.virtualScroll.refresh();
       // this.virtualScroll.update.emit(this.products);
+        console.log(this.products);
     },err=>{
       this.spinner.hide();
     });
@@ -180,15 +190,6 @@ export class ProductsComponent implements OnInit {
       this.filter['page']= 1 ;
       this.products = [];
       this.getProducts();
-      const urlTree = this.router.createUrlTree([], {
-        queryParams: { 
-                content_type : "category",
-                content_id : cat.category_id },
-        queryParamsHandling : "merge",
-        preserveFragment: true });
-      delete urlTree.queryParams.query;
-      this.router.navigateByUrl(urlTree);
-  
   }
 
     @HostListener("window:scroll", ["$event"])
@@ -235,6 +236,5 @@ export class ProductsComponent implements OnInit {
             this.spinner.hide();
         });
     }
-
 
 }

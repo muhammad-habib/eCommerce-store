@@ -48,9 +48,9 @@
         </div>
            
     </mat-menu> -->
-    <a mat-button [routerLink]="['/products']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">{{'home' |translate}}</a>
+    <a mat-button [routerLink]="['/']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">{{'home' |translate}}</a>
     <a mat-button [routerLink]="['/offers']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">{{'offers' |translate}}</a>
     <a *ngIf="appService.logedIn" mat-button [routerLink]="['/orders']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">{{'my-orders' |translate}}</a>
-    <a mat-button [routerLink]="['/products']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">{{'help' |translate}}</a>
+    <a mat-button [routerLink]="['/']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">{{'help' |translate}}</a>
 </mat-toolbar>
 

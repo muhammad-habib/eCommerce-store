@@ -12,9 +12,13 @@ import { ProductZoomComponent } from './product/product-zoom/product-zoom.compon
 import { ProductListItemComponent } from './product-list-item/product-list-item.component';
 
 export const routes = [
-  { path: '', component: ProductsComponent, pathMatch: 'full' },
-  { path: ':id', component: ProductComponent },
-    { path: ':name/:id', component: ProductComponent }];
+    { path: 'products/:id', component: ProductComponent },
+    { path: ':name/:id/products/:name/:id', component: ProductComponent },
+    { path: 'products', component: ProductsComponent, pathMatch: 'full' },
+    { path: 'category/:name/:id', component: ProductsComponent, pathMatch: 'full' },
+    { path: 'category/:name/:id/sub/:name/:id', component: ProductsComponent, pathMatch: 'full' },
+    { path: '', component: ProductsComponent, pathMatch: 'full' },
+];
 
 @NgModule({
   imports: [

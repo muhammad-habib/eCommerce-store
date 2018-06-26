@@ -78,7 +78,7 @@
         <h3 *ngIf="markets.length">{{'CHOOSE_MARKET' | translate}}</h3>
         <h3 *ngIf="noService">{{'NO_SERVICE' | translate}}</h3>
 
-            <mat-card [routerLink]="['/products']"
+            <mat-card [routerLink]="['']"
                     *ngFor="let market of markets" 
                         (click)="selectType(market);"
                         [queryParams]="{hyper:market.is_hyper,market:market.id}"
