@@ -31,6 +31,7 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.sub = this.activatedRoute.params.subscribe(params => {
       this.getProductById(params['id']);
       this.meta.addTags([
