@@ -49,6 +49,11 @@ export class CategoriesComponent implements OnInit {
       this.getCategories();
   }
 
+
+  replaceTextSpaces(s:string) {
+     return s && s.replace(/ /g,'-');
+  }
+
   public getCategories() {
     this.categoriesService.getCategories(this.hyper,this.market).subscribe(data=>{
       this.categories = data['data'];

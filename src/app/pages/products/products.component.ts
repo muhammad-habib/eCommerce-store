@@ -230,4 +230,9 @@ export class ProductsComponent implements OnInit {
         });
     }
 
+
+    replaceTextSpaces(s:string) {
+        return s && s.replace(/ /g,'-');
+    }
+
 }
