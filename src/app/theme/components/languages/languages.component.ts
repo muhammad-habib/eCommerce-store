@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {LanguagesService} from './languages.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppService} from '../../../app.service';
+import { LocalStorageObject } from '../../../locale-storage'
+import { PlatformService } from '../../../platform.service';
 
 @Component({
   selector: 'app-languages',
@@ -18,7 +20,7 @@ export class LanguagesComponent implements OnInit {
     public flag:any;
 
     constructor(private languagesService: LanguagesService,
-                private router: Router,
+                private router: Router,private platformService:PlatformService,
                 private route: ActivatedRoute,
                 public appService: AppService
 
@@ -26,7 +28,7 @@ export class LanguagesComponent implements OnInit {
 
     ngOnInit() {
         let flag = this.flags.find(function(flag) {
-            return flag.slug === localStorage.getItem('lang');
+            return flag.slug === LocalStorageObject.getItem('lang');
         });
         if (flag)
             this.flag = flag;
@@ -39,9 +41,9 @@ export class LanguagesComponent implements OnInit {
 
     public changeLang(flag) {
         this.flag = flag;
-        localStorage.setItem('lang', this.flag.slug);
+        LocalStorageObject.setItem('lang', this.flag.slug);
         this.appService.lang = this.flag.slug;
-        if (localStorage.getItem('user')) {
+        if (LocalStorageObject.getItem('user')) {
             this.languagesService.changeLanguage(this.flag.slug)
                 .subscribe(
                     data => {
@@ -50,8 +52,9 @@ export class LanguagesComponent implements OnInit {
                     error => {
             });
         }
-        let lang= localStorage.getItem('lang')||'en';
-        let body = document.getElementsByTagName('body')[0];
+        let lang= LocalStorageObject.getItem('lang')||'en';
+        if(this.platformService.isBrowser){
+            let body = document.getElementsByTagName('body')[0];
             body.dir = (lang == "ar") ? "rtl" : "ltr";   //remove the class
             if(body.dir=="rtl"){
             // console.log(" direction is RTL");
@@ -60,8 +63,8 @@ export class LanguagesComponent implements OnInit {
             // console.log(" direction is LTR");
             body.className="left";
             }
-            localStorage.setItem('lang', lang);
-
+            LocalStorageObject.setItem('lang', lang);
+        }
 
         // console.log();
         const allParams = this.route.snapshot.queryParams;

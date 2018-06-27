@@ -7,7 +7,10 @@ import { Category } from '../app.models';
 import { SidenavMenuService } from '../theme/components/sidenav-menu/sidenav-menu.service';
 import { MarketTypeDataService } from '../shared/market-type-data.service';
 import { CartDataService } from './cart/cart-data.service';
-import {NgxSpinnerService} from 'ngx-spinner';
+import { NgxSpinnerService} from 'ngx-spinner';
+import { LocalStorageObject } from './../locale-storage'
+import { PlatformService} from '../platform.service'
+
 
 @Component({
   selector: 'app-pages',
@@ -24,7 +27,7 @@ export class PagesComponent implements OnInit {
   @ViewChild('sidenav') sidenav:any;
 
   public settings: Settings;
-  constructor(public appSettings:AppSettings, 
+  constructor(public appSettings:AppSettings, private platformService:PlatformService,
               public appService:AppService, private cartDataService:CartDataService, 
               public sidenavMenuService:SidenavMenuService,
               public marketTypeDataService:MarketTypeDataService,
@@ -32,7 +35,7 @@ export class PagesComponent implements OnInit {
               private spinner: NgxSpinnerService
   ) {
     this.settings = this.appSettings.settings; 
-    this.settings.theme = Settings.colors[localStorage.getItem('market')?localStorage.getItem('market'):1]
+    this.settings.theme = Settings.colors[LocalStorageObject.getItem('market')?LocalStorageObject.getItem('market'):1]
   }
   public products=[];
   public cart;
@@ -104,7 +107,9 @@ export class PagesComponent implements OnInit {
   }
   @HostListener('window:scroll', ['$event'])
   onWindowScroll($event) {
+    if(this.platformService.isBrowser){
     ($event.target.documentElement.scrollTop > 300) ? this.showBackToTop = true : this.showBackToTop = false;  
+    }
   }
 
   ngAfterViewInit(){

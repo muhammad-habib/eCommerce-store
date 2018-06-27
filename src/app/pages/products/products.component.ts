@@ -9,6 +9,8 @@ import { ChangeEvent, VirtualScrollComponent } from 'angular2-virtual-scroll';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Location} from '@angular/common';
 import {Subscription} from 'rxjs/Subscription';
+import { LocalStorageObject } from '../../locale-storage'
+import { PlatformService } from '../../platform.service';
 
 @Component({
   selector: 'app-products',
@@ -56,7 +58,7 @@ export class ProductsComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private location:Location,
                public appService:AppService, private productsService:ProductsService,
-               public dialog: MatDialog, private router: Router,
+               public dialog: MatDialog, private router: Router,private platformService:PlatformService,
                private spinner: NgxSpinnerService) {
                 }
 
@@ -67,9 +69,8 @@ export class ProductsComponent implements OnInit {
     this.count = this.counts[0];
     this.sort = this.sortings[0];
     this.sub = this.activatedRoute.queryParams.subscribe(params => {
-        this.query = params.query?params.query:'';
-        this.market_id = params.market?params.market:1;
-        localStorage.setItem('market', '' + (this.market_id));
+        this.market_id = params.market?params.market:LocalStorageObject.getItem('market');
+        LocalStorageObject.setItem('market', '' + (this.market_id));
         this.is_hyper = params.hyper?params.hyper:1;
         let content_type = params.content_type;
         if(content_type === 'category') {
@@ -184,6 +185,7 @@ export class ProductsComponent implements OnInit {
 
     @HostListener("window:scroll", ["$event"])
     onWindowScroll() {
+      if(this.platformService.isBrowser){
       //In chrome and some browser scroll is given to body tag
       let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
       let max = document.documentElement.scrollHeight;
@@ -200,6 +202,7 @@ export class ProductsComponent implements OnInit {
         this.filter['page']= ++this.current ;
         this.getProducts();    
       }
+     }
     }
 
     private getOffersAds(){

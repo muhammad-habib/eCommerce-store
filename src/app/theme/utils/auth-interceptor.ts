@@ -4,8 +4,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
-import {Router} from '@angular/router';
-import {AppService} from '../../app.service';
+import { Router} from '@angular/router';
+import { AppService} from '../../app.service';
+import { LocalStorageObject } from '../../locale-storage'
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -25,17 +26,17 @@ export class AuthInterceptor implements HttpInterceptor {
         const authReq = req.clone({
           headers: new HttpHeaders({
             'Content-Type':  'application/json',
-            'Authorization': localStorage.getItem('user')?JSON.parse(localStorage.getItem('user'))._token:"",
+            'Authorization': LocalStorageObject.getItem('user')?JSON.parse(LocalStorageObject.getItem('user'))._token:"",
             'deviceid':  req.headers.get('device_id')?req.headers['device_id']:
-                           (localStorage.getItem('device_id')?localStorage.getItem('device_id'):""),
+                           (LocalStorageObject.getItem('device_id')?LocalStorageObject.getItem('device_id'):""),
             'accept-language': req.headers.get('lang')?req.headers['lang']:
-                                (localStorage.getItem('lang')?localStorage.getItem('lang'):"en"),
+                                (LocalStorageObject.getItem('lang')?LocalStorageObject.getItem('lang'):"en"),
             'latitude': req.headers.get('lat') ? req.headers.get('lat') :
-                                  (localStorage.getItem('lat')?localStorage.getItem('lat'):""),
+                                  (LocalStorageObject.getItem('lat')?LocalStorageObject.getItem('lat'):""),
             'longitude': req.headers.get('lng') ? req.headers.get('lng') :
-                        (localStorage.getItem('lng')?localStorage.getItem('lng'):""),
+                        (LocalStorageObject.getItem('lng')?LocalStorageObject.getItem('lng'):""),
             'market-type-id':req.headers.get('market') ? req.headers.get('market') :
-            (localStorage.getItem('market')?localStorage.getItem('market'):""),
+            (LocalStorageObject.getItem('market')?LocalStorageObject.getItem('market'):""),
             'os':navigator.platform,
 
           })
@@ -48,7 +49,7 @@ export class AuthInterceptor implements HttpInterceptor {
                     if (ev.body.status_code === 401) {
                         console.log('hi');
                         this.appService.logedIn = false;
-                        localStorage.removeItem('user');
+                        LocalStorageObject.removeItem('user');
                         this.router.navigateByUrl('/sign-in');
                         return Observable.throw(ev);
                     }

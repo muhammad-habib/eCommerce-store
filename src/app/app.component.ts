@@ -1,7 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
+import { Component } from '@angular/core';
+import { Router, NavigationEnd} from '@angular/router';
 import { Settings, AppSettings } from './app.settings';
-import {AppService} from './app.service';
+import { AppService} from './app.service';
+import { LocalStorageObject } from './locale-storage'
+import { PlatformService} from './platform.service'
 
 @Component({
   selector: 'app-root',
@@ -12,28 +14,33 @@ export class AppComponent {
   loading: boolean = false;
   content_id: number;
   public settings: Settings;
-  constructor(public appSettings:AppSettings, public router: Router, private appService: AppService) {
+  public device;
+  constructor(public appSettings:AppSettings,public router: Router,
+              private platformService:PlatformService,
+              private appService: AppService){
     this.settings = this.appSettings.settings;
-
-    (localStorage.getItem('lang'))?'':localStorage.setItem('lang','en');
-    let body = document.getElementsByTagName('body')[0];
-    body.dir= (localStorage.getItem('lang') == "ar")?"rtl":"ltr";   //remove the class
-    if(body.dir=="rtl"){
-      console.log(" direction is RTL");
-      body.className="right";
-    }else{
-      console.log(" direction is LTR");
-      body.className="left";
+      (LocalStorageObject.getItem('lang'))?'':LocalStorageObject.setItem('lang','en');
+      if(platformService.isBrowser){
+      let body = document.getElementsByTagName('body')[0];
+      body.dir= (LocalStorageObject.getItem('lang') == "ar")?"rtl":"ltr";   //remove the class
+      if(body.dir=="rtl"){
+        console.log(" direction is RTL");
+        body.className="right";
+      }else{
+        console.log(" direction is LTR");
+        body.className="left";
+      }
     }
 
 
   }
 
   ngOnInit() {
-    if(! localStorage.getItem('device_id'))
-        localStorage.setItem("device_id",((navigator.platform).replace(' ','')) +'-' + Date.now() +'-'+(Math.floor(Math.random() * 1000000) + 1000000) );
+
+    if(! LocalStorageObject.getItem('device_id'))
+        LocalStorageObject.setItem("device_id",((navigator.platform).replace(' ','')) +'-' + Date.now() +'-'+(Math.floor(Math.random() * 1000000) + 1000000) );
    // this.router.navigate(['']);  //redirect other pages to homepage on browser refresh
-      let user = JSON.parse(localStorage.getItem('user'));
+      let user = JSON.parse(LocalStorageObject.getItem('user'));
       if (user)
           this.getUser(user.id);
   }

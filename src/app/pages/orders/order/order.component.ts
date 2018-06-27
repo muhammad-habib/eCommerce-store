@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {OrderService} from './order.service';
 import {Order} from '../../../models/Order.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { LocalStorageObject } from '../../../locale-storage'
 
 @Component({
   selector: 'app-order',
@@ -42,7 +43,7 @@ export class OrderComponent implements OnInit {
 
 
   private getOrder(id) {
-    let user = JSON.parse(localStorage.getItem('user'));
+    let user = JSON.parse(LocalStorageObject.getItem('user'));
     this.orderService.getOrder(user, id).subscribe(data=> {
         this.order = data['data'];
         switch (this.order.status.id) {

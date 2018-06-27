@@ -7,6 +7,7 @@ import { CartDataService } from './pages/cart/cart-data.service'
 import {User} from './models/User.model';
 import {environment} from '../environments/environment';
 import {Subject} from 'rxjs/Subject';
+import { LocalStorageObject } from './locale-storage'
 
 export class Data {
     constructor(public categories: Category[],
@@ -36,11 +37,11 @@ export class AppService {
     public url = "assets/data/";
 
     public color ='#f56d13' ;
-    constructor(public http:HttpClient, public snackBar: MatSnackBar,                
+    constructor(public http:HttpClient, public snackBar: MatSnackBar,
                 private cartDataService:CartDataService) 
     { 
         this.readCartFromLocalStorage();
-        this.color = localStorage.getItem('color')?localStorage.getItem('color'):'#f56d13';  
+        this.color = LocalStorageObject.getItem('color')?LocalStorageObject.getItem('color'):'#f56d13';  
     }
     
     public getCategories(): Observable<Category[]>{
@@ -140,18 +141,18 @@ export class AppService {
     }  
 
     private writeCartToLocalStoarge(){
-        let market = localStorage.getItem('market');
-        let tempCart = JSON.parse(localStorage.getItem('cart'))||[];
+        let market = LocalStorageObject.getItem('market');
+        let tempCart = JSON.parse(LocalStorageObject.getItem('cart'))||[];
 
         tempCart[market] = {totalPrice:this.cartTotalPrice,map: Array.from(this.cartMap.entries())}; 
-        localStorage.setItem('cart' , JSON.stringify(tempCart)) 
+        LocalStorageObject.setItem('cart' , JSON.stringify(tempCart)) 
       }
 
 
     public readCartFromLocalStorage(){
-        let market = localStorage.getItem('market');
+        let market = LocalStorageObject.getItem('market');
         console.log(market);
-        let tempCart = JSON.parse(localStorage.getItem('cart'));
+        let tempCart = JSON.parse(LocalStorageObject.getItem('cart'));
         console.log(tempCart);
         if(tempCart && tempCart[market]){
             this.cartMap = new Map(tempCart[market].map);

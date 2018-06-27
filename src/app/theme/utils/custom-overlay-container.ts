@@ -4,9 +4,11 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 @Injectable() 
 export class CustomOverlayContainer extends OverlayContainer {
   _createContainer(): void {
+    if(typeof window !== 'undefined'){
     let container = document.createElement('div');
     container.classList.add('cdk-overlay-container');
     document.getElementById('app').appendChild(container);
     this._containerElement = container;
+    }
   }
 }

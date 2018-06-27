@@ -4,6 +4,7 @@ import { MarketsService } from './markets.service'
 import { MarketTypeDataService } from '../shared/market-type-data.service'
 import { AppService } from '../app.service';
 import {  MapService } from '../shared/map/map.service'
+import { LocalStorageObject } from '../locale-storage'
 
 
 @Component({
@@ -33,7 +34,7 @@ export class LandingPageComponent implements OnInit {
   defualtAddress = 1;
   ngOnInit() {
 
-    this.selectedAddress =JSON.parse(localStorage.getItem('address'));
+    this.selectedAddress =JSON.parse(LocalStorageObject.getItem('address'));
 
     if(this.selectedAddress){
       this.addressesService.getAddresses().subscribe(
@@ -50,13 +51,13 @@ export class LandingPageComponent implements OnInit {
               this.noService = !this.markets.length ;
           });
 
-      this.addressesService.getAddress(localStorage['lat'],localStorage['lng'])
+      this.addressesService.getAddress(LocalStorageObject['lat'],LocalStorageObject['lng'])
           .subscribe(data =>{            
               this.district = data['district'];
               this.city = data['city'];
           } );
   
-          this.mapService.getGeoCode({'lat':localStorage['lat'],'lng':localStorage['lng']}).subscribe(
+          this.mapService.getGeoCode({'lat':LocalStorageObject['lat'],'lng':LocalStorageObject['lng']}).subscribe(
           res=>{
               if(res['results'] && res['results'][0] && res['results'][0]['formatted_address'])
                   this.decription = res['results'][0]['formatted_address']  
@@ -66,8 +67,8 @@ export class LandingPageComponent implements OnInit {
         return;  
     }
 
-    if(!localStorage.getItem('device_id')){
-        localStorage.setItem('device_id',''+((navigator.platform).replace('','-')+Date.now()+'-'+(Math.floor(Math.random() * 99999999) + 100000000)));          
+    if(!LocalStorageObject.getItem('device_id')){
+        LocalStorageObject.setItem('device_id',''+((navigator.platform).replace('','-')+Date.now()+'-'+(Math.floor(Math.random() * 99999999) + 100000000)));          
         console.log("device_id");
         this.getLocation();
     }
@@ -93,8 +94,8 @@ export class LandingPageComponent implements OnInit {
     if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition(position => {
         this.location = position.coords;
-        localStorage.setItem('lng',this.location['longitude']);
-        localStorage.setItem('lat',this.location['latitude']);
+        LocalStorageObject.setItem('lng',this.location['longitude']);
+        LocalStorageObject.setItem('lat',this.location['latitude']);
         this.marketsService.getMarkets().subscribe(data=>{
             this.markets = data['data'];
             this.noService = !this.markets.length ;
@@ -119,10 +120,10 @@ export class LandingPageComponent implements OnInit {
 
   getOpenedMarkets(){
     
-    localStorage.setItem('lng',this.selectedAddress['longitude']);
-    localStorage.setItem('lat',this.selectedAddress['latitude']);
+    LocalStorageObject.setItem('lng',this.selectedAddress['longitude']);
+    LocalStorageObject.setItem('lat',this.selectedAddress['latitude']);
 
-    localStorage.setItem('address',JSON.stringify(this.selectedAddress));
+    LocalStorageObject.setItem('address',JSON.stringify(this.selectedAddress));
 
     this.marketsService.getMarkets().subscribe(data=>{
             this.markets = data['data'];
@@ -140,8 +141,9 @@ export class LandingPageComponent implements OnInit {
 
   selectType(data){
       this.marketTypeDataService.setMarketTypeData(data);
-      localStorage.setItem('market',data.id);
-      localStorage.setItem('color',data['color']);
+      LocalStorageObject.setItem('market',data.id);
+      LocalStorageObject.setItem('color',data['color']);
+      LocalStorageObject.setItem('selectedMarket',JSON.stringify(data));
       this.appService.color = data['color'];
   }
 
