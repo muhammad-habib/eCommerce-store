@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../../models/User.model';
 import {SmsDialogService} from './sms-dialog.service';
 import {Router} from '@angular/router';
+import { LocalStorageObject } from '../../../locale-storage'
 
 @Component({
   selector: 'app-sms-dialog',
@@ -62,7 +63,7 @@ export class SmsDialogComponent implements OnInit {
                             this.snackBar.open('verification Done', '×', { panelClass: 'success', verticalPosition: 'top', duration: 9000 });
                             this.user._token = data['remember_token'];
                             this.user.id = data['user_id'];
-                            localStorage.setItem('user',JSON.stringify(this.user));
+                            LocalStorageObject.setItem('user',JSON.stringify(this.user));
                             this.dialogRef.close();
                             this.router.navigate(['products']);
                             this.appService.logedIn=true;

@@ -12,6 +12,7 @@ import { WalletService } from './wallet.service'
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Location} from '@angular/common';
 import { TranslatePipe } from '../../shared/translate.pipe'
+import { LocalStorageObject } from '../../locale-storage'
 
 // import { element } from 'protractor';
 
@@ -65,16 +66,16 @@ export class CheckoutComponent implements OnInit {
               }
 
   ngOnInit() {
-    let seklectedMarket = JSON.parse(localStorage.getItem('selectedMarket'));  
+    let seklectedMarket = JSON.parse(LocalStorageObject.getItem('selectedMarket'));  
     this.minimum_order_price = seklectedMarket.minimum_order_price;
     this.vat_rate = seklectedMarket.vat_rate;
 
     this.checkOrderPrice();
-    this.market_type = Number(localStorage.getItem('market'))||1;  
-    this.addressCoor['latitude' ] = localStorage.getItem('lat');
-    this.addressCoor['longitude'] = localStorage.getItem('lng');
-    this.lang = localStorage.getItem('lang');
-    this.mapService.getGeoCode({'lat':localStorage.getItem('lat'),'lng':localStorage.getItem('lng')}).subscribe(
+    this.market_type = Number(LocalStorageObject.getItem('market'))||1;  
+    this.addressCoor['latitude' ] = LocalStorageObject.getItem('lat');
+    this.addressCoor['longitude'] = LocalStorageObject.getItem('lng');
+    this.lang = LocalStorageObject.getItem('lang');
+    this.mapService.getGeoCode({'lat':LocalStorageObject.getItem('lat'),'lng':LocalStorageObject.getItem('lng')}).subscribe(
       res=>{
           if(res['results'] && res['results'][0] && res['results'][0]['formatted_address'])
               this.formatted_address = res['results'][0]['formatted_address']  
@@ -225,11 +226,11 @@ export class CheckoutComponent implements OnInit {
 
   prepareOrder(){
     let order= {      
-        "longitude": localStorage.getItem('lng'),
-        "latitude": localStorage.getItem('lat'),
+        "longitude": LocalStorageObject.getItem('lng'),
+        "latitude": LocalStorageObject.getItem('lat'),
         "address": this.formatted_address,
         "timeSlots": this.timeSlot.id,
-        "typeOfMarket": localStorage.getItem('market'),
+        "typeOfMarket": LocalStorageObject.getItem('market'),
         "paymentType": this.paymentMethodForm.value.paymentsCtrl.id,
         "replace_products":this.productNotFoundForm.value.productNotFoundFCN.id         
       }

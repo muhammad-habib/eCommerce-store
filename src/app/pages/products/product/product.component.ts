@@ -9,6 +9,7 @@ import { emailValidator } from '../../../theme/utils/app-validators';
 import { ProductZoomComponent } from './product-zoom/product-zoom.component';
 import {ProductService} from './product.service';
 import {AProduct} from '../../../models/Product.model';
+import {Meta} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product',
@@ -26,11 +27,16 @@ export class ProductComponent implements OnInit {
   public form: FormGroup;
   public relatedProducts: Array<Product>;
 
-  constructor(public productService:ProductService, public appService:AppService, private activatedRoute: ActivatedRoute, public dialog: MatDialog, public formBuilder: FormBuilder) {  }
+  constructor(public productService:ProductService, public appService:AppService, private activatedRoute: ActivatedRoute, public dialog: MatDialog, public formBuilder: FormBuilder, private meta: Meta) {
+  }
 
-  ngOnInit() {      
+  ngOnInit() {
     this.sub = this.activatedRoute.params.subscribe(params => {
       this.getProductById(params['id']);
+      this.meta.addTags([
+            {name: 'al:android:url', content: 'zad://product/'+ params['id']},
+            {name: 'al:ios:url', content: 'zad://product/'+ params['id']}
+      ]);
     });
     this.form = this.formBuilder.group({ 
       'review': [null, Validators.required],            

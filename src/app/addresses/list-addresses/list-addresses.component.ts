@@ -3,6 +3,8 @@ import { AddressesService } from '../../landing-page/addresses.service'
 import { MatSnackBar} from '@angular/material';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { LocalStorageObject } from '../../locale-storage'
+
 
 @Component({
   selector: 'app-list-addresses',
@@ -45,10 +47,10 @@ export class ListAddressesComponent implements OnInit {
   }
 
   selectAddress(address){
-    localStorage.setItem('lng',address['longitude']);
-    localStorage.setItem('lat',address['latitude']);
-    localStorage.setItem('address',JSON.stringify(address));
-    this.router.navigate(['/']); 
+      LocalStorageObject.setItem('lng',address['longitude']);
+      LocalStorageObject.setItem('lat',address['latitude']);
+      LocalStorageObject.setItem('address',JSON.stringify(address));
+      this.router.navigate(['/']); 
   }
 
 }

@@ -8,6 +8,8 @@ import { ProductsService} from './products.service'
 import { ChangeEvent, VirtualScrollComponent } from 'angular2-virtual-scroll';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Location} from '@angular/common';
+import { LocalStorageObject } from '../../locale-storage'
+import { PlatformService } from '../../platform.service';
 
 @Component({
   selector: 'app-products',
@@ -46,6 +48,8 @@ export class ProductsComponent implements OnInit {
   public slides = [];
 
   public isOffers = false;
+  public query;
+  public queryProducts;
 
   @ViewChild(VirtualScrollComponent)
   private virtualScroll: VirtualScrollComponent;
@@ -53,7 +57,7 @@ export class ProductsComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private location:Location,
                public appService:AppService, private productsService:ProductsService,
-               public dialog: MatDialog, private router: Router,
+               public dialog: MatDialog, private router: Router,private platformService:PlatformService,
                private spinner: NgxSpinnerService) {
 
 
@@ -61,14 +65,13 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(data=>{
-      this.isOffers = (data.offers == true)
+        this.isOffers = (data.offers == true)
     });
-
     this.count = this.counts[0];
     this.sort = this.sortings[0];
     this.sub = this.activatedRoute.queryParams.subscribe(params => {
-        this.market_id = params.market?params.market:localStorage.getItem('market');
-        localStorage.setItem('market', '' + (this.market_id));
+        this.market_id = params.market?params.market:LocalStorageObject.getItem('market');
+        LocalStorageObject.setItem('market', '' + (this.market_id));
         this.is_hyper = params.hyper?params.hyper:1;
         let content_type  = params.content_type;
         if(content_type == "category"){
@@ -79,22 +82,28 @@ export class ProductsComponent implements OnInit {
     if(window.innerWidth < 960){
       this.sidenavOpen = false;
     };
-    if(window.innerWidth < 1280){
+    if(window.innerWidth < 1280) {
       this.viewCol = 33.3;
     };
     this.appService.readCartFromLocalStorage();
-    this.appService.refreshCart()
+    this.appService.refreshCart();
     this.getCategories();
-    this.getProducts(); 
-    if(this.isOffers)  
-        this.getOffersAds();
-    // this.location.replaceState('?category=15');
+    if(this.query)
+    {
+      this.searchProducts();
+    }
+    else{
+        this.getProducts();
+        if(this.isOffers)
+            this.getOffersAds();
+        // this.location.replaceState('?category=15');
+    }
   }
 
-  public getProducts(){
+  public getProducts() {
     this.spinner.show();
     this.productsService.getProducts(this.is_hyper,this.market_id,this.filter,this.isOffers).subscribe(res=>{
-      this.products = this.products.concat(res['data']['data']); 
+      this.products = this.products.concat(res['data']['data']);
       this.current = res['data']['current_page'];
       // console.log(res.shoppers.current_page);
       this.total = res['data']['total'];
@@ -179,13 +188,14 @@ export class ProductsComponent implements OnInit {
                 content_id : cat.category_id },
         queryParamsHandling : "merge",
         preserveFragment: true });
-    
+      delete urlTree.queryParams.query;
       this.router.navigateByUrl(urlTree);
   
   }
 
     @HostListener("window:scroll", ["$event"])
     onWindowScroll() {
+      if(this.platformService.isBrowser){
       //In chrome and some browser scroll is given to body tag
       let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
       let max = document.documentElement.scrollHeight;
@@ -198,10 +208,11 @@ export class ProductsComponent implements OnInit {
         return;
     
 
-      if(pos >= max )   {
+      if(pos >= max && !this.query )   {
         this.filter['page']= ++this.current ;
         this.getProducts();    
       }
+     }
     }
 
     private getOffersAds(){
@@ -216,5 +227,18 @@ export class ProductsComponent implements OnInit {
              });
           })
     }
+
+    searchProducts() {
+    this.spinner.show();
+        this.productsService.searchProducts(this.query).subscribe(data=> {
+            this.queryProducts = data['data'];
+            this.queryProducts.map(o => {
+                this.products.push(o.products);
+                this.products = [].concat.apply([], this.products);
+            });
+            this.spinner.hide();
+        });
+    }
+
 
 }

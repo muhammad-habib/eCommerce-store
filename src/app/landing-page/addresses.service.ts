@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from '@angular/material';
 import { environment } from '../../environments/environment';
+import { LocalStorageObject } from '../locale-storage'
 
 
 @Injectable()
@@ -13,7 +14,7 @@ export class AddressesService {
   constructor(public http:HttpClient, public snackBar: MatSnackBar) { }
 
   public getAddresses(): Observable<any[]>{
-    return this.http.get<any[]>(this.url + 'getSavedLocations?deviceId='+localStorage.getItem('device_id'));
+    return this.http.get<any[]>(this.url + 'getSavedLocations?deviceId='+LocalStorageObject.getItem('device_id'));
   }
 
   public getAddress(lat,lng){
@@ -21,7 +22,7 @@ export class AddressesService {
 
   public saveNewAddress(coords, name, desc=null) {
       return this.http.post(this.url + "saveLocation", {
-        deviceId: localStorage.getItem("device_id"),
+        deviceId: LocalStorageObject.getItem("device_id"),
         longitude: coords.lng,
         latitude: coords.lat,
         name: name
@@ -29,7 +30,7 @@ export class AddressesService {
     }
 
   public deleteAddress(location_id){
-    return this.http.get(this.url + "deleteLocation?locationId="+location_id+'&deviceId='+localStorage.getItem("device_id") );
+    return this.http.get(this.url + "deleteLocation?locationId="+location_id+'&deviceId='+LocalStorageObject.getItem("device_id") );
   }  
   
 

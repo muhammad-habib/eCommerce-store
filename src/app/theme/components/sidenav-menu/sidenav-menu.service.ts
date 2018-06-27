@@ -4,11 +4,12 @@ import { Location } from '@angular/common';
 
 import { SidenavMenu } from './sidenav-menu.model';
 import { sidenavMenuItems } from './sidenav-menu';
+import { PlatformService } from '../../../platform.service';
 
 @Injectable()
 export class SidenavMenuService {
 
-    constructor(private location:Location, private router:Router){ } 
+    constructor(private location:Location, private router:Router,private platformService:PlatformService){ } 
         
     public getSidenavMenuItems():Array<SidenavMenu> {
         return sidenavMenuItems;
@@ -30,6 +31,7 @@ export class SidenavMenuService {
     }
 
     public toggleMenuItem(menuId){
+        if(this.platformService.isBrowser){
         let menuItem = document.getElementById('menu-item-'+menuId);
         let subMenu = document.getElementById('sub-menu-'+menuId);  
         if(subMenu){
@@ -42,9 +44,11 @@ export class SidenavMenuService {
                 menuItem.classList.add('expanded');
             }      
         }
+        }
     }
 
     public closeOtherSubMenus(menu:Array<SidenavMenu>, menuId){
+        if(this.platformService.isBrowser){
         let currentMenuItem = menu.filter(item => item.id == menuId)[0];
         menu.forEach(item => {
             if((item.id != menuId && item.parentId == currentMenuItem.parentId) || (currentMenuItem.parentId == 0 && item.id != menuId) ){
@@ -58,9 +62,11 @@ export class SidenavMenuService {
                 } 
             }
         });
+        }
     }
 
     public closeAllSubMenus(){        
+        if(this.platformService.isBrowser){
         sidenavMenuItems.forEach(item => {
             let subMenu = document.getElementById('sub-menu-'+item.id);
             let menuItem = document.getElementById('menu-item-'+item.id);
@@ -71,6 +77,7 @@ export class SidenavMenuService {
                 }              
             } 
         });           
+        }
     }
 
 }

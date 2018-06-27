@@ -4,6 +4,8 @@ import {Order} from '../../models/Order.model';
 import {VirtualScrollComponent} from 'angular2-virtual-scroll';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {AppService} from '../../app.service';
+import { LocalStorageObject } from '../../locale-storage'
+import { PlatformService} from '../../platform.service'
 
 @Component({
   selector: 'app-orders',
@@ -27,7 +29,8 @@ export class OrdersComponent implements OnInit {
     @ViewChild(VirtualScrollComponent)
     private virtualScroll: VirtualScrollComponent;
 
-    constructor(private ordersSerivce:OrdersService,private spinner: NgxSpinnerService, public appService: AppService) { }
+    constructor(private ordersSerivce:OrdersService,private spinner: NgxSpinnerService,
+                private platformService:PlatformService, public appService: AppService) { }
 
     ngOnInit() {
         if(window.innerWidth < 960) {
@@ -43,7 +46,7 @@ export class OrdersComponent implements OnInit {
 
     public getAllOrders() {
         this.spinner.show();
-        let user = JSON.parse(localStorage.getItem('user'));
+        let user = JSON.parse(LocalStorageObject.getItem('user'));
         this.ordersSerivce.getOrders(user, this.filter).subscribe(data=> {
                 console.log(data);
                 this.orders = this.orders.concat(data['data']['data']);
@@ -73,6 +76,9 @@ export class OrdersComponent implements OnInit {
 
     @HostListener('window:scroll', ['$event'])
     onWindowScroll() {
+
+        if(this.platformService.isBrowser){
+
         // In chrome and some browser scroll is given to body tag
         let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
         let max = document.documentElement.scrollHeight;
@@ -84,6 +90,7 @@ export class OrdersComponent implements OnInit {
             this.filter['page']= ++this.current ;
             this.getAllOrders();
         }
+      }
     }
 
 }

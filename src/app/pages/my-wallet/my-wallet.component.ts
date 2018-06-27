@@ -1,6 +1,7 @@
 import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {MyWalletService} from './my-wallet.service';
 import {NgxSpinnerService} from 'ngx-spinner';
+import { PlatformService} from '../../platform.service'
 
 @Component({
   selector: 'app-my-wallet',
@@ -23,7 +24,8 @@ export class MyWalletComponent implements OnInit {
   public loading=false;
   constructor(
       private myWalletService: MyWalletService,
-      private spinner: NgxSpinnerService
+      private spinner: NgxSpinnerService,
+      private platformService:PlatformService      
   ) { }
 
   ngOnInit() {
@@ -70,6 +72,7 @@ export class MyWalletComponent implements OnInit {
     @HostListener('window:scroll', ['$event'])
     onWindowScroll() {
         // In chrome and some browser scroll is given to body tag
+        if(this.platformService.isBrowser){
         let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
         let max = document.documentElement.scrollHeight;
         // pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
@@ -80,5 +83,6 @@ export class MyWalletComponent implements OnInit {
             this.filter['page']= ++this.current ;
             this.getWallet();
         }
+      }
     }
 }

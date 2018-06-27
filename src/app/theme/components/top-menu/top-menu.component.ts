@@ -3,6 +3,7 @@ import { Data, AppService } from '../../../app.service';
 import {User} from '../../../models/User.model';
 import {TopMenuService} from './top-menu.service';
 import {Router} from '@angular/router';
+import { LocalStorageObject } from '../../../locale-storage'
 
 
 @Component({
@@ -27,7 +28,7 @@ export class TopMenuComponent implements OnInit {
   }
 
   public signOut() {
-    localStorage.removeItem('user');
+    LocalStorageObject.removeItem('user');
     this.appService.logedIn = false;
     this.redirectTo('/products');
   }

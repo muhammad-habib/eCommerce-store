@@ -35,13 +35,17 @@ import { MyAccountComponent } from './pages/my-account/my-account.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MyWalletComponent } from './pages/my-wallet/my-wallet.component';
 import { AddressesComponent } from './addresses/addresses.component';
-import {LanguagesComponent} from './theme/components/languages/languages.component';
-import {OnlyLoggedInUsersGuard} from './guards/only-logged-in-users.guard';
+import { LanguagesComponent} from './theme/components/languages/languages.component';
+import { OnlyLoggedInUsersGuard} from './guards/only-logged-in-users.guard';
+import { SearchComponent } from './theme/components/search/search.component';
+// import  {LocalStorage} from './locale-storage';
+import { PlatformService } from './platform.service'
+
 
 
 @NgModule({
    imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'zad-app' }),
     BrowserAnimationsModule,
     HttpClientModule,
     NgxSpinnerModule,
@@ -67,19 +71,25 @@ import {OnlyLoggedInUsersGuard} from './guards/only-logged-in-users.guard';
     AddressesComponent,
     // CategoryComponent,
     LanguagesComponent,
+    SearchComponent,
   
   ],
   providers: [
     AppSettings,
     AppService,
+    PlatformService,
     OnlyLoggedInUsersGuard,
     { provide: OverlayContainer, useClass: CustomOverlayContainer },
     SignInService,
     SmsDialogService,
       ProductService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    {provide: APP_BASE_HREF, useValue: '/store'}
+    {provide: APP_BASE_HREF, useValue: '/store'},
+    // {provide: LocalStorage, useValue: {getItem() {} }}
+
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+ }
