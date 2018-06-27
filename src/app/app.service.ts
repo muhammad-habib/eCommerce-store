@@ -188,7 +188,7 @@ export class AppService {
 
     private subject = new Subject<any>();
 
-    sendData(message: string) {
+    sendData(message: any) {
         this.subject.next(message);
     }
 

@@ -33,10 +33,11 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
 
     this.sub = this.activatedRoute.params.subscribe(params => {
-      this.getProductById(params['id']);
+      console.log(params);
+      this.getProductById(params['proId']);
       this.meta.addTags([
-            {name: 'al:android:url', content: 'zad://product/'+ params['id']},
-            {name: 'al:ios:url', content: 'zad://product/'+ params['id']}
+            {name: 'al:android:url', content: 'zad://product/'+ params['proId']},
+            {name: 'al:ios:url', content: 'zad://product/'+ params['proId']}
       ]);
     });
     this.form = this.formBuilder.group({ 

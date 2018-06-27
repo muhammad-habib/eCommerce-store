@@ -1,13 +1,13 @@
 <div class="fixedHeader">
 <div class="scrollmenu">
-  <a (click)="getSubCategories(0);" 
-
-    (mouseover)="hover=0" (mouseleave)="hover=0"
+  <a (click)="getSubCategories(0);"
+     [routerLink]="['/products']"
+     (mouseover)="hover=0" (mouseleave)="hover=0"
     [style.border-color]="appService.color"
     [style.color]="hover==0?'#fff':appService.color"
     [style.background-color]="selectedCat.id==0||hover==0?appService.color:''"
 
-  (click)="filterBy('','')" [ngClass]="{'selectedCat.id':selectedCat.id == 0}"
+  (click)="filterBy('','')" [ngClass]="{'selectedCat':selectedCat.id == 0}"
   >{{'all'|translate}}</a>
   <a *ngFor= "let category of categories"
       (click)="getSubCategories(category.id)"

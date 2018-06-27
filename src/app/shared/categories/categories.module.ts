@@ -11,11 +11,13 @@ import {SharedModule} from '../shared.module';
 import {PipesModule} from '../../theme/pipes/pipes.module';
 
 export const routes = [
-    { path: 'products/:id', component: ProductComponent },
-    { path: ':name/:id/products/:name/:id', component: ProductComponent },
+    { path: 'products/:proId', component: ProductComponent },
+    { path: 'products/:proName/:proId', component: ProductComponent },
+    { path: ':catName/:catId/products/:proName/:proId', component: ProductComponent },
+    { path: 'category/:catName/:catId/sub/:subName/:subId/products/:proName/:proId', component: ProductComponent },
     { path: 'products', component: ProductsComponent, pathMatch: 'full' },
-    { path: 'category/:name/:id', component: ProductsComponent, pathMatch: 'full' },
-    { path: 'category/:name/:id/sub/:name/:id', component: ProductsComponent, pathMatch: 'full' },
+    { path: 'category/:catName/:catId', component: ProductsComponent, pathMatch: 'full' },
+    { path: 'category/:catName/:catId/sub/:subName/:subId', component: ProductsComponent, pathMatch: 'full' },
     { path: '', component: ProductsComponent, pathMatch: 'full' },
 ];
 

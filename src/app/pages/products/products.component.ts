@@ -52,7 +52,6 @@ export class ProductsComponent implements OnInit {
 
   @ViewChild(VirtualScrollComponent)
   private virtualScroll: VirtualScrollComponent;
-  dataPassed: any;
   subscription: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute, private location:Location,
@@ -62,7 +61,6 @@ export class ProductsComponent implements OnInit {
                 }
 
   ngOnInit() {
-      console.log('hiiiiiiiiiiiiiiiiiiiiiii');
     this.activatedRoute.data.subscribe(data=>{
         this.isOffers = (data.offers == true);
     });
@@ -73,18 +71,19 @@ export class ProductsComponent implements OnInit {
         this.market_id = params.market?params.market:1;
         localStorage.setItem('market', '' + (this.market_id));
         this.is_hyper = params.hyper?params.hyper:1;
-        let content_type  = params.content_type;
-        if(content_type == "category"){
+        let content_type = params.content_type;
+        if(content_type === 'category') {
           this.category_id = params.content_id;
           this.filter['category_id'] = this.category_id;
         }
     });
+    this.filter['sub_category_id'] = this.activatedRoute.snapshot.params.subId;
     if(window.innerWidth < 960){
       this.sidenavOpen = false;
-    };
+    }
     if(window.innerWidth < 1280) {
       this.viewCol = 33.3;
-    };
+    }
     this.appService.readCartFromLocalStorage();
     this.appService.refreshCart();
     this.getCategories();
@@ -94,11 +93,13 @@ export class ProductsComponent implements OnInit {
     }
     else{
         // subscribe to home component messages
-        this.subscription = this.appService.getData().subscribe(x => {
-            this.dataPassed = x;
-            this.filter['category_id'] = this.dataPassed;
+        this.subscription = this.appService.getData().subscribe(message => {
+            console.log(message);
+            this.filter['category_id'] = message.category_id;
+            this.filter['sub_category_id'] = message.sub_category_id;
+            this.filter['page']= 1 ;
+            this.products = [];
             this.getProducts();
-            console.log(this.dataPassed, 'fffffffffffvvvvvvvvvvvvvvvvvvvvvvvvvvvvtttttt');
         });
         this.getProducts();
         if(this.isOffers)
@@ -109,17 +110,15 @@ export class ProductsComponent implements OnInit {
 
   public getProducts() {
     this.spinner.show();
-    console.log("a7aaaaaaaaaaaaaaaaaaaaaaaaa");
-    this.productsService.getProducts(this.is_hyper,this.market_id,this.filter,this.isOffers).subscribe(res=>{
-      this.products = this.products = res['data']['data'];
+    this.productsService.getProducts(this.is_hyper,this.market_id,this.filter,this.isOffers).subscribe(res=> {
+      this.products = this.products.concat(res['data']['data']);
       this.current = res['data']['current_page'];
       this.total = res['data']['total'];
       this.lastPage = res['data']['last_page'];
       this.spinner.hide();
       // this.virtualScroll.refresh();
       // this.virtualScroll.update.emit(this.products);
-        console.log(this.products);
-    },err=>{
+    },err => {
       this.spinner.hide();
     });
   }
@@ -181,15 +180,6 @@ export class ProductsComponent implements OnInit {
     if(event.target){
       this.router.navigate(['/products', event.target.innerText.toLowerCase()]); 
     }   
-  }
-
-
-  public filterByCategory(cat){
-      this.filter['category_id'] = cat.category_id;
-      this.filter['sub_category_id'] = cat.sub_category_id;
-      this.filter['page']= 1 ;
-      this.products = [];
-      this.getProducts();
   }
 
     @HostListener("window:scroll", ["$event"])

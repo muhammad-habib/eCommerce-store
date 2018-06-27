@@ -1,8 +1,9 @@
 import { Component,Input, Output, OnInit, EventEmitter, OnDestroy  } from '@angular/core';
 import { CategoriesService } from './categories.service'
 import { AppService } from '../../app.service';
-import {NavigationEnd, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, ParamMap, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
+import {switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-categories',
@@ -23,18 +24,37 @@ export class CategoriesComponent implements OnInit {
   public selectedSubCat = 0;
   public selectedCat: any = {};
   public hover = -1;
-  constructor(private categoriesService: CategoriesService,public appService:AppService) {
+  constructor(
+      private categoriesService: CategoriesService,
+      public appService:AppService,
+      private router: Router,
+      private route: ActivatedRoute
+  ) {
   }
 
   ngOnInit() {
-    this.selectedCat.id = this.inputSelectedCat;
-    this.getCategories();
-    this.getSubCategories(this.selectedCat.id);
+      this.selectedCat.id = 0;
+      this.router.events.subscribe((event: any) => {
+          let r = this.route;
+          while (r.firstChild) {
+              r = r.firstChild;
+          }
+          r.params.subscribe(params => {
+              if (params.catId) {
+                  this.selectedCat.id = params.catId;
+                  this.selectedSubCat = params.subId;
+              }
+          });
+      });
+      this.getCategories();
   }
 
   public getCategories() {
     this.categoriesService.getCategories(this.hyper,this.market).subscribe(data=>{
-      this.categories = data['data']; 
+      this.categories = data['data'];
+      if (this.selectedCat.id) {
+          this.getSubCategories(this.selectedCat.id);
+      }
     });
   }
   public getSubCategories(category_id){  
@@ -49,13 +69,10 @@ export class CategoriesComponent implements OnInit {
   }
 
   public filterBy(category,sub_category_id) {
-    console.log('ffffffffffffffffffff',category, this.selectedCat);
-
     this.selectedCat.id = category.id?category.id:this.selectedCat.id;
-    this.appService.sendData(this.selectedCat.id);
     this.selectedCat.name = category.name?category.name:this.selectedCat.name;
     this.selectedSubCat = sub_category_id?sub_category_id:this.selectedSubCat;
-    this.changeCategory.emit({category_id:category.id,sub_category_id:sub_category_id});
+    this.appService.sendData({category_id:category.id,sub_category_id:sub_category_id});
   }
 
 }
