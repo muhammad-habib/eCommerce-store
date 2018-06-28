@@ -13,7 +13,7 @@ import {PipesModule} from '../../theme/pipes/pipes.module';
 export const routes = [
     { path: 'products/:proId', component: ProductComponent },
     { path: 'products/:proName/:proId', component: ProductComponent },
-    { path: ':catName/:catId/products/:proName/:proId', component: ProductComponent },
+    { path: 'category/:catName/:catId/products/:proName/:proId', component: ProductComponent },
     { path: 'category/:catName/:catId/sub/:subName/:subId/products/:proName/:proId', component: ProductComponent },
     { path: 'products', component: ProductsComponent, pathMatch: 'full' },
     { path: 'category/:catName/:catId', component: ProductsComponent, pathMatch: 'full' },
